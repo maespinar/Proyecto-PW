@@ -1,0 +1,93 @@
+:root {
+    --color-primary: #123A5F;
+    --color-primary-dark: #0C2A46;
+    --color-primary-soft: #E6EEF5;
+    --color-accent: #0F8B7E;
+    --color-bg: #F7F9FB;
+    --color-surface: #FFFFFF;
+    --color-border: #DCE3EA;
+    --color-text: #16212B;
+    --color-text-muted: #67757F;
+    --color-success: #1E7F4D;
+    --color-warning: #B7791F;
+    --color-danger: #B4322B;
+    --color-info: #3B6FA8;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    color: var(--color-text-muted);
+    font-family: 'Inter', sans-serif;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--color-border);
+}
+
+#cuadradito {
+    width: 25px;
+    height: 25px;
+    background-color: var(--color-primary);
+    border-radius: 5px;
+}
+
+#logo {
+    display: flex;
+    gap: 15px;
+    padding-left: 30px;
+    align-items: center;
+}
+
+#logo h1 {
+    color: var(--color-primary);
+    font-size: 20px;
+    align-self: center;
+    padding-right: 20px;
+}
+
+ul {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    gap: 35px;
+}
+
+ul li a {
+    text-decoration: none;
+}
+
+#buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 40px;
+}
+
+#login-btn {
+    background-color: transparent;
+    color: var(--color-primary);
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: var(--color-primary-soft) 1px solid;
+    font-weight: bold;
+}
+
+#register-btn {
+    background-color: var(--color-primary-dark);
+    color: var(--color-primary-soft);
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: var(--color-primary-soft) 1px solid;
+    font-weight: bold;
+}
+
+.activa {
+    color: var(--color-primary);
+    font-weight: bold;
+    border-bottom: 3px solid var(--color-primary);
+    padding-bottom: 28px;
+}
