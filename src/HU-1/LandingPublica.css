@@ -1,7 +1,7 @@
 #convocatorias {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 32px 16px;
+  padding: 16px 16px 32px;
 }
 
 .head {
@@ -40,6 +40,16 @@
   border-radius: 6px;
   background: var(--color-surface);
   box-shadow: var(--shadow-card);
+}
+
+.convos .convos-vacio {
+  grid-column: 1 / -1;
+  padding: 24px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  text-align: center;
 }
 
 .convos .avatar {

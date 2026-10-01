@@ -1,8 +1,11 @@
+import { useState } from 'react'
+import HeroPublico from './HeroPublico'
 import './LandingPublica.css'
 
 const convocatorias = [
   {
     iniciales: 'AP',
+    carrera: 'Ing. de Sistemas',
     puesto: 'Practicante de Desarrollo de Software',
     empresa: 'Consultora Andes Perú · Consultoría',
     descripcion: 'Ing. de Sistemas · Híbrido · San Isidro',
@@ -11,6 +14,7 @@ const convocatorias = [
   },
   {
     iniciales: 'BM',
+    carrera: 'Ing. de Sistemas',
     puesto: 'Practicante de Data Analytics',
     empresa: 'Banco Marítimo del Sur · Banca y finanzas',
     descripcion: 'Ing. de Sistemas · Presencial · Miraflores',
@@ -19,6 +23,7 @@ const convocatorias = [
   },
   {
     iniciales: 'TR',
+    carrera: 'Marketing',
     puesto: 'Practicante de Marketing Digital',
     empresa: 'Retail Terravista · Retail',
     descripcion: 'Marketing · Remoto · Surco',
@@ -27,6 +32,7 @@ const convocatorias = [
   },
   {
     iniciales: 'MI',
+    carrera: 'Ing. Industrial',
     puesto: 'Practicante de Mejora de Procesos',
     empresa: 'Minera Illariy · Minería',
     descripcion: 'Ing. Industrial · Híbrido · San Borja',
@@ -51,49 +57,65 @@ const pasos = [
 ]
 
 function LandingPublica() {
+  const [filtros, setFiltros] = useState({ puesto: '', carrera: '' })
+  const convocatoriasVisibles = convocatorias.filter((convocatoria) => {
+    const coincidePuesto = convocatoria.puesto
+      .toLocaleLowerCase('es')
+      .includes(filtros.puesto.toLocaleLowerCase('es'))
+    const coincideCarrera = !filtros.carrera || convocatoria.carrera === filtros.carrera
+
+    return coincidePuesto && coincideCarrera
+  })
+
   return (
-    <section id="convocatorias" aria-labelledby="convocatorias-titulo">
-      <div className="head">
-        <h2 id="convocatorias-titulo">Convocatorias destacadas</h2>
-        <a href="#convocatorias">Ver todas las convocatorias →</a>
-      </div>
-
-      <div className="convos">
-        {convocatorias.map((convocatoria) => (
-          <article key={convocatoria.puesto}>
-            <span className="avatar" aria-hidden="true">{convocatoria.iniciales}</span>
-            <div className="convo-contenido">
-              <h3>{convocatoria.puesto}</h3>
-              <p className="empresa">{convocatoria.empresa}</p>
-              <div className="pie">
-                <p className="descripcion">{convocatoria.descripcion}</p>
-                <p className="convo-condiciones">
-                  <span className="precio">{convocatoria.subvencion}</span>
-                  <span className="cierre">Cierra {convocatoria.cierre}</span>
-                </p>
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
-
-      <div className="pasos" id="como-funciona" aria-label="Cómo funciona">
-        {pasos.map((paso, indice) => (
-          <article key={paso.titulo}>
-            <h3><span className="numero">{indice + 1}</span> {paso.titulo}</h3>
-            <p>{paso.descripcion}</p>
-          </article>
-        ))}
-      </div>
-
-      <div className="publicar">
-        <div>
-          <h3>¿Buscas practicantes de la Universidad de Lima?</h3>
-          <p>Publica tu convocatoria y recibe postulaciones filtradas por carrera y ciclo.</p>
+    <>
+      <HeroPublico onSearch={setFiltros} />
+      <section id="convocatorias" aria-labelledby="convocatorias-titulo">
+        <div className="head">
+          <h2 id="convocatorias-titulo">Convocatorias destacadas</h2>
+          <a href="#convocatorias">Ver todas las convocatorias →</a>
         </div>
-        <button type="button">Publicar convocatoria</button>
-      </div>
-    </section>
+
+        <div className="convos">
+          {convocatoriasVisibles.map((convocatoria) => (
+            <article key={convocatoria.puesto}>
+              <span className="avatar" aria-hidden="true">{convocatoria.iniciales}</span>
+              <div className="convo-contenido">
+                <h3>{convocatoria.puesto}</h3>
+                <p className="empresa">{convocatoria.empresa}</p>
+                <div className="pie">
+                  <p className="descripcion">{convocatoria.descripcion}</p>
+                  <p className="convo-condiciones">
+                    <span className="precio">{convocatoria.subvencion}</span>
+                    <span className="cierre">Cierra {convocatoria.cierre}</span>
+                  </p>
+                </div>
+              </div>
+            </article>
+          ))}
+          {convocatoriasVisibles.length === 0 && (
+            <p className="convos-vacio">No se encontraron convocatorias destacadas con esos filtros.</p>
+          )}
+        </div>
+
+        <div className="pasos" id="como-funciona" aria-label="Cómo funciona">
+          {pasos.map((paso, indice) => (
+            <article key={paso.titulo}>
+              <h3><span className="numero">{indice + 1}</span> {paso.titulo}</h3>
+              <p>{paso.descripcion}</p>
+            </article>
+          ))}
+        </div>
+
+        <div className="publicar">
+          <div>
+            <h3>¿Buscas practicantes de la Universidad de Lima?</h3>
+            <p>Publica tu convocatoria y recibe postulaciones filtradas por carrera y ciclo.</p>
+          </div>
+          <button type="button">Publicar convocatoria</button>
+        </div>
+      </section>
+    </>
   )
 }
 

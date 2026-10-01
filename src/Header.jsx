@@ -8,7 +8,7 @@ function Header() {
                     <div id="cuadradito">
 
                     </div>
-                    <h1>PrácticaLima</h1>
+                    <span className="logo-text">PrácticaLima</span>
 
                     <ul>
                         <li><a href="#convocatorias">Convocatorias</a></li>
