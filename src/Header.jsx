@@ -1,9 +1,6 @@
-import { useState } from 'react';
 import './Header.css'
 
 function Header() {
-    const [pestañaActiva, setPestañaActiva] = useState('Convocatorias');
-
     return (
         <>
             <header>
@@ -14,9 +11,9 @@ function Header() {
                     <h1>PrácticaLima</h1>
 
                     <ul>
-                        <li><a href="#">Convocatorias</a></li>
+                        <li><a href="#convocatorias">Convocatorias</a></li>
                         <li><a href="#">Empresas</a></li>
-                        <li><a href="#">Cómo funciona</a></li>
+                        <li><a href="#como-funciona">Cómo funciona</a></li>
                     </ul>
                 </div>
                 <div id="buttons">
