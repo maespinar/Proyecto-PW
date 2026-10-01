@@ -1,6 +1,6 @@
 import './App.css'
 import Header from './Header'
-import Convocatorias from './Convocatorias'
+import LandingPublica from './HU-1/LandingPublica'
 import Footer from './Footer'
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <>
       <Header />
       <main>
-        <Convocatorias />
+        <LandingPublica />
       </main>
       <Footer />
     </>

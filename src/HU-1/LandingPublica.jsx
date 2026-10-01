@@ -1,4 +1,4 @@
-import './Convocatorias.css'
+import './LandingPublica.css'
 
 const convocatorias = [
   {
@@ -50,7 +50,7 @@ const pasos = [
   },
 ]
 
-function Convocatorias() {
+function LandingPublica() {
   return (
     <section id="convocatorias" aria-labelledby="convocatorias-titulo">
       <div className="head">
@@ -97,4 +97,4 @@ function Convocatorias() {
   )
 }
 
-export default Convocatorias
+export default LandingPublica
