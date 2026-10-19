@@ -1,7 +1,7 @@
 import FormularioInicioSesion from '../components/FormularioInicioSesion'
 import '../styles/InicioDeSesion.css'
 
-export default function InicioDeSesion() {
+export default function InicioDeSesion({ onIniciarSesion }) {
   return (
     <section className="inicio-sesion" aria-labelledby="inicio-sesion-titulo">
       <div className="inicio-sesion-presentacion">
@@ -11,7 +11,7 @@ export default function InicioDeSesion() {
           ilustración · campus Monterrico
         </div>
       </div>
-      <FormularioInicioSesion />
+      <FormularioInicioSesion onIniciarSesion={onIniciarSesion} />
     </section>
   )
 }

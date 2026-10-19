@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import Header from './HU-1/components/Header'
 import LandingPublica from './HU-1/pages/LandingPublica'
@@ -8,6 +8,7 @@ import Footer from './HU-1/components/Footer'
 import EnConstruccion from './HU-2/components/EnConstruccion'
 
 function App() {
+  const [sesionIniciada, setSesionIniciada] = useState(false)
   const { pathname, hash } = useLocation()
 
   useEffect(() => {
@@ -17,11 +18,11 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header sesionIniciada={sesionIniciada} />
       <main>
         <Routes>
           <Route path="/" element={<LandingPublica />} />
-          <Route path="/iniciar-sesion" element={<InicioDeSesion />} />
+          <Route path="/iniciar-sesion" element={<InicioDeSesion onIniciarSesion={() => setSesionIniciada(true)} />} />
           <Route path="/perfil/*" element={<RutasPerfil />} />
           {[
             ['registro', 'Registrarse'],

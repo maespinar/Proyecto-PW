@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import perfilPrueba from '../../HU-2/data/perfil.seed.json'
 
-export default function FormularioInicioSesion() {
+export default function FormularioInicioSesion({ onIniciarSesion }) {
   const navigate = useNavigate()
   const [mostrarClave, setMostrarClave] = useState(false)
   const [error, setError] = useState('')
@@ -17,6 +17,7 @@ export default function FormularioInicioSesion() {
       setError('El correo o la contraseña son incorrectos.')
       return
     }
+    onIniciarSesion()
     navigate('/perfil')
   }
 

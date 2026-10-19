@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import '../styles/Header.css'
 
-function Header() {
+function Header({ sesionIniciada }) {
     return (
         <>
             <header>
@@ -15,7 +15,7 @@ function Header() {
                         <li><Link to="/#convocatorias">Convocatorias</Link></li>
                         <li><Link to="/empresas">Empresas</Link></li>
                         <li><Link to="/#como-funciona">Cómo funciona</Link></li>
-                        <li><Link to="/perfil">Mi perfil</Link></li>
+                        {sesionIniciada && <li><Link to="/perfil">Mi perfil</Link></li>}
                     </ul>
                 </div>
                 <div id="buttons">
