@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom'
 import '../styles/Header.css'
 
-function Header() {
+function Header({ sesionIniciada }) {
     return (
         <>
             <header>
@@ -8,17 +9,18 @@ function Header() {
                     <div id="cuadradito">
 
                     </div>
-                    <span className="logo-text">PrácticaLima</span>
+                    <Link to="/" className="logo-text text-decoration-none">PrácticaLima</Link>
 
                     <ul>
-                        <li><a href="#convocatorias">Convocatorias</a></li>
-                        <li><a href="#">Empresas</a></li>
-                        <li><a href="#como-funciona">Cómo funciona</a></li>
+                        <li><Link to="/#convocatorias">Convocatorias</Link></li>
+                        <li><Link to="/empresas">Empresas</Link></li>
+                        <li><Link to="/#como-funciona">Cómo funciona</Link></li>
+                        {sesionIniciada && <li><Link to="/perfil">Mi perfil</Link></li>}
                     </ul>
                 </div>
                 <div id="buttons">
-                    <button id="login-btn">Iniciar sesión</button>
-                    <button id="register-btn">Registrarse</button>
+                    <Link to="/iniciar-sesion" id="login-btn" className="text-decoration-none">Iniciar sesión</Link>
+                    <Link to="/registro" id="register-btn" className="text-decoration-none">Registrarse</Link>
                 </div>
             </header>
         </>

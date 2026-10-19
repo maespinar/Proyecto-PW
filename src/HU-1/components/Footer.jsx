@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import '../styles/Footer.css'
 
 function Footer() {
@@ -14,18 +15,18 @@ function Footer() {
         <nav className="footer-columna" aria-label="Plataforma">
           <h4>PLATAFORMA</h4>
           <ul>
-            <li><a href="#convocatorias">Convocatorias</a></li>
-            <li><a href="#">Empresas</a></li>
-            <li><a href="#">Publicar convocatoria</a></li>
+            <li><Link to="/#convocatorias">Convocatorias</Link></li>
+            <li><Link to="/empresas">Empresas</Link></li>
+            <li><Link to="/publicar">Publicar convocatoria</Link></li>
           </ul>
         </nav>
 
         <nav className="footer-columna" aria-label="Ayuda">
           <h4>AYUDA</h4>
           <ul>
-            <li><a href="#">Preguntas frecuentes</a></li>
-            <li><a href="#">Términos del servicio</a></li>
-            <li><a href="#">Privacidad de datos</a></li>
+            <li><Link to="/preguntas-frecuentes">Preguntas frecuentes</Link></li>
+            <li><Link to="/terminos">Términos del servicio</Link></li>
+            <li><Link to="/privacidad">Privacidad de datos</Link></li>
           </ul>
         </nav>
 

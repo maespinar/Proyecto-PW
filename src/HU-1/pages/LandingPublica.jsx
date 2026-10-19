@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import HeroPublico from '../components/HeroPublico'
 import ConvocatoriasDestacadas from '../components/ConvocatoriasDestacadas'
 import ComoFunciona from '../components/ComoFunciona'
@@ -33,7 +34,7 @@ function LandingPublica() {
             <h3>¿Buscas practicantes de la Universidad de Lima?</h3>
             <p>Publica tu convocatoria y recibe postulaciones filtradas por carrera y ciclo.</p>
           </div>
-          <button type="button">Publicar convocatoria</button>
+          <Link to="/publicar">Publicar convocatoria</Link>
         </div>
       </section>
     </>
