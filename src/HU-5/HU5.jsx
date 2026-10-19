@@ -4,7 +4,7 @@ import HeaderEstudiante from './components/HeaderEstudiante'
 import HeaderEmpresa from './components/HeaderEmpresa'
 import SidebarEmpresa from './components/SidebarEmpresa'
 import FooterEmpresa from './components/FooterEmpresa'
-import Footer from '../Footer'
+import Footer from '../HU-1/components/Footer'
 
 import ModalPostulacion from './components/ModalPostulacion'
 import ConfirmacionPostulacion from './components/ConfirmacionPostulacion'
