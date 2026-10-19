@@ -1,3 +1,5 @@
+import { normalizar } from './habilidades'
+
 export const MAX_RESUMEN = 600
 const SOLO_LETRAS = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ' -]+$/
 
@@ -56,4 +58,13 @@ export function procesarFoto(archivo) {
     }
     lector.readAsDataURL(archivo)
   })
+}
+
+export function validarHabilidad(nombre, registradas) {
+  const texto = nombre.trim()
+  if (!texto) return 'Escribe el nombre de la habilidad.'
+  if (texto.length < 2) return 'El nombre debe tener al menos 2 caracteres.'
+  if (texto.length > 40) return 'El nombre no puede superar los 40 caracteres.'
+  if (registradas.some((r) => normalizar(r) === normalizar(texto))) return 'Ya registraste esta habilidad.'
+  return undefined
 }
