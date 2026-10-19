@@ -184,7 +184,8 @@
   font-size: 12px;
 }
 
-.publicar button {
+.publicar a {
+  text-decoration: none;
   flex: none;
   padding: 10px 20px;
   border: 0;
