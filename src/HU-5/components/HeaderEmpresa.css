@@ -1,0 +1,130 @@
+.header-empresa {
+  width: 100%;
+  background-color: var(--color-primary-dark, #0c2a46);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.header-emp-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.header-emp-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-emp-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  user-select: none;
+}
+
+.logo-box-emp {
+  width: 22px;
+  height: 22px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.logo-title-emp {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.badge-panel-emp {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #e6eef5;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+
+.header-emp-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 6px;
+  padding: 6px 14px;
+  width: 320px;
+  color: #a4b3c2;
+}
+
+.header-emp-search input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 13px;
+  color: #ffffff;
+  width: 100%;
+}
+
+.header-emp-search input::placeholder {
+  color: #8fa0b0;
+}
+
+.header-emp-account {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.emp-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.emp-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.emp-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.emp-status {
+  font-size: 11px;
+  color: #a4b3c2;
+}
+
+@media (max-width: 850px) {
+  .header-emp-inner {
+    padding: 10px 16px;
+    height: auto;
+    flex-wrap: wrap;
+  }
+  .header-emp-search {
+    width: 200px;
+  }
+}

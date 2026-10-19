@@ -28,3 +28,45 @@ body {
   color: var(--color-text);
   font-family: var(--font-sans);
 }
+
+.demo-hu-selector {
+  background-color: #0c2a46;
+  color: #ffffff;
+  padding: 6px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  flex-wrap: wrap;
+}
+
+.demo-selector-label {
+  font-weight: 600;
+  color: #a4b3c2;
+}
+
+.btn-demo-hu {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-demo-hu:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.btn-demo-hu.active {
+  background-color: var(--color-accent, #0f8b7e);
+  border-color: var(--color-accent, #0f8b7e);
+  font-weight: 600;
+}

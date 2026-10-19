@@ -1,0 +1,143 @@
+.hu5-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg, #f7f9fb);
+}
+
+/* Barra superior de navegación para evaluación / pruebas */
+.hu5-doc-navigation {
+  background-color: #0c2a46;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-bottom: 2px solid var(--color-accent, #0f8b7e);
+  position: relative;
+  z-index: 60;
+}
+
+.hu5-doc-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.hu5-doc-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: var(--color-accent, #0f8b7e);
+  white-space: nowrap;
+}
+
+.hu5-doc-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.hu5-tab-btn {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #e6eef5;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.hu5-tab-btn:hover {
+  background-color: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+.hu5-tab-btn.active {
+  background-color: var(--color-accent, #0f8b7e);
+  border-color: var(--color-accent, #0f8b7e);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.hu5-tab-btn.empresa-tab {
+  border-color: rgba(15, 139, 126, 0.4);
+}
+
+.hu5-tab-btn.empresa-tab.active {
+  background-color: #123a5f;
+  border-color: #e6eef5;
+}
+
+/* Layout del cuerpo principal */
+.hu5-main-layout {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.hu5-main-layout.empresa-layout {
+  flex-direction: row;
+}
+
+.hu5-content-area {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Vista previa de fondo para 5.1 Modal */
+.preview-backdrop-51 {
+  min-height: calc(100vh - 120px);
+  padding: 60px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e6eef5 0%, #f7f9fb 100%);
+  position: relative;
+}
+
+.preview-convo-fondo {
+  max-width: 600px;
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid var(--color-border, #dce3ea);
+  border-radius: 8px;
+  padding: 32px;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+}
+
+.preview-convo-fondo h2 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  color: var(--color-primary, #123a5f);
+}
+
+.preview-convo-fondo p {
+  margin: 0 0 24px;
+  font-size: 14px;
+  color: var(--color-text-muted, #67757f);
+}
+
+.btn-abrir-modal-51 {
+  background-color: var(--color-accent, #0f8b7e);
+  color: #ffffff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+@media (max-width: 850px) {
+  .hu5-main-layout.empresa-layout {
+    flex-direction: column;
+  }
+}
