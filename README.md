@@ -160,6 +160,57 @@ No se admiten plantillas de administración, temas comerciales, ni el uso de ser
 construcción de algún elemento del sistema (por ejemplo: NestJs para el backend, o Firebase para
 scaffolding de APIs). Se puede utilizar librerías de componentes como Material UI, o similares.
 
+### Organización del frontend
+
+Se usa la separación por responsabilidad de HU-2 como referencia para cada historia. La raíz de `src/` contiene únicamente la composición de la aplicación, su arranque y los estilos globales:
+
+```text
+src/
+├── App.jsx
+├── main.jsx
+├── index.css
+├── HU-1/
+│   ├── assets/
+│   ├── components/
+│   │   ├── ComoFunciona.jsx
+│   │   ├── ConvocatoriasDestacadas.jsx
+│   │   ├── Footer.jsx
+│   │   ├── Header.jsx
+│   │   ├── HeroPublico.jsx
+│   │   └── TarjetaConvocatoria.jsx
+│   ├── data/
+│   │   └── landing.js
+│   ├── pages/
+│   │   └── LandingPublica.jsx
+│   └── styles/
+│       ├── Footer.css
+│       ├── Header.css
+│       ├── HeroPublico.css
+│       └── LandingPublica.css
+└── HU-2/
+    ├── components/
+    ├── context/
+    ├── data/
+    ├── pages/
+    ├── services/
+    ├── styles/
+    ├── utils/
+    └── RutasPerfil.jsx
+```
+
+- `pages/`: vistas completas que se conectan al enrutamiento y coordinan los componentes y el estado de la pantalla.
+- `components/`: piezas de interfaz. En HU-1, la lista de convocatorias, sus tarjetas y los pasos de uso están separados de la página.
+- `styles/`: estilos de cada historia. Cada componente o página importa el CSS que necesita; las tarjetas, la lista y los pasos de HU-1 usan los estilos de `LandingPublica.css`.
+- `data/`: datos semilla y catálogos estáticos; no se mezclan con el marcado de las páginas.
+- `assets/`: imágenes y otros recursos propios de la historia.
+- `services/`: acceso a datos, persistencia y futuras llamadas a la API.
+- `context/`: estado compartido dentro de una historia y sus hooks de acceso.
+- `utils/`: funciones independientes de la interfaz, como validaciones y cálculos.
+
+Se crean solo las carpetas que cada historia necesita. HU-1 todavía no requiere servicios ni Context. Si una historia tiene varias rutas, puede agruparlas en un archivo de entrada como `RutasPerfil.jsx`; `App.jsx` integra las historias y compone el encabezado y el pie.
+
+Por ahora, `Header` y `Footer` se conservan en `HU-1/components/`, desde donde `App.jsx` los utiliza para todas las vistas. Se mantiene una única implementación; si se crea el módulo compartido del equipo, estos componentes se trasladarán allí junto con sus estilos. Las variables de diseño y las reglas base de toda la aplicación están en `index.css`.
+
 ### Cómo evitar bloquearse
 Las historias están delimitadas para que cada integrante sea dueño de sus propias entidades, vistas y
 servicios. Nadie escribe sobre las entidades de otro. Cuando una historia necesita leer datos de otra,

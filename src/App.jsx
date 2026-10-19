@@ -1,9 +1,8 @@
 import { Route, Routes } from 'react-router-dom'
-import './App.css'
-import Header from './Header'
-import LandingPublica from './HU-1/LandingPublica'
+import Header from './HU-1/components/Header'
+import LandingPublica from './HU-1/pages/LandingPublica'
 import RutasPerfil from './HU-2/RutasPerfil'
-import Footer from './Footer'
+import Footer from './HU-1/components/Footer'
 
 function App() {
   return (

@@ -1,4 +1,4 @@
-import './HeroPublico.css'
+import '../styles/HeroPublico.css'
 
 function HeroPublico({ onSearch }) {
   function handleSubmit(event) {
