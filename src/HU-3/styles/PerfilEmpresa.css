@@ -1,0 +1,181 @@
+.hu3 .perfil {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.hu3 .pEmp p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--color-text-muted);
+}
+
+.hu3 .pEmp .actual {
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.hu3 .pEmp h1 {
+    margin: 4px 0 0;
+    font-size: 28px;
+    line-height: 32px;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.hu3 .botones {
+    display: flex;
+    gap: 8px;
+}
+
+.hu3 .bt1,
+.hu3 .bt2 {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.hu3 .bt1 {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+}
+
+.hu3 .bt2 {
+    background: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    color: var(--color-surface);
+}
+
+.hu3 .cuentaV,
+.hu3 .informacion,
+.hu3 .direccion,
+.hu3 .resumen {
+    padding: 20px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    box-shadow: var(--shadow-card);
+}
+
+.hu3 .informacion h2,
+.hu3 .direccion h2,
+.hu3 .resumen h2 {
+    margin: 0 0 16px;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.hu3 .cuentaV {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.hu3 .logotipo {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 80px;
+    height: 80px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    background: var(--color-primary-soft);
+    color: var(--color-text-muted);
+    font-size: 12px;
+}
+
+.hu3 .emp h2 {
+    margin: 0 0 4px;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.hu3 .emp p {
+    margin: 0;
+}
+
+.hu3 .verificada {
+    flex: none;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(30, 127, 77, 0.12);
+    color: var(--color-success);
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: auto;
+}
+
+.hu3 .datos {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.hu3 .informacion {
+    flex: 3;
+}
+
+.hu3 .info-der {
+    flex: 2;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.hu3 .campos {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.hu3 .campo {
+    width: 50%;
+    margin-bottom: 16px;
+    padding-right: 24px;
+}
+
+.hu3 .direccion .campo {
+    width: 100%;
+}
+
+.hu3 .campo p,
+.hu3 .descripcion p {
+    margin: 0;
+}
+
+.hu3 .campo a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.hu3 .etiqueta {
+    margin-bottom: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+}
+
+.hu3 .actividad {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+}
+
+.hu3 .concepto {
+    color: var(--color-text-muted);
+}
+
+.hu3 .num {
+    margin: 0;
+    font-weight: 600;
+}

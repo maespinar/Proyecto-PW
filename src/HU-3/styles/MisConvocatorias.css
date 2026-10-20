@@ -1,0 +1,212 @@
+.hu3 .mc-titulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.hu3 .mc-t {
+    margin: 0;
+    font-size: 12px;
+    color: var(--color-text-muted);
+}
+
+.hu3 .mc-actual {
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.hu3 .mc-titulo h1 {
+    margin: 4px 0 0;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.hu3 .mc-btn-nueva {
+    padding: 8px 25px;
+    border-radius: 7px;
+    color: var(--color-bg);
+    background-color: var(--color-primary);
+    font-size: 14px;
+    border: 1px solid var(--color-border);
+}
+
+.hu3 .mc-barra {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.hu3 .mc-busqueda-caja {
+    width: 280px;
+}
+
+
+.hu3 .mc-busqueda-icono {
+    position: absolute;
+    margin: 14px 11px;
+    width: 17px;
+    height: 17px;
+    border: 1px solid var(--color-text-muted);
+    border-radius: 50%;
+}
+
+.hu3 .mc-busqueda {
+    width: 100%;
+    padding: 10px 12px 10px 34px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--color-text);
+}
+
+.hu3 .mc-busqueda:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+.hu3 .mc-filtros {
+    display: flex;
+    gap: 8px;
+}
+
+.hu3 .mc-filtro {
+    padding: 6px 12px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--color-text);
+}
+
+.hu3 .mc-filtro-activo {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-surface);
+    font-weight: 600;
+}
+
+.hu3 .mc-contador {
+    margin: 0;
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--color-text-muted);
+}
+
+.hu3 .mc-tabla-caja {
+    min-height: 440px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    box-shadow: var(--shadow-card);
+}
+
+.hu3 .mc-tabla th {
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.hu3 .mc-tabla td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.hu3 .mc-tabla tbody tr:hover {
+    background: var(--color-bg);
+}
+
+.hu3 .mc-puesto {
+    font-weight: 500;
+}
+
+.hu3 .mc-gris {
+    color: var(--color-text-muted);
+}
+
+.hu3 .mc-num {
+    font-weight: 600;
+}
+
+.hu3 .mc-estado {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.hu3 .mc-vigente {
+    background: rgba(30, 127, 77, 0.12);
+    color: var(--color-success);
+}
+
+.hu3 .mc-cerrada,
+.hu3 .mc-borrador {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+}
+
+.hu3 .mc-menu {
+    background: none;
+    border: 0;
+    font-size: 18px;
+    color: var(--color-text-muted);
+}
+
+.hu3 .mc-vacio {
+    margin: 0;
+    padding: 32px 16px;
+    text-align: center;
+    color: var(--color-text-muted);
+}
+
+.hu3 .mc-pie {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+}
+
+.hu3 .mc-pie p {
+    margin: 0;
+    font-size: 12px;
+    color: var(--color-text-muted);
+}
+
+.hu3 .mc-paginas {
+    display: flex;
+    gap: 4px;
+}
+
+.hu3 .mc-pag {
+    padding: 6px 12px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 12px;
+    color: var(--color-text);
+}
+
+.hu3 .mc-pag:disabled {
+    color: var(--color-text-muted);
+}
+
+.hu3 .mc-pag-activa {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-surface);
+    font-weight: 600;
+}
+.hu3 .mc-btn-nueva {
+  text-decoration: none;
+}

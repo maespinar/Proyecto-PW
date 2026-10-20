@@ -5,6 +5,9 @@ import LandingPublica from './HU-1/pages/LandingPublica'
 import InicioDeSesion from './HU-1/pages/InicioDeSesion'
 import RegistroEstudiante from './HU-1/pages/RegistroEstudiante'
 import RutasPerfil from './HU-2/RutasPerfil'
+import RutasEmpresa from './HU-3/RutasEmpresa'
+import Empresas from './HU-3/pages/Empresas'
+import FichaEmpresa from './HU-3/pages/FichaEmpresa'
 import Footer from './HU-1/components/Footer'
 import EnConstruccion from './HU-2/components/EnConstruccion'
 import perfil from './HU-2/data/perfil.seed.json'
@@ -32,12 +35,14 @@ function App() {
           <Route path="/iniciar-sesion" element={<InicioDeSesion onIniciarSesion={() => setSesionIniciada(true)} />} />
           <Route path="/registro" element={new URLSearchParams(search).get('tipo') === 'empresa' ? <EnConstruccion titulo="Registro de empresa" /> : <RegistroEstudiante />} />
           <Route path="/perfil/*" element={<RutasPerfil />} />
+          <Route path="/empresa/*" element={<RutasEmpresa />} />
+          <Route path="/empresas" element={<Empresas />} />
+          <Route path="/empresas/:id" element={<FichaEmpresa key={pathname} />} />
+          <Route path="/publicar" element={<Navigate to="/empresa/convocatorias/nueva" replace />} />
           <Route path="/convocatorias" element={<Catalogo usuario={usuario} />} />
           <Route path="/convocatorias/:id" element={<DetalleConvocatoria usuario={usuario} />} />
           <Route path="/guardadas" element={<Guardadas usuario={usuario} />} />
           {[
-            ['empresas', 'Empresas'],
-            ['publicar', 'Publicar convocatoria'],
             ['preguntas-frecuentes', 'Preguntas frecuentes'],
             ['terminos', 'Términos del servicio'],
             ['privacidad', 'Privacidad de datos'],

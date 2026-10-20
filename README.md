@@ -251,3 +251,17 @@ en la evaluación.
 **Componentes comunes.** El encabezado, la navegación, las tarjetas de convocatoria, las etiquetas de
 estado y los diálogos de confirmación se implementan una sola vez, en un módulo compartido a cargo
 del grupo.
+
+### Integración de HU-3
+
+La portada, el inicio de sesión, el perfil de estudiante, el catálogo y las guardadas conservan sus rutas y el encabezado y pie comunes. Los estilos globales de `src/index.css` se conservan; los estilos del panel de empresa se limitan al contenedor `.hu3`.
+
+Desde **Empresas** se accede a las fichas públicas y al panel de demostración de empresa. Las fichas usan las empresas y convocatorias del catálogo de HU-4, filtran las vigentes y enlazan con su detalle. El detalle del catálogo también enlaza con la ficha de la empresa correspondiente.
+
+- `/empresa` redirige a `/empresa/perfil`.
+- `/empresa/perfil/editar` abre la edición del perfil institucional.
+- `/empresa/convocatorias` muestra las convocatorias propias.
+- `/empresa/convocatorias/nueva` es la ruta de nueva convocatoria; también recibe los accesos desde `/publicar` y la ruta anterior `/empresa/nueva-convocatorias`.
+- `/empresas/:id` muestra la ficha pública con el identificador de HU-4; `/empresas/andes-peru` mantiene la compatibilidad con el enlace original de H3.
+
+La integración conserva el avance de H3: el formulario de nueva convocatoria y las acciones de guardado del perfil todavía están pendientes de implementación. Las opciones del panel sin pantalla propia muestran la vista común en construcción. El acceso al panel es de demostración, sin autenticación de empresa implementada todavía.

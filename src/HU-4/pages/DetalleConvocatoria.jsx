@@ -160,9 +160,9 @@ function DetalleConvocatoria({ usuario }) {
           <section className="detalle-tarjeta detalle-secundaria">
             <h2>Sobre la empresa</h2>
             <p>{empresa.descripcion}</p>
-            <button type="button" className="detalle-enlace">
+            <Link to={'/empresas/' + empresa.id} className="detalle-enlace">
               Ver ficha de la empresa →
-            </button>
+            </Link>
           </section>
 
           {convocatoria.beneficios && (
