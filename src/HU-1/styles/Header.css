@@ -1,11 +1,11 @@
-header * {
+.header-publico * {
     margin: 0;
     padding: 0;
     color: var(--color-text-muted);
     font-family: var(--font-sans);
 }
 
-header {
+.header-publico {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -35,14 +35,14 @@ header {
     padding-right: 20px;
 }
 
-header ul {
+.header-publico ul {
     display: flex;
     list-style: none;
     align-items: center;
     gap: 35px;
 }
 
-header ul li a {
+.header-publico ul li a {
     text-decoration: none;
 }
 
@@ -71,7 +71,7 @@ header ul li a {
     font-weight: bold;
 }
 
-.activa {
+.header-publico .activa {
     color: var(--color-primary);
     font-weight: bold;
     border-bottom: 3px solid var(--color-primary);
@@ -79,7 +79,7 @@ header ul li a {
 }
 
 @media (max-width: 900px) {
-    header {
+    .header-publico {
         flex-wrap: wrap;
         justify-content: center;
         gap: 12px;
@@ -98,7 +98,7 @@ header ul li a {
 }
 
 @media (max-width: 480px) {
-    header ul {
+    .header-publico ul {
         justify-content: center;
         flex-wrap: wrap;
         gap: 12px 20px;

@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom'
+import HeaderAutenticado from './HeaderAutenticado'
 import '../styles/Header.css'
 
-function Header({ sesionIniciada }) {
+function Header({ usuario, onCerrarSesion }) {
+    if (usuario) return <HeaderAutenticado usuario={usuario} onCerrarSesion={onCerrarSesion} />
     return (
         <>
-            <header>
+            <header className="header-publico">
                 <div id="logo">
                     <div id="cuadradito">
 
@@ -15,7 +17,6 @@ function Header({ sesionIniciada }) {
                         <li><Link to="/#convocatorias">Convocatorias</Link></li>
                         <li><Link to="/empresas">Empresas</Link></li>
                         <li><Link to="/#como-funciona">Cómo funciona</Link></li>
-                        {sesionIniciada && <li><Link to="/perfil">Mi perfil</Link></li>}
                     </ul>
                 </div>
                 <div id="buttons">
