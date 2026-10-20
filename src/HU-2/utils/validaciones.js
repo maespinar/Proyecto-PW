@@ -1,3 +1,4 @@
+import { TIPOS_ENLACE, claveEnlace, hrefSeguro } from './enlaces'
 import { MAX_DESCRIPCION, mesActual, parsearMes } from './experiencia'
 import { normalizar } from './habilidades'
 
@@ -99,5 +100,22 @@ export function validarExperiencia(form) {
     errores.descripcion = `La descripción no puede superar los ${MAX_DESCRIPCION} caracteres.`
   }
 
+  return errores
+}
+
+export function validarEnlace(datos, existentes, idActual) {
+  const errores = {}
+  if (!TIPOS_ENLACE.includes(datos.tipo)) errores.tipo = 'Elige un tipo de enlace.'
+
+  const url = datos.url.trim()
+  if (!url) {
+    errores.url = 'Ingresa la dirección del enlace.'
+  } else if (url.length > 200) {
+    errores.url = 'La dirección no puede superar los 200 caracteres.'
+  } else if (!hrefSeguro(url)) {
+    errores.url = 'Ingresa una dirección web válida, por ejemplo https://miportafolio.dev.'
+  } else if (existentes.some((e) => e.id !== idActual && claveEnlace(e.url) === claveEnlace(url))) {
+    errores.url = 'Ya registraste este enlace.'
+  }
   return errores
 }

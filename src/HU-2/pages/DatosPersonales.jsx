@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { usePerfil } from '../context/perfilContexto'
 import { MAX_RESUMEN } from '../utils/validaciones'
 import BarraCompletitud from '../components/BarraCompletitud'
+import EnlacesExternos from '../components/EnlacesExternos'
 import FotoPerfil from '../components/FotoPerfil'
 import Cargando from '../components/Cargando'
 
@@ -69,23 +70,7 @@ export default function DatosPersonales() {
         )}
       </div>
 
-      <div className="tarjeta-hu2 p-4">
-        <h2 className="h5 titulo-hu2">Enlaces externos</h2>
-        {perfil.enlaces.length > 0 ? (
-          <ul className="list-unstyled row g-2 mb-0">
-            {perfil.enlaces.map((enlace) => (
-              <li key={enlace.id} className="col-12 col-sm-6">
-                <div className="enlace-hu2">
-                  <span className="etiqueta-hu2 d-block">{enlace.tipo}</span>
-                  {enlace.url}
-                </div>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="text-muted mb-0">Aún no agregas enlaces a tu portafolio o repositorio.</p>
-        )}
-      </div>
+      <EnlacesExternos enlaces={perfil.enlaces} />
     </>
   )
 }
