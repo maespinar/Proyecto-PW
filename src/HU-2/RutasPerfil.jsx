@@ -4,7 +4,7 @@ import DatosPersonales from './pages/DatosPersonales'
 import EditarDatosPersonales from './pages/EditarDatosPersonales'
 import Habilidades from './pages/Habilidades'
 import Experiencia from './pages/Experiencia'
-import EnConstruccion from './components/EnConstruccion'
+import VistaPublica from './pages/VistaPublica'
 
 // Todas las rutas de HU-2 cuelgan de /perfil (ver App.jsx).
 export default function RutasPerfil() {
@@ -15,7 +15,7 @@ export default function RutasPerfil() {
         <Route path="editar" element={<EditarDatosPersonales />} />
         <Route path="habilidades" element={<Habilidades />} />
         <Route path="experiencia" element={<Experiencia />} />
-        <Route path="publico" element={<EnConstruccion titulo="Vista pública del perfil" />} />
+        <Route path="publico" element={<VistaPublica />} />
       </Route>
     </Routes>
   )

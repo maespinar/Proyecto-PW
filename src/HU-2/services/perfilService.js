@@ -4,6 +4,7 @@
 // Entrega 2: solo cambia el interior de estas funciones por llamadas a la API;
 // los componentes no se tocan.
 import seed from '../data/perfil.seed.json'
+import { MAX_ENLACES } from '../utils/enlaces'
 import { MAX_HABILIDADES, NIVELES, normalizar } from '../utils/habilidades'
 
 const CLAVE = 'hu2_perfil'
@@ -94,6 +95,38 @@ export async function eliminarExperiencia(id) {
   perfil = { ...perfil, experiencias: perfil.experiencias.filter((e) => e.id !== id) }
   persistir()
   return structuredClone(perfil)
+}
+
+export async function agregarEnlace({ tipo, url }) {
+  await espera()
+  if (perfil.enlaces.length >= MAX_ENLACES) throw new Error('LIMITE_ENLACES')
+  const nuevo = { id: `enl-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`, tipo, url: url.trim() }
+  perfil = { ...perfil, enlaces: [...perfil.enlaces, nuevo] }
+  persistir()
+  return structuredClone(perfil)
+}
+
+export async function actualizarEnlace(id, { tipo, url }) {
+  await espera()
+  perfil = { ...perfil, enlaces: perfil.enlaces.map((e) => (e.id === id ? { ...e, tipo, url: url.trim() } : e)) }
+  persistir()
+  return structuredClone(perfil)
+}
+
+export async function eliminarEnlace(id) {
+  await espera()
+  perfil = { ...perfil, enlaces: perfil.enlaces.filter((e) => e.id !== id) }
+  persistir()
+  return structuredClone(perfil)
+}
+
+// Perfil que ve la empresa al revisar a un postulante (lo usa HU-5).
+// Entrega 1: solo existe el estudiante de la semilla. Cuando el grupo defina
+// más estudiantes en el contrato de datos, aquí se busca por id.
+// Entrega 2: pasa a ser GET /estudiantes/:id/perfil-publico.
+export async function obtenerPerfilPublico(idEstudiante) {
+  await espera()
+  return perfil.id === idEstudiante ? structuredClone(perfil) : null
 }
 
 // Útil para volver a los datos de prueba durante el desarrollo.

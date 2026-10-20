@@ -55,6 +55,18 @@ export function PerfilProvider({ children }) {
     setPerfil(await perfilService.eliminarExperiencia(id))
   }, [])
 
+  const agregarEnlace = useCallback(async (datos) => {
+    setPerfil(await perfilService.agregarEnlace(datos))
+  }, [])
+
+  const actualizarEnlace = useCallback(async (id, datos) => {
+    setPerfil(await perfilService.actualizarEnlace(id, datos))
+  }, [])
+
+  const eliminarEnlace = useCallback(async (id) => {
+    setPerfil(await perfilService.eliminarEnlace(id))
+  }, [])
+
   const valor = {
     perfil,
     cargando,
@@ -68,6 +80,9 @@ export function PerfilProvider({ children }) {
     agregarExperiencia,
     actualizarExperiencia,
     eliminarExperiencia,
+    agregarEnlace,
+    actualizarEnlace,
+    eliminarEnlace,
   }
 
   return <PerfilContext.Provider value={valor}>{children}</PerfilContext.Provider>

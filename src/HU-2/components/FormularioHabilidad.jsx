@@ -10,10 +10,11 @@ export default function FormularioHabilidad({ carrera, registradas, onAgregar, i
   const [indice, setIndice] = useState(-1)
   const [guardando, setGuardando] = useState(false)
 
+  const nombresRegistrados = useMemo(() => registradas.map((h) => h.nombre), [registradas])
   const lleno = registradas.length >= MAX_HABILIDADES
   const sugerencias = useMemo(
-    () => (abierto && !lleno ? sugerirHabilidades(nombre, carrera, registradas) : []),
-    [abierto, lleno, nombre, carrera, registradas],
+    () => (abierto && !lleno ? sugerirHabilidades(nombre, carrera, nombresRegistrados) : []),
+    [abierto, lleno, nombre, carrera, nombresRegistrados],
   )
 
   function elegir(sugerencia) {
@@ -49,7 +50,7 @@ export default function FormularioHabilidad({ carrera, registradas, onAgregar, i
 
   async function enviar(evento) {
     evento.preventDefault()
-    const mensaje = validarHabilidad(nombre, registradas.map((h) => h.nombre))
+    const mensaje = validarHabilidad(nombre, nombresRegistrados)
     if (mensaje) {
       setError(mensaje)
       return

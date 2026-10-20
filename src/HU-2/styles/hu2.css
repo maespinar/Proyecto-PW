@@ -192,3 +192,45 @@
 }
 .hu2 .btn-texto:hover { text-decoration: underline; }
 .hu2 .btn-texto.peligro { color: #b42318; }
+
+/* ---------- Enlaces externos ---------- */
+.hu2 .enlace-agregar {
+  width: 100%;
+  min-height: 4.5rem;
+  border: 1px dashed #b8c2d0;
+  border-radius: 0.375rem;
+  background: none;
+  color: var(--hu2-texto-suave);
+}
+.hu2 .enlace-agregar:hover { background: var(--hu2-fondo); color: var(--hu2-azul); }
+.hu2 .formulario-enlace {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--hu2-borde);
+}
+
+/* ---------- Vista pública ---------- */
+.hu2 .chip-publico { padding: 0.3rem 0.6rem; }
+.hu2 .etiqueta-nivel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 0.25rem;
+  padding: 0.1rem 0.4rem;
+}
+.hu2 .experiencia-publica { padding: 0.75rem 0; border-bottom: 1px solid var(--hu2-borde); }
+.hu2 .experiencia-publica:first-child { padding-top: 0; }
+.hu2 .experiencia-publica:last-child { border-bottom: 0; padding-bottom: 0; }
+
+.hu2 .estado-hu2 {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 0.25rem;
+  padding: 0.2rem 0.6rem;
+  background: #eceef2;
+  color: #566070;
+}
+.hu2 .estado-recibida { background: #e3ecf8; color: #2b5a99; }
+.hu2 .estado-revision { background: #fdf0d5; color: #9a6a00; }
+.hu2 .estado-aceptada { background: #e2f3ea; color: #1f6b4f; }
+.hu2 .estado-descartada { background: #fbe4e1; color: #b42318; }
