@@ -4,6 +4,7 @@
 // Entrega 2: solo cambia el interior de estas funciones por llamadas a la API;
 // los componentes no se tocan.
 import seed from '../data/perfil.seed.json'
+import { MAX_HABILIDADES, NIVELES, normalizar } from '../utils/habilidades'
 
 const CLAVE = 'hu2_perfil'
 
@@ -37,6 +38,33 @@ export async function obtenerPerfil() {
 export async function actualizarDatosPersonales(datos) {
   await espera()
   perfil = { ...perfil, ...datos }
+  persistir()
+  return structuredClone(perfil)
+}
+
+export async function agregarHabilidad({ nombre, nivel }) {
+  await espera()
+  const limpio = nombre.trim()
+  if (!NIVELES.includes(nivel)) throw new Error('NIVEL_INVALIDO')
+  if (perfil.habilidades.length >= MAX_HABILIDADES) throw new Error('LIMITE')
+  if (perfil.habilidades.some((h) => normalizar(h.nombre) === normalizar(limpio))) throw new Error('DUPLICADA')
+  const nueva = { id: `hab-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`, nombre: limpio, nivel }
+  perfil = { ...perfil, habilidades: [...perfil.habilidades, nueva] }
+  persistir()
+  return structuredClone(perfil)
+}
+
+export async function cambiarNivelHabilidad(id, nivel) {
+  await espera()
+  if (!NIVELES.includes(nivel)) throw new Error('NIVEL_INVALIDO')
+  perfil = { ...perfil, habilidades: perfil.habilidades.map((h) => (h.id === id ? { ...h, nivel } : h)) }
+  persistir()
+  return structuredClone(perfil)
+}
+
+export async function eliminarHabilidad(id) {
+  await espera()
+  perfil = { ...perfil, habilidades: perfil.habilidades.filter((h) => h.id !== id) }
   persistir()
   return structuredClone(perfil)
 }
