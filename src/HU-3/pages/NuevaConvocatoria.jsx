@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import '../styles/NuevaConvocatoria.css';
 
 export default function NuevaConvocatoria() {

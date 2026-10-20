@@ -1,0 +1,32 @@
+{
+  "id": "est-001",
+  "nombres": "Mariana Lucía",
+  "apellidos": "Quispe Ramírez",
+  "correo": "mariana.quispe@aloe.ulima.edu.pe",
+  "telefono": "987 654 321",
+  "distrito": "La Molina",
+  "carrera": "Ingeniería de Sistemas",
+  "ciclo": "Octavo",
+  "resumen": "Estudiante de octavo ciclo de Ingeniería de Sistemas con interés en desarrollo web y analítica de datos. He liderado el módulo de reportes de un proyecto del curso de Bases de Datos y participo en el círculo de estudios de desarrollo de software de la universidad. Busco prácticas híbridas en Lima para aplicar React y SQL en un equipo de producto.",
+  "foto": null,
+  "enlaces": [
+    { "id": "enl-1", "tipo": "Portafolio", "url": "marianaquispe.dev" },
+    { "id": "enl-2", "tipo": "Repositorio", "url": "repos.ejemplo.pe/mquispe" }
+  ],
+  "habilidades": [
+    { "id": "hab-1", "nombre": "JavaScript", "nivel": "Avanzado" },
+    { "id": "hab-2", "nombre": "React", "nivel": "Avanzado" },
+    { "id": "hab-3", "nombre": "SQL", "nivel": "Avanzado" },
+    { "id": "hab-4", "nombre": "Python", "nivel": "Intermedio" },
+    { "id": "hab-5", "nombre": "Power BI", "nivel": "Intermedio" },
+    { "id": "hab-6", "nombre": "Git", "nivel": "Intermedio" },
+    { "id": "hab-7", "nombre": "Excel avanzado", "nivel": "Intermedio" },
+    { "id": "hab-8", "nombre": "Figma", "nivel": "Básico" },
+    { "id": "hab-9", "nombre": "Docker", "nivel": "Básico" }
+  ],
+  "experiencias": [
+    { "id": "exp-1", "cargo": "Asistente de Soporte TI", "organizacion": "Centro de Cómputo — Universidad de Lima", "desde": "2025-03", "hasta": null, "actual": true, "descripcion": "Atención de incidencias de laboratorios y elaboración del reporte semanal de tickets." },
+    { "id": "exp-2", "cargo": "Practicante de Analítica (proyecto de curso)", "organizacion": "Cátedra de Bases de Datos — Universidad de Lima", "desde": "2025-08", "hasta": "2025-12", "actual": false, "descripcion": "Modelo de datos y tablero de indicadores para una cadena de farmacias ficticia. Reduje en 40 % el tiempo de consulta del reporte de ventas." },
+    { "id": "exp-3", "cargo": "Voluntaria de logística", "organizacion": "Feria de Innovación Universitaria", "desde": "2025-04", "hasta": "2025-05", "actual": false, "descripcion": "Coordinación de 18 stands y control de asistencia de 600 visitantes." }
+  ]
+}

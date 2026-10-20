@@ -1,5 +1,6 @@
 import '../styles/MisConvocatorias.css';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import convocatorias from '../data/convocatorias.seed.json';
 
 
@@ -36,7 +37,7 @@ export default function MisConvocatorias() {
                 </p>
                 <h1>Mis convocatorias</h1>
             </div>
-            <button type='button' className='mc-btn-nueva'>+ Nueva convocatoria</button>
+            <Link to='/empresa/convocatorias/nueva' className='mc-btn-nueva'>+ Nueva convocatoria</Link>
         </section>
 
         <section className='mc-barra'>
@@ -46,7 +47,7 @@ export default function MisConvocatorias() {
                 type='search'
                 className='mc-busqueda'
                 placeholder='Buscar por puesto o carrera'
-                valor={busqueda}
+                value={busqueda}
                 onChange={(e) => setBusqueda(e.target.value)}
                 />
             </div>
@@ -105,7 +106,7 @@ export default function MisConvocatorias() {
         </section>
 
         <section className='mc-pie'>
-            <p>Mostrando 1–{filtradas.length} de {filtradas.length} convocatorias</p>
+            <p>Mostrando {filtradas.length === 0 ? 0 : 1}–{filtradas.length} de {filtradas.length} convocatorias</p>
             <div className='mc-paginas'>
                 <button type='button' className='mc-pag' disabled>Anterior</button>
                 <button type='button' className='mc-pag mc-pag-activa'>1</button>

@@ -160,6 +160,67 @@ No se admiten plantillas de administración, temas comerciales, ni el uso de ser
 construcción de algún elemento del sistema (por ejemplo: NestJs para el backend, o Firebase para
 scaffolding de APIs). Se puede utilizar librerías de componentes como Material UI, o similares.
 
+### Organización del frontend
+
+Se usa la separación por responsabilidad de HU-2 como referencia para cada historia. La raíz de `src/` contiene únicamente la composición de la aplicación, su arranque y los estilos globales:
+
+```text
+src/
+├── App.jsx
+├── main.jsx
+├── index.css
+├── HU-1/
+│   ├── assets/
+│   ├── components/
+│   │   ├── ComoFunciona.jsx
+│   │   ├── ConvocatoriasDestacadas.jsx
+│   │   ├── Footer.jsx
+│   │   ├── Header.jsx
+│   │   ├── HeroPublico.jsx
+│   │   └── TarjetaConvocatoria.jsx
+│   ├── data/
+│   │   └── landing.js
+│   ├── pages/
+│   │   └── LandingPublica.jsx
+│   └── styles/
+│       ├── Footer.css
+│       ├── Header.css
+│       ├── HeroPublico.css
+│       └── LandingPublica.css
+└── HU-2/
+    ├── components/
+    ├── context/
+    ├── data/
+    ├── pages/
+    ├── services/
+    ├── styles/
+    ├── utils/
+    └── RutasPerfil.jsx
+```
+
+- `pages/`: vistas completas que se conectan al enrutamiento y coordinan los componentes y el estado de la pantalla.
+- `components/`: piezas de interfaz. En HU-1, la lista de convocatorias, sus tarjetas y los pasos de uso están separados de la página.
+- `styles/`: estilos de cada historia. Cada componente o página importa el CSS que necesita; las tarjetas, la lista y los pasos de HU-1 usan los estilos de `LandingPublica.css`.
+- `data/`: datos semilla y catálogos estáticos; no se mezclan con el marcado de las páginas.
+- `assets/`: imágenes y otros recursos propios de la historia.
+- `services/`: acceso a datos, persistencia y futuras llamadas a la API.
+- `context/`: estado compartido dentro de una historia y sus hooks de acceso.
+- `utils/`: funciones independientes de la interfaz, como validaciones y cálculos.
+
+Se crean solo las carpetas que cada historia necesita. HU-1 usa `services/sesionService.js` para simular la validación de acceso; todavía no requiere Context. Si una historia tiene varias rutas, puede agruparlas en un archivo de entrada como `RutasPerfil.jsx`; `App.jsx` integra las historias y compone el encabezado y el pie.
+
+Por ahora, `Header` y `Footer` se conservan en `HU-1/components/`, desde donde `App.jsx` los utiliza para todas las vistas. Se mantiene una única implementación; si se crea el módulo compartido del equipo, estos componentes se trasladarán allí junto con sus estilos. Las variables de diseño y las reglas base de toda la aplicación están en `index.css`.
+
+### Probar el inicio de sesión
+
+En `/iniciar-sesion`, el formulario comienza vacío. Al enviarlo, señala los campos requeridos y el correo con formato incorrecto sin consumir intentos. Con ambos campos completos, muestra `Ingresando...` durante la validación y deshabilita los campos, botones y enlaces de registro del formulario.
+
+La cuenta de prueba es `mariana.quispe@aloe.ulima.edu.pe` con contraseña `ulima123`. Un acceso correcto abre `/perfil`. Las credenciales incorrectas conservan los datos ingresados, resaltan ambos campos y muestran los intentos restantes. Después de cinco fallos, el formulario se bloquea durante 30 segundos y luego se habilita automáticamente.
+
+La validación y el bloqueo son una simulación en memoria para la primera entrega: se mantienen al navegar dentro de la aplicación y se reinician al recargarla. En la segunda entrega deberán implementarse en el servidor.
+
+Ejecutar `npm run lint` y `npm run build` para revisar el código y la compilación.
+
 ### Cómo evitar bloquearse
 Las historias están delimitadas para que cada integrante sea dueño de sus propias entidades, vistas y
 servicios. Nadie escribe sobre las entidades de otro. Cuando una historia necesita leer datos de otra,
@@ -182,3 +243,17 @@ en la evaluación.
 **Componentes comunes.** El encabezado, la navegación, las tarjetas de convocatoria, las etiquetas de
 estado y los diálogos de confirmación se implementan una sola vez, en un módulo compartido a cargo
 del grupo.
+
+### Integración de HU-3
+
+La portada, el inicio de sesión, el perfil de estudiante, el catálogo y las guardadas conservan sus rutas y el encabezado y pie comunes. Los estilos globales de `src/index.css` se conservan; los estilos del panel de empresa se limitan al contenedor `.hu3`.
+
+Desde **Empresas** se accede a las fichas públicas y al panel de demostración de empresa. Las fichas usan las empresas y convocatorias del catálogo de HU-4, filtran las vigentes y enlazan con su detalle. El detalle del catálogo también enlaza con la ficha de la empresa correspondiente.
+
+- `/empresa` redirige a `/empresa/perfil`.
+- `/empresa/perfil/editar` abre la edición del perfil institucional.
+- `/empresa/convocatorias` muestra las convocatorias propias.
+- `/empresa/convocatorias/nueva` es la ruta de nueva convocatoria; también recibe los accesos desde `/publicar` y la ruta anterior `/empresa/nueva-convocatorias`.
+- `/empresas/:id` muestra la ficha pública con el identificador de HU-4; `/empresas/andes-peru` mantiene la compatibilidad con el enlace original de H3.
+
+La integración conserva el avance de H3: el formulario de nueva convocatoria y las acciones de guardado del perfil todavía están pendientes de implementación. Las opciones del panel sin pantalla propia muestran la vista común en construcción. El acceso al panel es de demostración, sin autenticación de empresa implementada todavía.

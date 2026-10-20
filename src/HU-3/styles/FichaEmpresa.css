@@ -263,3 +263,14 @@
     font-weight: 500;
     color: var(--color-primary);
 }
+@media (max-width: 768px) {
+  .fe-cabecera, .fe-cuerpo {
+    flex-direction: column;
+  }
+  .fe-nota {
+    text-align: left;
+  }
+  .fe-pestanas {
+    flex-wrap: wrap;
+  }
+}
