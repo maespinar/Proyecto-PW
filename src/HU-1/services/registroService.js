@@ -1,4 +1,5 @@
 import { validarRegistroEstudiante } from '../utils/validarRegistroEstudiante.js'
+import { validarRegistroEmpresa } from '../utils/validarRegistroEmpresa.js'
 
 // Simulación de la primera entrega: no persiste datos ni envía correos reales.
 async function simularEscritura(signal) {
@@ -22,6 +23,12 @@ export async function registrarEstudiante(datos, signal) {
   if (Object.keys(validarRegistroEstudiante(datos)).length) throw new Error('Datos de registro inválidos')
   await simularEscritura(signal)
   return { correo: datos.correo.trim().toLowerCase() }
+}
+
+export async function registrarEmpresa(datos, signal) {
+  if (Object.keys(validarRegistroEmpresa(datos)).length) throw new Error('Datos de registro inválidos')
+  await simularEscritura(signal)
+  return { razonSocial: datos.razonSocial.trim(), correo: datos.correo.trim().toLowerCase() }
 }
 
 export async function reenviarVerificacion(correo, signal) {

@@ -4,6 +4,7 @@ import Header from './HU-1/components/Header'
 import LandingPublica from './HU-1/pages/LandingPublica'
 import InicioDeSesion from './HU-1/pages/InicioDeSesion'
 import RegistroEstudiante from './HU-1/pages/RegistroEstudiante'
+import RegistroEmpresa from './HU-1/pages/RegistroEmpresa'
 import RutasPerfil from './HU-2/RutasPerfil'
 import RutasEmpresa from './HU-3/RutasEmpresa'
 import Empresas from './HU-3/pages/Empresas'
@@ -24,7 +25,7 @@ function App() {
   useEffect(() => {
     if (hash) document.getElementById(hash.slice(1))?.scrollIntoView()
     else window.scrollTo(0, 0)
-  }, [pathname, hash])
+  }, [pathname, hash, search])
 
   return (
     <GuardadasProvider>
@@ -33,7 +34,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPublica />} />
           <Route path="/iniciar-sesion" element={<InicioDeSesion onIniciarSesion={() => setSesionIniciada(true)} />} />
-          <Route path="/registro" element={new URLSearchParams(search).get('tipo') === 'empresa' ? <EnConstruccion titulo="Registro de empresa" /> : <RegistroEstudiante />} />
+          <Route path="/registro" element={new URLSearchParams(search).get('tipo') === 'empresa' ? <RegistroEmpresa /> : <RegistroEstudiante />} />
           <Route path="/perfil/*" element={<RutasPerfil />} />
           <Route path="/empresa/*" element={<RutasEmpresa />} />
           <Route path="/empresas" element={<Empresas />} />

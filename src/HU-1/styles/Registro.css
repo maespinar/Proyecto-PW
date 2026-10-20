@@ -1,4 +1,4 @@
-.registro-estudiante {
+.registro {
   display: grid;
   grid-template-columns: minmax(0, 293px) minmax(0, 769px);
   align-items: start;
@@ -60,13 +60,13 @@
   font-size: 13px;
 }
 
-.registro-estudiante a {
+.registro a {
   color: var(--color-primary);
   font-weight: 700;
   text-decoration: none;
 }
 
-.registro-estudiante a:hover {
+.registro a:hover {
   text-decoration: underline;
 }
 
@@ -134,7 +134,7 @@
   border-color: var(--color-danger);
 }
 
-.registro-estudiante :focus-visible {
+.registro :focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 3px;
 }
@@ -245,7 +245,7 @@
 }
 
 @media (max-width: 850px) {
-  .registro-estudiante {
+  .registro {
     grid-template-columns: minmax(0, 650px);
     gap: 28px;
     padding-block: 40px;
@@ -257,7 +257,7 @@
 }
 
 @media (max-width: 540px) {
-  .registro-estudiante {
+  .registro {
     padding-inline: 16px;
   }
 

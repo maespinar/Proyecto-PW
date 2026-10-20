@@ -4,7 +4,7 @@ import FormularioRegistroEstudiante from '../components/FormularioRegistroEstudi
 import ExitoRegistro from '../components/ExitoRegistro'
 import NotificacionResultado from '../components/NotificacionResultado'
 import { registrarEstudiante, reenviarVerificacion } from '../services/registroService'
-import '../styles/RegistroEstudiante.css'
+import '../styles/Registro.css'
 import '../styles/EstadosRegistro.css'
 
 export default function RegistroEstudiante() {
@@ -48,7 +48,7 @@ export default function RegistroEstudiante() {
   }
 
   return (
-    <section className="registro-estudiante" aria-labelledby="registro-estudiante-titulo">
+    <section className="registro registro-estudiante" aria-labelledby="registro-estudiante-titulo">
       <PresentacionRegistro />
       <div className="registro-contenido">
         {cuenta
