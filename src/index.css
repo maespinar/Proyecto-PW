@@ -111,3 +111,21 @@ code {
   background: var(--code-bg);
 }
 */
+
+:root {
+  --color-primary: #123A5F;
+  --color-primary-dark: #0C2A46;
+  --color-primary-soft: #E6EEF5;
+  --color-accent: #0F8B7E;
+  --color-bg: #F7F9FB;
+  --color-surface: #FFFFFF;
+  --color-border: #DCE3EA;
+  --color-text: #16212B;
+  --color-text-muted: #67757F;
+  --color-success: #1E7F4D;
+  --color-warning: #B7791F;
+  --color-danger: #B4322B;
+  --color-info: #3B6FA8;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --shadow-card: 0 1px 2px rgba(18, 58, 95, .06);
+}
