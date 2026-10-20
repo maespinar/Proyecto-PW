@@ -69,6 +69,33 @@ export async function eliminarHabilidad(id) {
   return structuredClone(perfil)
 }
 
+const limpiarExperiencia = (datos) => ({ ...datos, hasta: datos.actual ? null : datos.hasta })
+
+export async function agregarExperiencia(datos) {
+  await espera()
+  const nueva = { ...limpiarExperiencia(datos), id: `exp-${Date.now()}-${Math.random().toString(36).slice(2, 6)}` }
+  perfil = { ...perfil, experiencias: [...perfil.experiencias, nueva] }
+  persistir()
+  return structuredClone(perfil)
+}
+
+export async function actualizarExperiencia(id, datos) {
+  await espera()
+  perfil = {
+    ...perfil,
+    experiencias: perfil.experiencias.map((e) => (e.id === id ? { ...e, ...limpiarExperiencia(datos) } : e)),
+  }
+  persistir()
+  return structuredClone(perfil)
+}
+
+export async function eliminarExperiencia(id) {
+  await espera()
+  perfil = { ...perfil, experiencias: perfil.experiencias.filter((e) => e.id !== id) }
+  persistir()
+  return structuredClone(perfil)
+}
+
 // Útil para volver a los datos de prueba durante el desarrollo.
 export async function restablecerPerfil() {
   await espera()

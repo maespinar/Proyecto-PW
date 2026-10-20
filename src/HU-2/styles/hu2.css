@@ -146,3 +146,49 @@
   color: var(--hu2-azul);
   font-size: 1.5rem;
 }
+
+/* ---------- Experiencia ---------- */
+.hu2 .linea-tiempo { list-style: none; margin: 0; padding: 0; }
+.hu2 .linea-tiempo > li { position: relative; padding: 0 0 1.5rem 1.6rem; }
+.hu2 .linea-tiempo > li:last-child { padding-bottom: 0; }
+.hu2 .linea-tiempo > li::before {
+  content: '';
+  position: absolute;
+  left: 0.15rem;
+  top: 0.35rem;
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  background: var(--hu2-azul);
+}
+.hu2 .linea-tiempo > li::after {
+  content: '';
+  position: absolute;
+  left: calc(0.15rem + 0.325rem - 1px);
+  top: 1.2rem;
+  bottom: 0.2rem;
+  width: 2px;
+  background: var(--hu2-borde);
+}
+.hu2 .linea-tiempo > li:last-child::after { display: none; }
+
+.hu2 .badge-actual {
+  display: inline-block;
+  background: #e2f3ea;
+  color: #1f6b4f;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: 0.25rem;
+  padding: 0.1rem 0.45rem;
+  vertical-align: middle;
+}
+
+.hu2 .btn-texto {
+  border: 0;
+  background: none;
+  padding: 0;
+  font-size: 0.85rem;
+  color: var(--hu2-azul);
+}
+.hu2 .btn-texto:hover { text-decoration: underline; }
+.hu2 .btn-texto.peligro { color: #b42318; }
