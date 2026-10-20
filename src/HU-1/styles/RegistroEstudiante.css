@@ -1,0 +1,285 @@
+.registro-estudiante {
+  display: grid;
+  grid-template-columns: minmax(0, 293px) minmax(0, 769px);
+  align-items: start;
+  justify-content: center;
+  gap: 36px;
+  max-width: 1146px;
+  min-height: 720px;
+  margin: 0 auto;
+  padding: 96px 24px 80px;
+}
+
+.registro-presentacion {
+  padding-top: 7px;
+}
+
+.registro-presentacion h1 {
+  margin: 0 0 18px;
+  color: var(--color-primary);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.6px;
+}
+
+.registro-presentacion p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.registro-pasos {
+  margin: 17px 0;
+  padding: 18px 16px 16px;
+  border-radius: 5px;
+  background: var(--color-primary-soft);
+}
+
+.registro-pasos h2 {
+  margin: 0 0 10px;
+  color: var(--color-primary);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.registro-pasos ol {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 15px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.registro-presentacion .registro-empresa {
+  font-size: 13px;
+}
+
+.registro-estudiante a {
+  color: var(--color-primary);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.registro-estudiante a:hover {
+  text-decoration: underline;
+}
+
+.registro-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  padding: 30px 32px;
+  border: 1px solid var(--color-border);
+  border-radius: 5px;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  font-size: 13px;
+}
+
+.registro-fila {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.registro-fila-academica {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+}
+
+.registro-campo {
+  min-width: 0;
+}
+
+.registro-etiqueta {
+  display: block;
+  margin: 0 0 5px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+}
+
+.registro-formulario input:not([type='checkbox']),
+.registro-formulario select {
+  width: 100%;
+  min-width: 0;
+  height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.registro-formulario input::placeholder {
+  color: var(--color-text-muted);
+  opacity: 1;
+}
+
+.registro-formulario select {
+  padding-right: 30px;
+  cursor: pointer;
+}
+
+.registro-formulario [aria-invalid='true'] {
+  border-color: var(--color-danger);
+}
+
+.registro-estudiante :focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.registro-clave {
+  position: relative;
+}
+
+.registro-formulario .registro-clave input {
+  padding-right: 76px;
+}
+
+.registro-clave button {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  height: calc(100% - 2px);
+  padding: 0 12px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--color-primary);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.registro-ayuda,
+.registro-error,
+.registro-fortaleza p {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.registro-ayuda,
+.registro-fortaleza {
+  color: var(--color-text-muted);
+}
+
+.registro-fortaleza-barras {
+  display: flex;
+  gap: 4px;
+  margin-top: 7px;
+}
+
+.registro-fortaleza-barras span {
+  flex: 1;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--color-border);
+}
+
+.registro-fortaleza--1 { color: var(--color-danger); }
+.registro-fortaleza--2 { color: var(--color-warning); }
+.registro-fortaleza--3,
+.registro-fortaleza--4 { color: var(--color-success); }
+
+.registro-fortaleza-barras .registro-fortaleza-activa {
+  background: currentColor;
+}
+
+.registro-terminos {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  line-height: 1.5;
+}
+
+.registro-terminos input {
+  flex-shrink: 0;
+  width: 17px;
+  height: 17px;
+  margin-top: 1px;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.registro-terminos label {
+  cursor: pointer;
+}
+
+.registro-error {
+  color: var(--color-danger);
+}
+
+.registro-resultado:empty {
+  display: none;
+}
+
+.registro-exito {
+  margin: 0;
+  padding: 12px;
+  border: 1px solid var(--color-success);
+  border-radius: 4px;
+  background: #edf7f0;
+  color: var(--color-success);
+  line-height: 1.5;
+}
+
+.registro-crear {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 4px;
+  background: var(--color-primary);
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.registro-crear:hover {
+  background: var(--color-primary-dark);
+}
+
+.registro-iniciar {
+  margin: 0;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+@media (max-width: 850px) {
+  .registro-estudiante {
+    grid-template-columns: minmax(0, 650px);
+    gap: 28px;
+    padding-block: 40px;
+  }
+
+  .registro-presentacion {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 540px) {
+  .registro-estudiante {
+    padding-inline: 16px;
+  }
+
+  .registro-formulario {
+    padding: 24px 18px;
+  }
+
+  .registro-fila,
+  .registro-fila-academica {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
