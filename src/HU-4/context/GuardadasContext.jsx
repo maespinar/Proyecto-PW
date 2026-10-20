@@ -1,8 +1,7 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { GuardadasContext } from './guardadasContexto'
 import guardadasIniciales from '../data/guardadas'
 import { fechaDeHoy } from '../utils/catalogoUtils'
-
-const GuardadasContext = createContext(null)
 
 export const GuardadasProvider = ({ children }) => {
   const [guardadas, setGuardadas] = useState(() => {
@@ -37,5 +36,3 @@ export const GuardadasProvider = ({ children }) => {
     </GuardadasContext.Provider>
   )
 }
-
-export const useGuardadas = () => useContext(GuardadasContext)
