@@ -1,0 +1,11 @@
+[
+  { "id": 1, "puesto": "Practicante de Soporte TI", "carreras": "Ing. de Sistemas", "publicacion": "02/08/2026", "cierre": "18/09/2026", "postulantes": 31, "estado": "Vigente" },
+  { "id": 2, "puesto": "Practicante de Gestión Humana", "carreras": "Psicología, Administración", "publicacion": "05/08/2026", "cierre": "20/09/2026", "postulantes": 14, "estado": "Vigente" },
+  { "id": 3, "puesto": "Practicante de Mejora de Procesos", "carreras": "Ing. Industrial", "publicacion": "12/08/2026", "cierre": "26/09/2026", "postulantes": 22, "estado": "Vigente" },
+  { "id": 4, "puesto": "Practicante de Desarrollo de Software", "carreras": "Ing. de Sistemas", "publicacion": "18/08/2026", "cierre": "30/09/2026", "postulantes": 23, "estado": "Vigente" },
+  { "id": 5, "puesto": "Practicante de Finanzas", "carreras": "Contabilidad, Administración", "publicacion": "02/07/2026", "cierre": "31/07/2026", "postulantes": 18, "estado": "Cerrada" },
+  { "id": 6, "puesto": "Practicante de Comercio Exterior", "carreras": "Administración", "publicacion": "15/06/2026", "cierre": "14/07/2026", "postulantes": 9, "estado": "Cerrada" },
+  { "id": 7, "puesto": "Practicante de Data Analytics", "carreras": "Ing. de Sistemas, Ing. Industrial", "publicacion": "01/06/2026", "cierre": "30/06/2026", "postulantes": 27, "estado": "Cerrada" },
+  { "id": 8, "puesto": "Practicante de Marketing Digital", "carreras": "Marketing, Comunicación", "publicacion": "—", "cierre": "—", "postulantes": 0, "estado": "Borrador" },
+  { "id": 9, "puesto": "Practicante de Arquitectura de Datos", "carreras": "Ing. de Sistemas", "publicacion": "—", "cierre": "—", "postulantes": 0, "estado": "Borrador"}
+]
