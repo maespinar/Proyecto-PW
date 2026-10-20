@@ -6,10 +6,16 @@ import InicioDeSesion from './HU-1/pages/InicioDeSesion'
 import RutasPerfil from './HU-2/RutasPerfil'
 import Footer from './HU-1/components/Footer'
 import EnConstruccion from './HU-2/components/EnConstruccion'
+import perfil from './HU-2/data/perfil.seed.json'
+import { GuardadasProvider } from './HU-4/context/GuardadasContext'
+import Catalogo from './HU-4/pages/Catalogo'
+import DetalleConvocatoria from './HU-4/pages/DetalleConvocatoria'
+import Guardadas from './HU-4/pages/Guardadas'
 
 function App() {
   const [sesionIniciada, setSesionIniciada] = useState(false)
   const { pathname, hash } = useLocation()
+  const usuario = sesionIniciada ? perfil : null
 
   useEffect(() => {
     if (hash) document.getElementById(hash.slice(1))?.scrollIntoView()
@@ -17,13 +23,16 @@ function App() {
   }, [pathname, hash])
 
   return (
-    <>
+    <GuardadasProvider>
       <Header sesionIniciada={sesionIniciada} />
       <main>
         <Routes>
           <Route path="/" element={<LandingPublica />} />
           <Route path="/iniciar-sesion" element={<InicioDeSesion onIniciarSesion={() => setSesionIniciada(true)} />} />
           <Route path="/perfil/*" element={<RutasPerfil />} />
+          <Route path="/convocatorias" element={<Catalogo usuario={usuario} />} />
+          <Route path="/convocatorias/:id" element={<DetalleConvocatoria usuario={usuario} />} />
+          <Route path="/guardadas" element={<Guardadas usuario={usuario} />} />
           {[
             ['registro', 'Registrarse'],
             ['empresas', 'Empresas'],
@@ -38,7 +47,7 @@ function App() {
         </Routes>
       </main>
       <Footer />
-    </>
+    </GuardadasProvider>
   )
 }
 
