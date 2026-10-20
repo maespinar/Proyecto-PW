@@ -134,12 +134,18 @@
 }
 
 .inicio-sesion-clave button,
-.inicio-sesion-opciones button {
+.inicio-sesion-opciones a,
+.inicio-sesion-opciones span[aria-disabled] {
   border: 0;
   background: transparent;
   color: var(--color-primary);
   font-size: 10px;
   font-weight: 600;
+  text-decoration: none;
+}
+
+.inicio-sesion-opciones a:hover {
+  text-decoration: underline;
 }
 
 .inicio-sesion-opciones {
@@ -157,7 +163,8 @@
   gap: 6px;
 }
 
-.inicio-sesion-opciones :disabled {
+.inicio-sesion-opciones :disabled,
+.inicio-sesion-opciones [aria-disabled] {
   cursor: not-allowed;
   opacity: 0.65;
 }

@@ -117,7 +117,9 @@ export default function FormularioInicioSesion({ onIniciarSesion }) {
 
         <div className="inicio-sesion-opciones">
           <label title="Disponible próximamente"><input type="checkbox" disabled /> Recordarme</label>
-          <button type="button" disabled title="Disponible próximamente">¿Olvidaste tu contraseña?</button>
+          {deshabilitado
+            ? <span role="link" aria-disabled="true">¿Olvidaste tu contraseña?</span>
+            : <Link to="/recuperar-contrasena">¿Olvidaste tu contraseña?</Link>}
         </div>
 
         {estado === 'error' && <p className="inicio-sesion-error" role="alert">No pudimos validar tus datos. Inténtalo nuevamente.</p>}

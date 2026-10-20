@@ -3,6 +3,7 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import Header from './HU-1/components/Header'
 import LandingPublica from './HU-1/pages/LandingPublica'
 import InicioDeSesion from './HU-1/pages/InicioDeSesion'
+import RecuperarContrasena from './HU-1/pages/RecuperarContrasena'
 import RegistroEstudiante from './HU-1/pages/RegistroEstudiante'
 import RegistroEmpresa from './HU-1/pages/RegistroEmpresa'
 import RutasPerfil from './HU-2/RutasPerfil'
@@ -34,6 +35,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPublica />} />
           <Route path="/iniciar-sesion" element={<InicioDeSesion onIniciarSesion={() => setSesionIniciada(true)} />} />
+          <Route path="/recuperar-contrasena" element={<RecuperarContrasena />} />
           <Route path="/registro" element={new URLSearchParams(search).get('tipo') === 'empresa' ? <RegistroEmpresa /> : <RegistroEstudiante />} />
           <Route path="/perfil/*" element={<RutasPerfil />} />
           <Route path="/empresa/*" element={<RutasEmpresa />} />
