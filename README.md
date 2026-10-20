@@ -221,6 +221,14 @@ La validación y el bloqueo son una simulación en memoria para la primera entre
 
 Ejecutar `npm run lint` y `npm run build` para revisar el código y la compilación.
 
+### Probar el registro de estudiante
+
+En `/registro` (o `/registro?tipo=estudiante`), la pantalla reutiliza el encabezado y el pie comunes. La presentación, el formulario, el campo reutilizable y el campo de contraseña están separados en componentes de HU-1; las validaciones y el cálculo de fortaleza están en `utils/validarRegistroEstudiante.js`. Las opciones de carrera y ciclo reutilizan los catálogos existentes de HU-2.
+
+El formulario comienza vacío y valida nombres, apellidos, correo terminado en `@aloe.ulima.edu.pe`, contraseña de al menos 8 caracteres con una mayúscula y un número, confirmación, carrera, ciclo y aceptación de términos. Muestra errores junto a los campos y enfoca el primero al enviar. Permite mostrar u ocultar la contraseña y actualiza su indicador de fortaleza al escribir.
+
+Al completar los datos correctamente, muestra un aviso de registro simulado: no guarda datos, no crea una cuenta, no inicia sesión ni envía correos. `/registro?tipo=empresa` conserva una vista en construcción. En móvil, la presentación y los campos se distribuyen en una columna.
+
 ### Cómo evitar bloquearse
 Las historias están delimitadas para que cada integrante sea dueño de sus propias entidades, vistas y
 servicios. Nadie escribe sobre las entidades de otro. Cuando una historia necesita leer datos de otra,

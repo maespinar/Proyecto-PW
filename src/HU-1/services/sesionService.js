@@ -14,7 +14,6 @@ export function obtenerEstadoAcceso() {
   return { intentosRestantes: MAXIMO_INTENTOS - intentosFallidos, bloqueoHasta }
 }
 
-// Simulación para la primera entrega. El servidor validará el acceso en la segunda.
 export async function iniciarSesion({ correo, clave }, signal) {
   const estado = obtenerEstadoAcceso()
   if (estado.bloqueoHasta) return { acceso: false, ...estado }
