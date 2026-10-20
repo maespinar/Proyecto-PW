@@ -1,4 +1,4 @@
-import { CARRERAS, CICLOS } from '../../HU-2/data/catalogos'
+import { CARRERAS, CICLOS } from '../../HU-2/data/catalogos.js'
 
 export function obtenerFortalezaClave(clave) {
   if (!clave) return { nivel: 0, texto: 'ingresa una contraseña' }

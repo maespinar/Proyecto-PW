@@ -129,7 +129,8 @@
   cursor: pointer;
 }
 
-.registro-formulario [aria-invalid='true'] {
+.registro-formulario input[aria-invalid='true'],
+.registro-formulario select[aria-invalid='true'] {
   border-color: var(--color-danger);
 }
 
@@ -219,20 +220,6 @@
   color: var(--color-danger);
 }
 
-.registro-resultado:empty {
-  display: none;
-}
-
-.registro-exito {
-  margin: 0;
-  padding: 12px;
-  border: 1px solid var(--color-success);
-  border-radius: 4px;
-  background: #edf7f0;
-  color: var(--color-success);
-  line-height: 1.5;
-}
-
 .registro-crear {
   width: 100%;
   min-height: 44px;
@@ -247,7 +234,7 @@
   cursor: pointer;
 }
 
-.registro-crear:hover {
+.registro-crear:hover:not(:disabled):not([aria-disabled='true']) {
   background: var(--color-primary-dark);
 }
 
