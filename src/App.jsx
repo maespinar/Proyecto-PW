@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import Header from './HU-1/components/Header'
 import RutaEstudiante from './HU-1/components/RutaEstudiante'
+import AccesoDenegado from './HU-1/pages/AccesoDenegado'
 import ConfiguracionCuenta from './HU-1/pages/ConfiguracionCuenta'
 import LandingPublica from './HU-1/pages/LandingPublica'
 import InicioDeSesion from './HU-1/pages/InicioDeSesion'
@@ -40,6 +41,7 @@ function App() {
           <Route path="/recuperar-contrasena" element={<RecuperarContrasena />} />
           <Route path="/registro" element={new URLSearchParams(search).get('tipo') === 'empresa' ? <RegistroEmpresa /> : <RegistroEstudiante />} />
           <Route element={<RutaEstudiante usuario={usuario} />}>
+            <Route path="/empresa/postulantes" element={<AccesoDenegado />} />
             <Route path="/perfil/configuracion/contrasena" element={<ConfiguracionCuenta usuario={usuario} />} />
             <Route path="/perfil/configuracion" element={<Navigate to="/perfil/configuracion/contrasena" replace />} />
             <Route path="/perfil/configuracion/notificaciones" element={<EnConstruccion titulo="Notificaciones" />} />

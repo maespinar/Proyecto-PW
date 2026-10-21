@@ -269,6 +269,14 @@ La página de contraseña vive en `/perfil/configuracion/contrasena`. `/perfil/c
 
 Para revisar manualmente con `npm run dev`: abre la ruta sin sesión, ingresa con la cuenta de prueba y confirma el retorno a configuración. Envía los campos vacíos; prueba nueva contraseña corta, sin mayúscula, sin número, igual a la actual y confirmación distinta. Corrige los campos y cambia otra vez la nueva contraseña para revisar la confirmación. Prueba una contraseña actual incorrecta y después la correcta, revisando error, reintento, progreso y éxito. Para reproducir el fallo de conexión, activa Offline en las herramientas del navegador antes de guardar; los datos deben conservarse y permitir reintentar al volver a Online. Comprueba Cancelar, la búsqueda del encabezado (también sin resultados), los enlaces del menú, Escape, Tab, foco visible, cierre de sesión y recarga. Revisa móvil y escritorio. Ejecuta `npm run lint` y `npm run build`; no se incluyen tests automatizados.
 
+### Acceso denegado (403)
+
+La ruta `/empresa/postulantes` muestra **Error 403 — No tienes acceso a esta sección** cuando se abre con la sesión de estudiante de demostración. Conserva el encabezado autenticado y el pie comunes, sin mostrar el panel de empresa. **Ir a mis postulaciones** abre `/postulaciones` (todavía en construcción) y **Volver al catálogo** abre `/convocatorias`. La página vive en `HU-1/pages/AccesoDenegado.jsx`, con estilos propios y acciones adaptadas a móvil.
+
+Sin sesión, la ruta solicita iniciar sesión y conserva el destino; después de ingresar con la cuenta de prueba muestra el 403. La sesión sigue en memoria y se pierde al recargar. Esta protección corresponde a la navegación de la primera entrega: aún no hay autenticación de empresas ni autorización del servidor, y no se devuelve un estado HTTP 403 real. La pantalla 404 queda pendiente.
+
+Para revisar con `npm run dev`: abre `/empresa/postulantes` sin sesión, ingresa con la cuenta de prueba y comprueba el aviso y el encabezado de Mariana. También puedes llegar desde **Empresas**, el panel de demostración y **Bandeja de postulantes** con la sesión iniciada. Comprueba ambos enlaces de salida, Tab y Enter, foco visible, cierre de sesión y recarga. Revisa escritorio y móvil; ejecuta `npm run lint` y `npm run build`, sin agregar tests automatizados.
+
 ### Cómo evitar bloquearse
 Las historias están delimitadas para que cada integrante sea dueño de sus propias entidades, vistas y
 servicios. Nadie escribe sobre las entidades de otro. Cuando una historia necesita leer datos de otra,
@@ -304,4 +312,4 @@ Desde **Empresas** se accede a las fichas públicas y al panel de demostración 
 - `/empresa/convocatorias/nueva` es la ruta de nueva convocatoria; también recibe los accesos desde `/publicar` y la ruta anterior `/empresa/nueva-convocatorias`.
 - `/empresas/:id` muestra la ficha pública con el identificador de HU-4; `/empresas/andes-peru` mantiene la compatibilidad con el enlace original de H3.
 
-La integración conserva el avance de H3: el formulario de nueva convocatoria y las acciones de guardado del perfil todavía están pendientes de implementación. Las opciones del panel sin pantalla propia muestran la vista común en construcción. El acceso al panel es de demostración, sin autenticación de empresa implementada todavía.
+La integración conserva el avance de H3: el formulario de nueva convocatoria y las acciones de guardado del perfil todavía están pendientes de implementación. Las opciones del panel sin pantalla propia muestran la vista común en construcción, salvo `/empresa/postulantes`, que requiere sesión y muestra el 403 a la cuenta de estudiante disponible. El acceso al resto del panel es de demostración, sin autenticación de empresa implementada todavía.
