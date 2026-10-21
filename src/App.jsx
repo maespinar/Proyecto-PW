@@ -16,7 +16,7 @@ function App() {
         <Route path="perfil" element={<PerfilEmpresa />} />
         <Route path="perfil/editar" element={<EditarPerfilEmpresa />} />
         <Route path="convocatorias" element={<MisConvocatorias />} />
-        <Route path="nueva-convocatorias" element={<NuevaConvocatoria />} />
+        <Route path="convocatorias/nueva" element={<NuevaConvocatoria />} />
       </Route>
 
       <Route path="/empresas/andes-peru" element={<FichaEmpresa />} />
