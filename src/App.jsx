@@ -5,6 +5,7 @@ import LandingPublica from './HU-1/pages/LandingPublica'
 import InicioDeSesion from './HU-1/pages/InicioDeSesion'
 import RegistroEstudiante from './HU-1/pages/RegistroEstudiante'
 import RutasPerfil from './HU-2/RutasPerfil'
+import RutasPostulaciones from './HU-5/RutasPostulaciones'
 import RutasEmpresa from './HU-3/RutasEmpresa'
 import Empresas from './HU-3/pages/Empresas'
 import FichaEmpresa from './HU-3/pages/FichaEmpresa'
@@ -35,6 +36,7 @@ function App() {
           <Route path="/iniciar-sesion" element={<InicioDeSesion onIniciarSesion={() => setSesionIniciada(true)} />} />
           <Route path="/registro" element={new URLSearchParams(search).get('tipo') === 'empresa' ? <EnConstruccion titulo="Registro de empresa" /> : <RegistroEstudiante />} />
           <Route path="/perfil/*" element={<RutasPerfil />} />
+          <Route path="/postulaciones/*" element={<RutasPostulaciones />} />
           <Route path="/empresa/*" element={<RutasEmpresa />} />
           <Route path="/empresas" element={<Empresas />} />
           <Route path="/empresas/:id" element={<FichaEmpresa key={pathname} />} />

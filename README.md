@@ -233,6 +233,16 @@ Cada registro o reenvío terminado muestra una notificación cerrable **Cambios 
 
 Las piezas de validación, éxito y notificación están separadas en `AlertaValidacionRegistro`, `ExitoRegistro` y `NotificacionResultado`. `/registro?tipo=empresa` conserva una vista en construcción. En móvil, la presentación y los campos se distribuyen en una columna. Ejecuta `node --test src/HU-1/tests/*.test.js` para comprobar las validaciones y el servicio simulado.
 
+### Integración de HU-5
+
+`/postulaciones` muestra las postulaciones semilla del estudiante y permite filtrar por estado. `/postulaciones/:id` muestra su detalle y trazabilidad; el retiro solicita confirmación y guarda el cambio en `localStorage` mediante `HU-5/services/postulacionesService.js`. Es una demostración local, sin envíos a empresas ni correos reales. Una dirección con un identificador desconocido muestra el estado de postulación no encontrada.
+
+El encabezado común conserva la navegación pública de HU-1. Después del inicio de sesión simulado muestra los enlaces al catálogo, postulaciones, guardadas, empresas y perfil. **Buscar convocatorias** abre el catálogo y el nombre del estudiante abre su perfil. La sesión permanece en memoria y se reinicia al recargar; HU-5 mantiene el acceso directo de demostración sin autorización de servidor. Se conservan las rutas de HU-2, HU-3 y HU-4.
+
+La conexión del envío desde el catálogo de HU-4 al servicio de HU-5 sigue pendiente. HU-5 incluye el modal de postulación y `/postulaciones/confirmacion`, que conserva una presentación ilustrativa cuando no hay un envío reciente. Sus identificadores de convocatorias semilla todavía no corresponden a los del catálogo compartido; los enlaces a convocatorias de esas tarjetas conservan su comportamiento previo. No se ha implementado la bandeja de empresa en este PR.
+
+Para revisar con `npm run dev`: abre `/postulaciones`, cambia los filtros, consulta un detalle y abre y cancela el retiro; si confirmas el retiro de un dato semilla, comprueba el cambio de estado y su persistencia al recargar. Revisa `/postulaciones/no-existe`, el inicio de sesión de prueba y los enlaces del encabezado, además del inicio, perfil, catálogo y panel de empresa en móvil y escritorio. Ejecuta `npm run lint` y `npm run build`; no se incluyen tests automatizados.
+
 ### Cómo evitar bloquearse
 Las historias están delimitadas para que cada integrante sea dueño de sus propias entidades, vistas y
 servicios. Nadie escribe sobre las entidades de otro. Cuando una historia necesita leer datos de otra,
