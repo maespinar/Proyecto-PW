@@ -5,6 +5,10 @@ const DURACION_BLOQUEO = 30_000
 let intentosFallidos = 0
 let bloqueoHasta = 0
 
+export function verificarClaveActual(correo, clave) {
+  return correo.trim().toLowerCase() === perfilPrueba.correo && clave === 'ulima123'
+}
+
 export function obtenerEstadoAcceso() {
   if (bloqueoHasta && Date.now() >= bloqueoHasta) {
     intentosFallidos = 0
@@ -35,7 +39,7 @@ export async function iniciarSesion({ correo, clave }, signal) {
   const estadoActual = obtenerEstadoAcceso()
   if (estadoActual.bloqueoHasta) return { acceso: false, ...estadoActual }
 
-  if (correo.trim().toLowerCase() === perfilPrueba.correo && clave === 'ulima123') {
+  if (verificarClaveActual(correo, clave)) {
     intentosFallidos = 0
     bloqueoHasta = 0
     return { acceso: true, ...obtenerEstadoAcceso() }

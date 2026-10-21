@@ -1,54 +1,18 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import CampoRegistro from './CampoRegistro'
 import CampoClaveRegistro from './CampoClaveRegistro'
 import AlertaValidacionRegistro from './AlertaValidacionRegistro'
 import { CARRERAS, CICLOS } from '../../HU-2/data/catalogos'
 import { validarRegistroEstudiante } from '../utils/validarRegistroEstudiante'
+import { useFormularioRegistro } from '../context/useFormularioRegistro'
 
 export default function FormularioRegistroEstudiante({ enviando, onRegistrar }) {
-  const [datos, setDatos] = useState({ nombres: '', apellidos: '', correo: '', clave: '', confirmacion: '', carrera: '', ciclo: '', terminos: false })
-  const [visitados, setVisitados] = useState({})
-  const [intentoEnvio, setIntentoEnvio] = useState(false)
-  const validacion = validarRegistroEstudiante(datos)
-  const errores = Object.fromEntries(Object.entries(validacion).filter(([campo]) => intentoEnvio || visitados[campo]))
-  const cantidadErrores = Object.keys(errores).length
-
-  function cambiar(evento) {
-    const { name, value, type, checked } = evento.target
-    setDatos(anteriores => ({ ...anteriores, [name]: type === 'checkbox' ? checked : value }))
-  }
-
-  function marcarVisitado(evento) {
-    const { name } = evento.target
-    setVisitados(anteriores => ({ ...anteriores, [name]: true }))
-  }
-
-  function registrar(evento) {
-    evento.preventDefault()
-    if (enviando) return
-    setIntentoEnvio(true)
-    const primerError = Object.keys(validacion)[0]
-    if (primerError) {
-      evento.currentTarget.elements[primerError].focus()
-      return
-    }
-    onRegistrar(datos)
-  }
-
-  function atributos(nombre, ayuda = false) {
-    const descripcion = [ayuda && !errores[nombre] && `registro-${nombre}-ayuda`, errores[nombre] && `registro-${nombre}-error`].filter(Boolean).join(' ')
-    return {
-      id: `registro-${nombre}`,
-      name: nombre,
-      value: datos[nombre],
-      onChange: cambiar,
-      onBlur: marcarVisitado,
-      required: true,
-      'aria-invalid': Boolean(errores[nombre]),
-      'aria-describedby': descripcion || undefined,
-    }
-  }
+  const { datos, errores, cantidadErrores, cambiar, marcarVisitado, registrar, atributos } = useFormularioRegistro(
+    { nombres: '', apellidos: '', correo: '', clave: '', confirmacion: '', carrera: '', ciclo: '', terminos: false },
+    validarRegistroEstudiante,
+    enviando,
+    onRegistrar,
+  )
 
   return (
     <form className="registro-formulario" onSubmit={registrar} noValidate aria-label="Registro de estudiante" aria-busy={enviando}>

@@ -1,10 +1,10 @@
-header.header-principal * {
+.header-publico * {
     margin: 0;
     padding: 0;
     font-family: var(--font-sans);
 }
 
-header.header-principal {
+.header-publico {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -15,24 +15,19 @@ header.header-principal {
     padding: 0 40px;
 }
 
-header.header-principal .header-marca {
+.header-publico .header-marca {
     display: flex;
     align-items: center;
     gap: 12px;
     text-decoration: none;
 }
 
-header.header-principal .header-enlace-catalogo {
-    color: var(--color-primary);
-    font-size: 13px;
-}
-
-header.header-principal a:focus-visible {
+.header-publico a:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 4px;
 }
 
-header.header-principal #cuadradito {
+.header-publico #cuadradito {
     width: 20px;
     height: 20px;
     background-color: var(--color-primary);
@@ -40,14 +35,14 @@ header.header-principal #cuadradito {
     flex-shrink: 0;
 }
 
-header.header-principal #logo {
+.header-publico #logo {
     display: flex;
     gap: 32px;
     align-items: center;
     height: 100%;
 }
 
-header.header-principal #logo .logo-text {
+.header-publico #logo .logo-text {
     color: var(--color-primary);
     font-size: 17px;
     font-weight: 700;
@@ -55,7 +50,7 @@ header.header-principal #logo .logo-text {
     padding-right: 8px;
 }
 
-header.header-principal ul {
+.header-publico ul {
     display: flex;
     list-style: none;
     align-items: center;
@@ -65,13 +60,13 @@ header.header-principal ul {
     padding: 0;
 }
 
-header.header-principal ul li {
+.header-publico ul li {
     height: 100%;
     display: flex;
     align-items: center;
 }
 
-header.header-principal ul li a {
+.header-publico ul li a {
     text-decoration: none;
     color: #4b5563;
     font-size: 13.5px;
@@ -83,97 +78,23 @@ header.header-principal ul li a {
     transition: color 0.15s ease, border-color 0.15s ease;
 }
 
-header.header-principal ul li a:hover {
+.header-publico ul li a:hover {
     color: var(--color-primary);
 }
 
-header.header-principal ul li a.activa {
+.header-publico ul li a.activa {
     color: var(--color-primary);
     font-weight: 600;
     border-bottom: 2.5px solid var(--color-primary);
 }
 
-/* Sección derecha para estudiante autenticado */
-header.header-principal .header-estudiante-derecha {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 20px;
-}
-
-header.header-principal .header-buscador {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-header.header-principal .header-buscador .buscador-icono {
-    position: absolute;
-    left: 12px;
-    pointer-events: none;
-}
-
-header.header-principal .header-buscador input {
-    border: 1px solid #e5e7eb;
-    border-radius: 9999px;
-    padding: 6px 14px 6px 34px;
-    font-size: 12.5px;
-    color: #374151;
-    background: #ffffff;
-    width: 210px;
-    outline: none;
-    transition: border-color 0.15s ease;
-}
-
-header.header-principal .header-buscador input::placeholder {
-    color: #9ca3af;
-}
-
-header.header-principal .header-buscador input:focus {
-    border-color: #93c5fd;
-}
-
-header.header-principal .header-usuario-pill {
-    display: flex;
-    text-decoration: none;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    user-select: none;
-}
-
-header.header-principal .usuario-avatar-mq {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: #e0f2fe;
-    color: #0284c7;
-    font-weight: 700;
-    font-size: 11px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-header.header-principal .usuario-nombre {
-    font-size: 13px;
-    font-weight: 500;
-    color: #374151;
-}
-
-header.header-principal .usuario-caret {
-    color: #9ca3af;
-    font-size: 10px;
-    margin-left: -2px;
-}
-
-header.header-principal #buttons {
+.header-publico #buttons {
     display: flex;
     align-items: center;
     gap: 16px;
 }
 
-header.header-principal #login-btn {
+.header-publico #login-btn {
     background-color: transparent;
     color: var(--color-primary);
     border-radius: 5px;
@@ -183,7 +104,7 @@ header.header-principal #login-btn {
     font-size: 13.5px;
 }
 
-header.header-principal #register-btn {
+.header-publico #register-btn {
     background-color: var(--color-primary-dark);
     color: var(--color-primary-soft);
     border-radius: 5px;
@@ -194,22 +115,22 @@ header.header-principal #register-btn {
 }
 
 @media (max-width: 1250px) {
-    header.header-principal {
+    .header-publico {
         flex-wrap: wrap;
         height: auto;
         padding: 12px 20px;
         gap: 12px;
     }
-    header.header-principal #logo {
+    .header-publico #logo {
         flex-wrap: wrap;
         gap: 16px;
     }
-    header.header-principal ul {
+    .header-publico ul {
         flex-wrap: wrap;
         gap: 14px;
         height: auto;
     }
-    header.header-principal ul li a.activa {
+    .header-publico ul li a.activa {
         border-bottom: 2px solid var(--color-primary);
         padding-bottom: 4px;
     }

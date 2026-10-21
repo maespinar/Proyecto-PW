@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { iniciarSesion, obtenerEstadoAcceso } from '../services/sesionService'
 
 export default function FormularioInicioSesion({ onIniciarSesion }) {
   const navigate = useNavigate()
+  const { state } = useLocation()
   const [correo, setCorreo] = useState('')
   const [clave, setClave] = useState('')
   const [mostrarClave, setMostrarClave] = useState(false)
@@ -66,7 +67,7 @@ export default function FormularioInicioSesion({ onIniciarSesion }) {
         return
       }
       onIniciarSesion()
-      navigate('/perfil')
+      navigate(state?.destino || '/perfil', { replace: true })
     } catch {
       if (!controlador.signal.aborted) setEstado('error')
     } finally {
@@ -117,7 +118,9 @@ export default function FormularioInicioSesion({ onIniciarSesion }) {
 
         <div className="inicio-sesion-opciones">
           <label title="Disponible próximamente"><input type="checkbox" disabled /> Recordarme</label>
-          <button type="button" disabled title="Disponible próximamente">¿Olvidaste tu contraseña?</button>
+          {deshabilitado
+            ? <span role="link" aria-disabled="true">¿Olvidaste tu contraseña?</span>
+            : <Link to="/recuperar-contrasena">¿Olvidaste tu contraseña?</Link>}
         </div>
 
         {estado === 'error' && <p className="inicio-sesion-error" role="alert">No pudimos validar tus datos. Inténtalo nuevamente.</p>}
