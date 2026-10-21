@@ -1,0 +1,248 @@
+.hu3 .nc-titulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.hu3 .nc-t {
+    margin: 0;
+    font-size: 12px;
+    color: var(--color-text-muted);
+}
+
+.hu3 .nc-actual {
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.hu3 .nc-titulo h1 {
+    margin: 4px 0 0;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.hu3 .nc-botones {
+    display: flex;
+    gap: 8px;
+}
+
+.hu3 .nc-btn-borrador,
+.hu3 .nc-btn-publicar {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.hu3 .nc-btn-borrador {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+}
+
+.hu3 .nc-btn-publicar {
+    background: var(--color-accent);
+    border: 1px solid var(--color-accent);
+    color: var(--color-surface);
+    font-weight: 600;
+}
+
+.hu3 .nc-columnas {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.hu3 .nc-col {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.hu3 .nc-tarjeta {
+    padding: 20px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    box-shadow: var(--shadow-card);
+}
+
+.hu3 .nc-seccion {
+    margin: 0 0 16px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--color-primary);
+}
+
+.hu3 .nc-fila {
+    display: flex;
+    gap: 16px;
+}
+
+.hu3 .nc-fila .nc-campo {
+    flex: 1;
+    min-width: 0;
+}
+
+.hu3 .nc-campo {
+    margin-bottom: 16px;
+}
+
+.hu3 .nc-etiqueta {
+    margin-bottom: 4px;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.hu3 .nc-campo input,
+.hu3 .nc-campo select,
+.hu3 .nc-campo textarea {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--color-text);
+}
+
+.hu3 .nc-campo textarea {
+    height: 110px;
+    resize: none;
+}
+
+.hu3 .nc-campo input:focus,
+.hu3 .nc-campo select:focus,
+.hu3 .nc-campo textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+.hu3 .nc-ayuda {
+    margin-top: 4px;
+    font-size: 12px;
+    color: var(--color-text-muted);
+}
+
+.hu3 .nc-vacantes input {
+    width: 200px;
+}
+
+.hu3 .nc-scs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+}
+
+.hu3 .nc-scs:focus-within {
+    border-color: var(--color-primary);
+}
+
+.hu3 .nc-sc {
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    background: var(--color-primary-soft);
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--color-primary);
+}
+
+.hu3 .nc-sc-x {
+    padding: 0;
+    margin-left: 5px;
+    background: none;
+    border: 0;
+    font-size: 12px;
+    color: var(--color-primary);
+}
+
+.hu3 .nc-scs .nc-agregar {
+    width: auto;
+    padding: 4px 8px;
+    border: 0;
+    font-size: 12px;
+    color: var(--color-text-muted);
+}
+
+.hu3 .nc-scs .nc-input-sc {
+    flex: 1;
+    padding: 4px;
+    border: 0;
+    font-size: 13px;
+}
+
+.hu3 .nc-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--color-text);
+}
+
+.hu3 .nc-check input {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    accent-color: var(--color-primary);
+}
+
+.hu3 .nc-aviso {
+    display: flex;
+    gap: 8px;
+    padding: 16px;
+    background: var(--color-primary-soft);
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--color-primary);
+}
+
+.hu3 .nc-aviso p {
+    margin: 0;
+}
+
+.hu3 .nc-aviso-icono {
+    font-weight: 700;
+}
+
+@media (max-width: 1100px) {
+    .hu3 .nc-titulo,
+    .hu3 .nc-botones {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .hu3 .nc-columnas {
+        flex-direction: column;
+    }
+
+    .hu3 .nc-col {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .hu3 .nc-fila {
+        flex-direction: column;
+    }
+
+    .hu3 .nc-vacantes input {
+        width: 100%;
+    }
+}
