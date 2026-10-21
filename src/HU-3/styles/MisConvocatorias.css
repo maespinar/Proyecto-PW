@@ -1,50 +1,50 @@
-.mc-titulo {
+.hu3 .mc-titulo {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 16px;
 }
 
-.mc-t {
+.hu3 .mc-t {
     margin: 0;
     font-size: 12px;
     color: var(--color-text-muted);
 }
 
-.mc-actual {
+.hu3 .mc-actual {
     font-weight: 600;
     color: var(--color-text);
 }
 
-.mc-titulo h1 {
+.hu3 .mc-titulo h1 {
     margin: 4px 0 0;
     font-size: 28px;
     font-weight: 600;
     color: var(--color-text);
 }
 
-.mc-btn-nueva {
+.hu3 .mc-btn-nueva {
     padding: 8px 25px;
     border-radius: 7px;
     color: var(--color-bg);
     background-color: var(--color-primary);
     font-size: 14px;
-    border: 1px solid var(--color-border);  
+    border: 1px solid var(--color-border);
 }
 
-.mc-barra {
+.hu3 .mc-barra {
     display: flex;
     align-items: center;
     gap: 12px;
     margin-bottom: 16px;
 }
 
-.mc-busqueda-caja {
+.hu3 .mc-busqueda-caja {
     width: 280px;
 }
 
 
-.mc-busqueda-icono {
+.hu3 .mc-busqueda-icono {
     position: absolute;
     margin: 14px 11px;
     width: 17px;
@@ -53,7 +53,7 @@
     border-radius: 50%;
 }
 
-.mc-busqueda {
+.hu3 .mc-busqueda {
     width: 100%;
     padding: 10px 12px 10px 34px;
     background: var(--color-surface);
@@ -64,17 +64,17 @@
     color: var(--color-text);
 }
 
-.mc-busqueda:focus {
+.hu3 .mc-busqueda:focus {
     outline: none;
     border-color: var(--color-primary);
 }
 
-.mc-filtros {
+.hu3 .mc-filtros {
     display: flex;
     gap: 8px;
 }
 
-.mc-filtro {
+.hu3 .mc-filtro {
     padding: 6px 12px;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -84,21 +84,21 @@
     color: var(--color-text);
 }
 
-.mc-filtro-activo {
+.hu3 .mc-filtro-activo {
     background: var(--color-primary);
     border-color: var(--color-primary);
     color: var(--color-surface);
     font-weight: 600;
 }
 
-.mc-contador {
+.hu3 .mc-contador {
     margin: 0;
-    margin-left: auto;  
+    margin-left: auto;
     font-size: 12px;
     color: var(--color-text-muted);
 }
 
-.mc-tabla-caja {
+.hu3 .mc-tabla-caja {
     min-height: 440px;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -106,7 +106,7 @@
     box-shadow: var(--shadow-card);
 }
 
-.mc-tabla th {
+.hu3 .mc-tabla th {
     padding: 12px 16px;
     text-align: left;
     font-size: 12px;
@@ -115,79 +115,79 @@
     border-bottom: 1px solid var(--color-border);
 }
 
-.mc-tabla td {
+.hu3 .mc-tabla td {
     padding: 14px 16px;
     border-bottom: 1px solid var(--color-border);
 }
 
-.mc-tabla tbody tr:hover {
+.hu3 .mc-tabla tbody tr:hover {
     background: var(--color-bg);
 }
 
-.mc-puesto {
+.hu3 .mc-puesto {
     font-weight: 500;
 }
 
-.mc-gris {
+.hu3 .mc-gris {
     color: var(--color-text-muted);
 }
 
-.mc-num {
+.hu3 .mc-num {
     font-weight: 600;
 }
 
-.mc-estado {
+.hu3 .mc-estado {
     padding: 2px 8px;
     border-radius: 4px;
     font-size: 12px;
     font-weight: 600;
 }
 
-.mc-vigente {
+.hu3 .mc-vigente {
     background: rgba(30, 127, 77, 0.12);
     color: var(--color-success);
 }
 
-.mc-cerrada,
-.mc-borrador {
+.hu3 .mc-cerrada,
+.hu3 .mc-borrador {
     background: var(--color-bg);
     border: 1px solid var(--color-border);
     color: var(--color-text-muted);
 }
 
-.mc-menu {
+.hu3 .mc-menu {
     background: none;
     border: 0;
     font-size: 18px;
     color: var(--color-text-muted);
 }
 
-.mc-vacio {
+.hu3 .mc-vacio {
     margin: 0;
     padding: 32px 16px;
     text-align: center;
     color: var(--color-text-muted);
 }
 
-.mc-pie {
+.hu3 .mc-pie {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 16px;
 }
 
-.mc-pie p {
+.hu3 .mc-pie p {
     margin: 0;
     font-size: 12px;
     color: var(--color-text-muted);
 }
 
-.mc-paginas {
+.hu3 .mc-paginas {
     display: flex;
     gap: 4px;
 }
 
-.mc-pag {
+.hu3 .mc-pag {
     padding: 6px 12px;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -197,13 +197,16 @@
     color: var(--color-text);
 }
 
-.mc-pag:disabled {
+.hu3 .mc-pag:disabled {
     color: var(--color-text-muted);
 }
 
-.mc-pag-activa {
+.hu3 .mc-pag-activa {
     background: var(--color-primary);
     border-color: var(--color-primary);
     color: var(--color-surface);
     font-weight: 600;
+}
+.hu3 .mc-btn-nueva {
+  text-decoration: none;
 }

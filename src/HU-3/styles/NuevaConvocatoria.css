@@ -1,35 +1,35 @@
-.nc-titulo {
+.hu3 .nc-titulo {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 16px;
 }
 
-.nc-t {
+.hu3 .nc-t {
     margin: 0;
     font-size: 12px;
     color: var(--color-text-muted);
 }
 
-.nc-actual {
+.hu3 .nc-actual {
     font-weight: 600;
     color: var(--color-text);
 }
 
-.nc-titulo h1 {
+.hu3 .nc-titulo h1 {
     margin: 4px 0 0;
     font-size: 28px;
     font-weight: 600;
     color: var(--color-text);
 }
 
-.nc-botones {
+.hu3 .nc-botones {
     display: flex;
     gap: 8px;
 }
 
-.nc-btn-borrador,
-.nc-btn-publicar {
+.hu3 .nc-btn-borrador,
+.hu3 .nc-btn-publicar {
     padding: 8px 16px;
     border-radius: 6px;
     font-family: inherit;
@@ -38,33 +38,34 @@
     cursor: pointer;
 }
 
-.nc-btn-borrador {
+.hu3 .nc-btn-borrador {
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     color: var(--color-text);
 }
 
-.nc-btn-publicar {
+.hu3 .nc-btn-publicar {
     background: var(--color-accent);
     border: 1px solid var(--color-accent);
     color: var(--color-surface);
     font-weight: 600;
 }
 
-.nc-columnas {
+.hu3 .nc-columnas {
     display: flex;
     align-items: flex-start;
     gap: 16px;
 }
 
-.nc-col {
+.hu3 .nc-col {
     flex: 1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-.nc-tarjeta {
+.hu3 .nc-tarjeta {
     padding: 20px;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -72,7 +73,7 @@
     box-shadow: var(--shadow-card);
 }
 
-.nc-seccion {
+.hu3 .nc-seccion {
     margin: 0 0 16px;
     font-size: 12px;
     font-weight: 500;
@@ -80,20 +81,21 @@
     color: var(--color-primary);
 }
 
-.nc-fila {
+.hu3 .nc-fila {
     display: flex;
     gap: 16px;
 }
 
-.nc-fila .nc-campo {
+.hu3 .nc-fila .nc-campo {
     flex: 1;
+    min-width: 0;
 }
 
-.nc-campo {
+.hu3 .nc-campo {
     margin-bottom: 16px;
 }
 
-.nc-etiqueta {
+.hu3 .nc-etiqueta {
     margin-bottom: 4px;
     font-size: 12px;
     line-height: 16px;
@@ -101,9 +103,9 @@
     color: var(--color-text);
 }
 
-.nc-campo input,
-.nc-campo select,
-.nc-campo textarea {
+.hu3 .nc-campo input,
+.hu3 .nc-campo select,
+.hu3 .nc-campo textarea {
     display: block;
     width: 100%;
     padding: 10px 12px;
@@ -115,29 +117,29 @@
     color: var(--color-text);
 }
 
-.nc-campo textarea {
+.hu3 .nc-campo textarea {
     height: 110px;
     resize: none;
 }
 
-.nc-campo input:focus,
-.nc-campo select:focus,
-.nc-campo textarea:focus {
+.hu3 .nc-campo input:focus,
+.hu3 .nc-campo select:focus,
+.hu3 .nc-campo textarea:focus {
     outline: none;
     border-color: var(--color-primary);
 }
 
-.nc-ayuda {
+.hu3 .nc-ayuda {
     margin-top: 4px;
     font-size: 12px;
     color: var(--color-text-muted);
 }
 
-.nc-vacantes input {
+.hu3 .nc-vacantes input {
     width: 200px;
 }
 
-.nc-scs {
+.hu3 .nc-scs {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -148,11 +150,11 @@
     border-radius: 6px;
 }
 
-.nc-scs:focus-within {
+.hu3 .nc-scs:focus-within {
     border-color: var(--color-primary);
 }
 
-.nc-sc {
+.hu3 .nc-sc {
     align-items: center;
     gap: 6px;
     padding: 4px 8px;
@@ -162,7 +164,7 @@
     color: var(--color-primary);
 }
 
-.nc-sc-x {
+.hu3 .nc-sc-x {
     padding: 0;
     margin-left: 5px;
     background: none;
@@ -171,7 +173,7 @@
     color: var(--color-primary);
 }
 
-.nc-scs .nc-agregar {
+.hu3 .nc-scs .nc-agregar {
     width: auto;
     padding: 4px 8px;
     border: 0;
@@ -179,14 +181,14 @@
     color: var(--color-text-muted);
 }
 
-.nc-scs .nc-input-sc {
+.hu3 .nc-scs .nc-input-sc {
     flex: 1;
     padding: 4px;
     border: 0;
     font-size: 13px;
 }
 
-.nc-check {
+.hu3 .nc-check {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -194,14 +196,14 @@
     color: var(--color-text);
 }
 
-.nc-check input {
+.hu3 .nc-check input {
     width: 16px;
     height: 16px;
     margin: 0;
     accent-color: var(--color-primary);
 }
 
-.nc-aviso {
+.hu3 .nc-aviso {
     display: flex;
     gap: 8px;
     padding: 16px;
@@ -211,10 +213,36 @@
     color: var(--color-primary);
 }
 
-.nc-aviso p {
+.hu3 .nc-aviso p {
     margin: 0;
 }
 
-.nc-aviso-icono {
+.hu3 .nc-aviso-icono {
     font-weight: 700;
+}
+
+@media (max-width: 1100px) {
+    .hu3 .nc-titulo,
+    .hu3 .nc-botones {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .hu3 .nc-columnas {
+        flex-direction: column;
+    }
+
+    .hu3 .nc-col {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .hu3 .nc-fila {
+        flex-direction: column;
+    }
+
+    .hu3 .nc-vacantes input {
+        width: 100%;
+    }
 }

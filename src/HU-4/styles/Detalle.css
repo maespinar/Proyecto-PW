@@ -1,0 +1,367 @@
+.detalle-pagina {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 16px 48px;
+  text-align: left;
+}
+
+.detalle {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.detalle-principal {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.detalle-lateral {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  gap: 16px;
+  width: 340px;
+}
+
+.solo-movil {
+  display: none;
+}
+
+.detalle-tarjeta {
+  padding: 24px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.detalle-cabecera {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.detalle-logo {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 6px;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.detalle-cabecera h1 {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 34px;
+}
+
+.detalle-empresa {
+  margin: 6px 0 12px;
+  color: var(--color-text);
+  font-size: 16px;
+}
+
+.detalle-etiquetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.detalle-contenido h2 {
+  margin: 24px 0 8px;
+  color: var(--color-primary);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.detalle-contenido h2:first-child {
+  margin-top: 0;
+}
+
+.detalle-contenido p {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 15px;
+  line-height: 24px;
+}
+
+.detalle-contenido ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.detalle-contenido li {
+  color: var(--color-text);
+  font-size: 15px;
+  line-height: 25px;
+}
+
+.detalle-habilidades {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.detalle-habilidad {
+  padding: 4px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 13px;
+}
+
+.detalle-habilidad.coincide {
+  border-color: #cfe9e5;
+  background: #e5f4f2;
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+.detalle-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.detalle-etiqueta-campo {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.detalle-monto {
+  margin: -8px 0 4px;
+  color: var(--color-text);
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 38px;
+}
+
+.detalle-monto.apagado {
+  color: var(--color-text-muted);
+}
+
+.detalle-aviso {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.detalle-aviso strong {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.aviso-naranja {
+  background: #fbf1e1;
+  color: var(--color-warning);
+}
+
+.aviso-celeste {
+  background: #e4edf7;
+  color: var(--color-info);
+}
+
+.aviso-azul {
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.aviso-gris {
+  background: #eceff2;
+  color: var(--color-text-muted);
+}
+
+.aviso-gris strong {
+  color: var(--color-text);
+}
+
+.detalle-casilla {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid currentColor;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.detalle-guardar.guardada .detalle-casilla {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.detalle-nota {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.detalle-datos {
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px solid var(--color-border);
+}
+
+.detalle-datos p {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  padding: 6px 0;
+  color: var(--color-text);
+  font-size: 14px;
+  text-align: right;
+}
+
+.detalle-datos span {
+  color: var(--color-text-muted);
+  text-align: left;
+}
+
+.detalle-secundaria h2 {
+  margin: 0 0 10px;
+  color: var(--color-text);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.detalle-secundaria p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.detalle-enlace {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  color: var(--color-primary);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.detalle-enlace:hover {
+  text-decoration: underline;
+}
+
+.detalle-no-encontrada {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 96px 16px;
+  text-align: center;
+}
+
+.detalle-no-encontrada-codigo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.detalle-no-encontrada h1 {
+  margin: 20px 0 12px;
+  color: var(--color-primary);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
+}
+
+.detalle-no-encontrada p {
+  margin: 0 0 24px;
+  color: var(--color-text-muted);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.detalle-no-encontrada-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+@media (max-width: 900px) {
+  .detalle {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .detalle-lateral {
+    width: auto;
+  }
+
+  .solo-movil {
+    display: block;
+  }
+
+  .solo-escritorio {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .detalle-tarjeta {
+    padding: 16px;
+  }
+
+  .detalle-cabecera {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .detalle-logo {
+    width: 56px;
+    height: 56px;
+    font-size: 16px;
+  }
+
+  .detalle-cabecera h1 {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .detalle-no-encontrada {
+    padding: 56px 16px;
+  }
+
+  .detalle-no-encontrada h1 {
+    font-size: 26px;
+    line-height: 32px;
+  }
+}

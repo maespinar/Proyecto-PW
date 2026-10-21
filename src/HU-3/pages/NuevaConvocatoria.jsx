@@ -94,7 +94,7 @@ export default function NuevaConvocatoria() {
 
                     <div className='nc-campo'>
                             <span className='nc-etiqueta'>TÍTULO DEL PUESTO</span>
-                            <input 
+                            <input
                                 type='text'
                                 name='titulo'
                                 value={formulario.titulo}
@@ -104,7 +104,7 @@ export default function NuevaConvocatoria() {
 
                     <div className='nc-campo'>
                         <span className='nc-etiqueta'>DESCRIPCIÓN DE LA PRÁCTICA</span>
-                        <textarea 
+                        <textarea
                             name='descripcion'
                             value={formulario.descripcion}
                             onChange={handleChange}
@@ -113,7 +113,7 @@ export default function NuevaConvocatoria() {
 
                     <div className='nc-campo'>
                         <span className='nc-etiqueta'>FUNCIONES PRINCIPALES</span>
-                        <textarea 
+                        <textarea
                             name='funciones'
                             value={formulario.funciones}
                             onChange={handleChange}
@@ -157,7 +157,7 @@ export default function NuevaConvocatoria() {
                                 onChange={handleChange}
                             >
                                 <option value=''>Selecciona</option>
-                                {ciclos.map((c) => 
+                                {ciclos.map((c) =>
                                     <option key={c} value={c}>{c}</option>
                                 )}
                             </select>
@@ -249,7 +249,7 @@ export default function NuevaConvocatoria() {
                     </div>
                 </section>
 
-                <section className='nc-tajerta'>
+                <section className='nc-tarjeta'>
                     <p className='nc-seccion'>4 · PUBLICACIÓN</p>
                     <div className='nc-fila'>
                         <div className='nc-campo'>

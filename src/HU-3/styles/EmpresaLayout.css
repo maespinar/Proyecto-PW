@@ -1,4 +1,4 @@
-.cabecera {
+.hu3 .cabecera {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -7,17 +7,17 @@
     color: var(--color-surface);
 }
 
-.cabecera p {
-    margin: 0;                      
+.hu3 .cabecera p {
+    margin: 0;
 }
 
-.cabecera-izq {
+.hu3 .cabecera-izq {
     display: flex;
     align-items: center;
     gap: 30px;
 }
 
-.cabecera-izq .logo {
+.hu3 .cabecera-izq .logo {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -25,46 +25,46 @@
     color: var(--color-surface);
 }
 
-.logo-icono {
+.hu3 .logo-icono {
     width: 20px;
     height: 20px;
     border-radius: 4px;
     background: var(--color-surface);
 }
 
-.cabecera-izq .panel-nombre {
-    padding-left: 20px;           
+.hu3 .cabecera-izq .panel-nombre {
+    padding-left: 20px;
     border-left: 1px solid var(--color-border);
     font-size: 13px;
     color: var(--color-border);
 }
 
-.buscador-caja {
+.hu3 .buscador-caja {
     margin-left: auto;
     margin-right: 24px;
 }
 
-.buscador {
+.hu3 .buscador {
     width: 320px;
-    padding: 8px 12px;              
+    padding: 8px 12px;
     background: var(--color-primary-dark);
     border: 1px solid var(--color-primary);
     border-radius: 6px;
     color: var(--color-surface);
 }
 
-.buscador::placeholder {
+.hu3 .buscador::placeholder {
     color: var(--color-border);
 }
 
-.cuenta {
+.hu3 .cuenta {
     display: flex;
     align-items: center;
     gap: 12px;
     padding-right: 20px;
 }
 
-.cuenta .avatar {
+.hu3 .cuenta .avatar {
     display: grid;
     place-items: center;
     width: 32px;
@@ -75,21 +75,21 @@
     font-size: 14px;
 }
 
-.cuenta #nombre {
+.hu3 .cuenta #nombre {
     color: var(--color-surface);
     font-size: 15px;
 }
 
-.cuenta #empresa {
+.hu3 .cuenta #empresa {
     font-size: 13px;
 }
 
-.cuerpo {
+.hu3 .cuerpo {
     display: flex;
     align-items: flex-start;
 }
 
-.lateral {
+.hu3 .lateral {
     flex: none;
     width: 280px;
     padding: 16px 8px;
@@ -98,7 +98,7 @@
     font-size: 15px;
 }
 
-.lateral .grupo {
+.hu3 .lateral .grupo {
     margin: 16px 0 4px;
     padding: 0 12px;
     font-size: 12px;
@@ -106,7 +106,7 @@
     color: var(--color-text-muted);
 }
 
-.lateral a {
+.hu3 .lateral a {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -117,16 +117,16 @@
     text-decoration: none;
 }
 
-.lateral a:hover {
+.hu3 .lateral a:hover {
     background: var(--color-primary-soft);
     color: var(--color-primary);
 }
 
-.lateral a:hover .cuadro {
+.hu3 .lateral a:hover .cuadro {
     background: var(--color-primary);
 }
 
-.lateral .cuadro {
+.hu3 .lateral .cuadro {
     flex: none;
     width: 6px;
     height: 6px;
@@ -134,28 +134,28 @@
     background: var(--color-border);
 }
 
-.lateral a.active {
+.hu3 .lateral a.active {
     background: var(--color-primary-soft);
     color: var(--color-primary);
     font-weight: 600;
 }
 
-.lateral a.active .cuadro {
+.hu3 .lateral a.active .cuadro {
     background: var(--color-primary);
 }
 
-.contenido {
+.hu3 .contenido {
     flex: 1;
     min-width: 0;
     padding: 24px 32px;
 }
 
-.cuenta .flecha {
+.hu3 .cuenta .flecha {
     font-size: 12px;
     color: var(--color-border);
 }
 
-.pie {
+.hu3 .pie {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -163,4 +163,25 @@
     background: var(--color-primary-dark);
     color: var(--color-border);
     font-size: 12px;
+}
+@media (max-width: 900px) {
+  .hu3 .cuerpo, .hu3 .datos, .hu3 .datos-ep {
+    flex-direction: column;
+  }
+  .hu3 .lateral, .hu3 .contenido, .hu3 .informacion, .hu3 .info-der, .hu3 .informacion-ep, .hu3 .info-der-ep {
+    width: 100%;
+  }
+  .hu3 .contenido {
+    padding: 24px 16px;
+  }
+  .hu3 .perfil, .hu3 .editarPerfil, .hu3 .cuentaV, .hu3 .mc-titulo, .hu3 .mc-filtros {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .hu3 .mc-tabla-caja {
+    overflow-x: auto;
+  }
+  .hu3 .campo, .hu3 .campo-ep {
+    width: 100%;
+  }
 }
