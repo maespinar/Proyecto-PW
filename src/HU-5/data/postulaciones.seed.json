@@ -1,0 +1,294 @@
+[
+  {
+    "id": "post-1",
+    "convocatoriaId": "conv-101",
+    "puesto": "Practicante de Desarrollo de Software",
+    "empresa": "Consultora Andes Perú",
+    "empresaSiglas": "AP",
+    "rubro": "Consultoría",
+    "modalidad": "Híbrido",
+    "jornada": "Medio tiempo",
+    "distrito": "San Isidro",
+    "subvencion": 1850,
+    "fechaPostulacion": "20/08/2026",
+    "fechaActualizacion": "28/08/2026",
+    "estado": "en_revision",
+    "estadoTexto": "En revisión",
+    "fechaCierre": "30/09/2026",
+    "mensaje": "Me interesa el módulo de reportes que mencionan en la convocatoria: hice algo parecido con SQL y React en un proyecto del curso de Bases de Datos, donde reduje en 40 % el tiempo de consulta del reporte de ventas.",
+    "perfilResumen": {
+      "estudiante": "Mariana Lucía Quispe Ramírez",
+      "carrera": "Ingeniería de Sistemas",
+      "ciclo": "Octavo ciclo",
+      "habilidadesCount": 9,
+      "experienciasCount": 3,
+      "enlacesCount": 2
+    },
+    "trazabilidad": [
+      {
+        "estado": "recibida",
+        "titulo": "Recibida",
+        "fecha": "20/08/2026 · 09:12",
+        "descripcion": "la empresa recibió tu perfil y tu mensaje."
+      },
+      {
+        "estado": "en_revision",
+        "titulo": "En revisión",
+        "fecha": "28/08/2026 · 16:40",
+        "descripcion": "el equipo de selección está evaluando tu perfil."
+      },
+      {
+        "estado": "resultado",
+        "titulo": "Resultado",
+        "fecha": "Pendiente",
+        "descripcion": "te avisaremos por correo cuando la empresa decida."
+      }
+    ]
+  },
+  {
+    "id": "post-2",
+    "convocatoriaId": "conv-102",
+    "puesto": "Practicante de Data Analytics",
+    "empresa": "Banco Marítimo del Sur",
+    "empresaSiglas": "BM",
+    "rubro": "Banca y Finanzas",
+    "modalidad": "Híbrido",
+    "jornada": "Tiempo completo",
+    "distrito": "Miraflores",
+    "subvencion": 2100,
+    "fechaPostulacion": "02/09/2026",
+    "fechaActualizacion": "02/09/2026",
+    "estado": "recibida",
+    "estadoTexto": "Recibida",
+    "fechaCierre": "05/10/2026",
+    "mensaje": "Cuento con experiencia académica en Python, Pandas y visualización en Power BI aplicados a análisis de comportamiento de usuarios.",
+    "perfilResumen": {
+      "estudiante": "Mariana Lucía Quispe Ramírez",
+      "carrera": "Ingeniería de Sistemas",
+      "ciclo": "Octavo ciclo",
+      "habilidadesCount": 9,
+      "experienciasCount": 3,
+      "enlacesCount": 2
+    },
+    "trazabilidad": [
+      {
+        "estado": "recibida",
+        "titulo": "Recibida",
+        "fecha": "02/09/2026 · 11:30",
+        "descripcion": "la empresa recibió tu perfil y tu mensaje."
+      },
+      {
+        "estado": "en_revision",
+        "titulo": "En revisión",
+        "fecha": "Pendiente",
+        "descripcion": "la empresa evaluará tu postulación próximamente."
+      }
+    ]
+  },
+  {
+    "id": "post-3",
+    "convocatoriaId": "conv-103",
+    "puesto": "Practicante de Desarrollo Backend",
+    "empresa": "Software Vilcanota",
+    "empresaSiglas": "SV",
+    "rubro": "Tecnología",
+    "modalidad": "Híbrido",
+    "jornada": "Medio tiempo",
+    "distrito": "Miraflores",
+    "subvencion": 1900,
+    "fechaPostulacion": "01/09/2026",
+    "fechaActualizacion": "01/09/2026",
+    "estado": "recibida",
+    "estadoTexto": "Recibida",
+    "fechaCierre": "20/09/2026",
+    "mensaje": "Dominio de Node.js, Express y diseño de APIs RESTful con bases de datos PostgreSQL.",
+    "perfilResumen": {
+      "estudiante": "Mariana Lucía Quispe Ramírez",
+      "carrera": "Ingeniería de Sistemas",
+      "ciclo": "Octavo ciclo",
+      "habilidadesCount": 9,
+      "experienciasCount": 3,
+      "enlacesCount": 2
+    },
+    "trazabilidad": [
+      {
+        "estado": "recibida",
+        "titulo": "Recibida",
+        "fecha": "01/09/2026 · 14:15",
+        "descripcion": "la empresa recibió tu perfil y tu mensaje."
+      },
+      {
+        "estado": "en_revision",
+        "titulo": "En revisión",
+        "fecha": "Pendiente",
+        "descripcion": "el equipo técnico revisará tus proyectos de backend."
+      }
+    ]
+  },
+  {
+    "id": "post-4",
+    "convocatoriaId": "conv-104",
+    "puesto": "Practicante de Automatización de Procesos",
+    "empresa": "Minera Illariy",
+    "empresaSiglas": "MI",
+    "rubro": "Minería",
+    "modalidad": "Híbrido",
+    "jornada": "Tiempo completo",
+    "distrito": "Miraflores",
+    "subvencion": 2300,
+    "fechaPostulacion": "26/08/2026",
+    "fechaActualizacion": "04/09/2026",
+    "estado": "en_revision",
+    "estadoTexto": "En revisión",
+    "fechaCierre": "15/10/2026",
+    "mensaje": "Interés en optimización y flujos automatizados con scripts en Python y herramientas RPA.",
+    "perfilResumen": {
+      "estudiante": "Mariana Lucía Quispe Ramírez",
+      "carrera": "Ingeniería de Sistemas",
+      "ciclo": "Octavo ciclo",
+      "habilidadesCount": 9,
+      "experienciasCount": 3,
+      "enlacesCount": 2
+    },
+    "trazabilidad": [
+      {
+        "estado": "recibida",
+        "titulo": "Recibida",
+        "fecha": "26/08/2026 · 10:05",
+        "descripcion": "la empresa recibió tu perfil y tu mensaje."
+      },
+      {
+        "estado": "en_revision",
+        "titulo": "En revisión",
+        "fecha": "04/09/2026 · 11:20",
+        "descripcion": "el equipo de selección está evaluando tu perfil."
+      }
+    ]
+  },
+  {
+    "id": "post-5",
+    "convocatoriaId": "conv-105",
+    "puesto": "Practicante de Inteligencia de Negocios",
+    "empresa": "Retail Terravista",
+    "empresaSiglas": "RT",
+    "rubro": "Retail",
+    "modalidad": "Híbrido",
+    "jornada": "Medio tiempo",
+    "distrito": "San Isidro",
+    "subvencion": 1700,
+    "fechaPostulacion": "12/08/2026",
+    "fechaActualizacion": "05/09/2026",
+    "estado": "aceptada",
+    "estadoTexto": "Aceptada",
+    "fechaCierre": "10/09/2026",
+    "mensaje": "Manejo de consultas analíticas complejas en SQL y modelado de datos para dashboards ejecutivos.",
+    "perfilResumen": {
+      "estudiante": "Mariana Lucía Quispe Ramírez",
+      "carrera": "Ingeniería de Sistemas",
+      "ciclo": "Octavo ciclo",
+      "habilidadesCount": 9,
+      "experienciasCount": 3,
+      "enlacesCount": 2
+    },
+    "trazabilidad": [
+      {
+        "estado": "recibida",
+        "titulo": "Recibida",
+        "fecha": "12/08/2026 · 08:45",
+        "descripcion": "la empresa recibió tu perfil y tu mensaje."
+      },
+      {
+        "estado": "en_revision",
+        "titulo": "En revisión",
+        "fecha": "20/08/2026 · 15:30",
+        "descripcion": "el equipo de selección evaluó tu perfil y entrevista."
+      },
+      {
+        "estado": "aceptada",
+        "titulo": "Aceptada",
+        "fecha": "05/09/2026 · 17:00",
+        "descripcion": "¡Felicitaciones! Has sido seleccionado para cubrir la vacante."
+      }
+    ]
+  },
+  {
+    "id": "post-6",
+    "convocatoriaId": "conv-106",
+    "puesto": "Practicante de Soporte TI",
+    "empresa": "Nexolink Telecom",
+    "empresaSiglas": "NT",
+    "rubro": "Telecomunicaciones",
+    "modalidad": "Presencial",
+    "jornada": "Medio tiempo",
+    "distrito": "Lince",
+    "subvencion": 1150,
+    "fechaPostulacion": "05/08/2026",
+    "fechaActualizacion": "22/08/2026",
+    "estado": "descartada",
+    "estadoTexto": "Descartada",
+    "fechaCierre": "25/08/2026",
+    "mensaje": "Conocimientos en redes LAN, configuración de routers y soporte de sistemas operativos.",
+    "perfilResumen": {
+      "estudiante": "Mariana Lucía Quispe Ramírez",
+      "carrera": "Ingeniería de Sistemas",
+      "ciclo": "Octavo ciclo",
+      "habilidadesCount": 9,
+      "experienciasCount": 3,
+      "enlacesCount": 2
+    },
+    "trazabilidad": [
+      {
+        "estado": "recibida",
+        "titulo": "Recibida",
+        "fecha": "05/08/2026 · 09:10",
+        "descripcion": "la empresa recibió tu perfil y tu mensaje."
+      },
+      {
+        "estado": "descartada",
+        "titulo": "Descartada",
+        "fecha": "22/08/2026 · 14:00",
+        "descripcion": "el proceso ha concluido y se eligió otro candidato que se ajustaba más al horario presencial."
+      }
+    ]
+  },
+  {
+    "id": "post-7",
+    "convocatoriaId": "conv-107",
+    "puesto": "Practicante de Marketing Digital",
+    "empresa": "Consumo Pacífico",
+    "empresaSiglas": "CP",
+    "rubro": "Consumo Masivo",
+    "modalidad": "Remoto",
+    "jornada": "Medio tiempo",
+    "distrito": "Surco",
+    "subvencion": 1300,
+    "fechaPostulacion": "28/07/2026",
+    "fechaActualizacion": "30/07/2026",
+    "estado": "retirada",
+    "estadoTexto": "Retirada",
+    "fechaCierre": "15/08/2026",
+    "mensaje": "Interés en marketing digital y métricas de adquisición.",
+    "perfilResumen": {
+      "estudiante": "Mariana Lucía Quispe Ramírez",
+      "carrera": "Ingeniería de Sistemas",
+      "ciclo": "Octavo ciclo",
+      "habilidadesCount": 9,
+      "experienciasCount": 3,
+      "enlacesCount": 2
+    },
+    "trazabilidad": [
+      {
+        "estado": "recibida",
+        "titulo": "Recibida",
+        "fecha": "28/07/2026 · 12:00",
+        "descripcion": "la empresa recibió tu perfil y tu mensaje."
+      },
+      {
+        "estado": "retirada",
+        "titulo": "Retirada por ti",
+        "fecha": "30/07/2026 · 18:30",
+        "descripcion": "retiraste voluntariamente tu postulación a esta vacante."
+      }
+    ]
+  }
+]
