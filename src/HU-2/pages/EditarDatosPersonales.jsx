@@ -3,19 +3,9 @@ import { Link } from 'react-router-dom'
 import { usePerfil } from '../context/perfilContexto'
 import { CARRERAS, CICLOS, DISTRITOS } from '../data/catalogos'
 import { MAX_RESUMEN, procesarFoto, validarDatosPersonales } from '../utils/validaciones'
+import Campo from '../components/Campo'
 import FotoPerfil from '../components/FotoPerfil'
 import Cargando from '../components/Cargando'
-
-function Campo({ id, etiqueta, error, ayuda, children }) {
-  return (
-    <div className="mb-3">
-      <label htmlFor={id} className="form-label etiqueta-hu2">{etiqueta}</label>
-      {children}
-      {error && <div className="invalid-feedback d-block" id={`${id}-error`}>{error}</div>}
-      {ayuda && !error && <div className="form-text">{ayuda}</div>}
-    </div>
-  )
-}
 
 function Formulario({ perfil }) {
   const { guardarDatosPersonales, notificar } = usePerfil()

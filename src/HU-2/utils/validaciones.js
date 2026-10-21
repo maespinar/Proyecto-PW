@@ -1,3 +1,7 @@
+import { TIPOS_ENLACE, claveEnlace, hrefSeguro } from './enlaces'
+import { MAX_DESCRIPCION, mesActual, parsearMes } from './experiencia'
+import { normalizar } from './habilidades'
+
 export const MAX_RESUMEN = 600
 const SOLO_LETRAS = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ' -]+$/
 
@@ -56,4 +60,62 @@ export function procesarFoto(archivo) {
     }
     lector.readAsDataURL(archivo)
   })
+}
+
+export function validarHabilidad(nombre, registradas) {
+  const texto = nombre.trim()
+  if (!texto) return 'Escribe el nombre de la habilidad.'
+  if (texto.length < 2) return 'El nombre debe tener al menos 2 caracteres.'
+  if (texto.length > 40) return 'El nombre no puede superar los 40 caracteres.'
+  if (registradas.some((r) => normalizar(r) === normalizar(texto))) return 'Ya registraste esta habilidad.'
+  return undefined
+}
+
+export function validarExperiencia(form) {
+  const errores = {}
+  const cargo = form.cargo.trim()
+  const organizacion = form.organizacion.trim()
+  const formato = 'Usa el formato MM/AAAA, por ejemplo 03/2025.'
+
+  if (!cargo) errores.cargo = 'Ingresa el cargo.'
+  else if (cargo.length < 2 || cargo.length > 80) errores.cargo = 'El cargo debe tener entre 2 y 80 caracteres.'
+
+  if (!organizacion) errores.organizacion = 'Ingresa la organización.'
+  else if (organizacion.length < 2 || organizacion.length > 100) errores.organizacion = 'La organización debe tener entre 2 y 100 caracteres.'
+
+  const desde = parsearMes(form.desde)
+  if (!form.desde.trim()) errores.desde = 'Ingresa la fecha de inicio.'
+  else if (!desde) errores.desde = formato
+  else if (desde > mesActual()) errores.desde = 'La fecha de inicio no puede ser futura.'
+
+  if (!form.actual) {
+    const hasta = parsearMes(form.hasta)
+    if (!form.hasta.trim()) errores.hasta = 'Ingresa la fecha de fin o marca "Trabajo aquí actualmente".'
+    else if (!hasta) errores.hasta = formato
+    else if (hasta > mesActual()) errores.hasta = 'La fecha de fin no puede ser futura.'
+    else if (desde && hasta < desde) errores.hasta = 'La fecha de fin no puede ser anterior al inicio.'
+  }
+
+  if (form.descripcion.length > MAX_DESCRIPCION) {
+    errores.descripcion = `La descripción no puede superar los ${MAX_DESCRIPCION} caracteres.`
+  }
+
+  return errores
+}
+
+export function validarEnlace(datos, existentes, idActual) {
+  const errores = {}
+  if (!TIPOS_ENLACE.includes(datos.tipo)) errores.tipo = 'Elige un tipo de enlace.'
+
+  const url = datos.url.trim()
+  if (!url) {
+    errores.url = 'Ingresa la dirección del enlace.'
+  } else if (url.length > 200) {
+    errores.url = 'La dirección no puede superar los 200 caracteres.'
+  } else if (!hrefSeguro(url)) {
+    errores.url = 'Ingresa una dirección web válida, por ejemplo https://miportafolio.dev.'
+  } else if (existentes.some((e) => e.id !== idActual && claveEnlace(e.url) === claveEnlace(url))) {
+    errores.url = 'Ya registraste este enlace.'
+  }
+  return errores
 }

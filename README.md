@@ -207,9 +207,41 @@ src/
 - `context/`: estado compartido dentro de una historia y sus hooks de acceso.
 - `utils/`: funciones independientes de la interfaz, como validaciones y cálculos.
 
-Se crean solo las carpetas que cada historia necesita. HU-1 todavía no requiere servicios ni Context. Si una historia tiene varias rutas, puede agruparlas en un archivo de entrada como `RutasPerfil.jsx`; `App.jsx` integra las historias y compone el encabezado y el pie.
+Se crean solo las carpetas que cada historia necesita. HU-1 usa `services/sesionService.js` para simular la validación de acceso; todavía no requiere Context. Si una historia tiene varias rutas, puede agruparlas en un archivo de entrada como `RutasPerfil.jsx`; `App.jsx` integra las historias y compone el encabezado y el pie.
 
 Por ahora, `Header` y `Footer` se conservan en `HU-1/components/`, desde donde `App.jsx` los utiliza para todas las vistas. Se mantiene una única implementación; si se crea el módulo compartido del equipo, estos componentes se trasladarán allí junto con sus estilos. Las variables de diseño y las reglas base de toda la aplicación están en `index.css`.
+
+### Probar el inicio de sesión
+
+En `/iniciar-sesion`, el formulario comienza vacío. Al enviarlo, señala los campos requeridos y el correo con formato incorrecto sin consumir intentos. Con ambos campos completos, muestra `Ingresando...` durante la validación y deshabilita los campos, botones y enlaces de registro del formulario.
+
+La cuenta de prueba es `mariana.quispe@aloe.ulima.edu.pe` con contraseña `ulima123`. Un acceso correcto abre `/perfil`. Las credenciales incorrectas conservan los datos ingresados, resaltan ambos campos y muestran los intentos restantes. Después de cinco fallos, el formulario se bloquea durante 30 segundos y luego se habilita automáticamente.
+
+La validación y el bloqueo son una simulación en memoria para la primera entrega: se mantienen al navegar dentro de la aplicación y se reinician al recargarla. En la segunda entrega deberán implementarse en el servidor.
+
+Ejecutar `npm run lint` y `npm run build` para revisar el código y la compilación.
+
+### Probar el registro de estudiante
+
+En `/registro` (o `/registro?tipo=estudiante`), la pantalla reutiliza el encabezado y el pie comunes. La presentación, el formulario, el campo reutilizable y el campo de contraseña están separados en componentes de HU-1; las validaciones y el cálculo de fortaleza están en `utils/validarRegistroEstudiante.js`. Las opciones de carrera y ciclo reutilizan los catálogos existentes de HU-2.
+
+El formulario comienza vacío y valida nombres, apellidos, correo terminado en `@aloe.ulima.edu.pe`, contraseña de al menos 8 caracteres con una mayúscula y un número, confirmación, carrera, ciclo y aceptación de términos. Valida al salir de cada campo y actualiza los errores al corregirlo, incluyendo la confirmación cuando cambia la contraseña. Un resumen superior cuenta los campos con error; el botón queda deshabilitado mientras haya errores visibles. Al enviar también valida los campos pendientes y enfoca el primero inválido. Permite mostrar u ocultar la contraseña y actualiza su indicador de fortaleza al escribir.
+
+Al completar los datos, `services/registroService.js` simula una escritura de 900 ms. Durante la espera se bloquean los controles del formulario para impedir envíos duplicados. Si termina correctamente, el formulario se sustituye por la tarjeta **Cuenta creada**, con el correo ingresado, vigencia de 24 horas, acceso a `/perfil` y reenvío simulado de verificación. La tarjeta aclara que no se crean cuentas ni se envían correos reales; tampoco se guardan contraseñas ni se inicia sesión.
+
+Cada registro o reenvío terminado muestra una notificación cerrable **Cambios guardados** o **No se pudo guardar**, según el resultado. Para probar el fallo, activa el modo Offline en las herramientas del navegador antes de enviar o reenviar. Los datos se conservan para reintentar; un reenvío fallido mantiene la tarjeta de cuenta creada. Volver al modo Online permite repetir la operación. Al abandonar la pantalla se cancela la solicitud pendiente.
+
+Las piezas de validación, éxito y notificación están separadas en `AlertaValidacionRegistro`, `ExitoRegistro` y `NotificacionResultado`. `/registro?tipo=empresa` conserva una vista en construcción. En móvil, la presentación y los campos se distribuyen en una columna. Ejecuta `node --test src/HU-1/tests/*.test.js` para comprobar las validaciones y el servicio simulado.
+
+### Integración de HU-5
+
+`/postulaciones` muestra las postulaciones semilla del estudiante y permite filtrar por estado. `/postulaciones/:id` muestra su detalle y trazabilidad; el retiro solicita confirmación y guarda el cambio en `localStorage` mediante `HU-5/services/postulacionesService.js`. Es una demostración local, sin envíos a empresas ni correos reales. Una dirección con un identificador desconocido muestra el estado de postulación no encontrada.
+
+El encabezado común conserva la navegación pública de HU-1. Después del inicio de sesión simulado muestra los enlaces al catálogo, postulaciones, guardadas, empresas y perfil. **Buscar convocatorias** abre el catálogo y el nombre del estudiante abre su perfil. La sesión permanece en memoria y se reinicia al recargar; HU-5 mantiene el acceso directo de demostración sin autorización de servidor. Se conservan las rutas de HU-2, HU-3 y HU-4.
+
+La conexión del envío desde el catálogo de HU-4 al servicio de HU-5 sigue pendiente. HU-5 incluye el modal de postulación y `/postulaciones/confirmacion`, que conserva una presentación ilustrativa cuando no hay un envío reciente. Sus identificadores de convocatorias semilla todavía no corresponden a los del catálogo compartido; los enlaces a convocatorias de esas tarjetas conservan su comportamiento previo. No se ha implementado la bandeja de empresa en este PR.
+
+Para revisar con `npm run dev`: abre `/postulaciones`, cambia los filtros, consulta un detalle y abre y cancela el retiro; si confirmas el retiro de un dato semilla, comprueba el cambio de estado y su persistencia al recargar. Revisa `/postulaciones/no-existe`, el inicio de sesión de prueba y los enlaces del encabezado, además del inicio, perfil, catálogo y panel de empresa en móvil y escritorio. Ejecuta `npm run lint` y `npm run build`; no se incluyen tests automatizados.
 
 ### Cómo evitar bloquearse
 Las historias están delimitadas para que cada integrante sea dueño de sus propias entidades, vistas y
@@ -233,3 +265,19 @@ en la evaluación.
 **Componentes comunes.** El encabezado, la navegación, las tarjetas de convocatoria, las etiquetas de
 estado y los diálogos de confirmación se implementan una sola vez, en un módulo compartido a cargo
 del grupo.
+
+### Integración de HU-3
+
+La portada, el inicio de sesión, el perfil de estudiante, el catálogo y las guardadas conservan sus rutas y el encabezado y pie comunes. Los estilos globales de `src/index.css` se conservan; los estilos del panel de empresa se limitan al contenedor `.hu3`.
+
+Desde **Empresas** se accede a las fichas públicas y al panel de demostración de empresa. Las fichas usan las empresas y convocatorias del catálogo de HU-4, filtran las vigentes y enlazan con su detalle. El detalle del catálogo también enlaza con la ficha de la empresa correspondiente.
+
+- `/empresa` redirige a `/empresa/perfil`.
+- `/empresa/perfil/editar` abre la edición del perfil institucional.
+- `/empresa/convocatorias` muestra las convocatorias propias.
+- `/empresa/convocatorias/nueva` es la ruta de nueva convocatoria; también recibe los accesos desde `/publicar` y la ruta anterior `/empresa/nueva-convocatorias`.
+- `/empresas/:id` muestra la ficha pública con el identificador de HU-4; `/empresas/andes-peru` mantiene la compatibilidad con el enlace original de H3.
+
+La integración conserva el avance de H3: nueva convocatoria muestra los campos de puesto, perfil buscado, condiciones y publicación; permite agregar y quitar carreras y habilidades en memoria. Guardar borrador, publicar y guardar el perfil todavía están pendientes de implementación: el formulario no persiste ni publica convocatorias ni envía correos. Las opciones del panel sin pantalla propia muestran la vista común en construcción. El acceso al panel es de demostración, sin autenticación de empresa implementada todavía.
+
+Para revisar la integración con `npm run dev`: abre `/empresa/convocatorias/nueva`, agrega y quita carreras, escribe una habilidad y pulsa Enter para agregarla, y completa los campos. Comprueba también los accesos desde `/publicar`, `/empresa/nueva-convocatorias` y el menú de empresa, la navegación al inicio, perfil y catálogo, y el diseño en escritorio y móvil. Al recargar, el formulario vuelve a estar vacío. Ejecuta `npm run lint` y `npm run build`; no se incluyen tests automatizados.
