@@ -1,4 +1,4 @@
-.acceso-denegado {
+.pagina-error {
   display: grid;
   place-items: center;
   min-height: calc(100svh - 56px);
@@ -6,12 +6,16 @@
   text-align: center;
 }
 
-.acceso-denegado-contenido {
+.pagina-error-contenido {
   width: 100%;
   max-width: 760px;
 }
 
-.acceso-denegado-icono {
+.pagina-error--404 {
+  padding: 96px 24px;
+}
+
+.pagina-error-icono {
   display: grid;
   place-items: center;
   width: 66px;
@@ -22,12 +26,20 @@
   color: var(--color-danger);
 }
 
-.acceso-denegado-icono svg {
+.pagina-error-icono svg {
   width: 26px;
   height: 26px;
 }
 
-.acceso-denegado-codigo {
+.pagina-error--404 .pagina-error-icono {
+  margin-bottom: 18px;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.pagina-error-codigo {
   margin: 0 0 18px;
   color: var(--color-danger);
   font-size: 12px;
@@ -36,7 +48,7 @@
   text-transform: uppercase;
 }
 
-.acceso-denegado h1 {
+.pagina-error h1 {
   margin: 0 0 18px;
   color: var(--color-primary);
   font-size: clamp(28px, 3vw, 36px);
@@ -44,11 +56,11 @@
   line-height: 1.25;
 }
 
-.acceso-denegado h1:focus {
+.pagina-error h1:focus {
   outline: none;
 }
 
-.acceso-denegado-descripcion {
+.pagina-error-descripcion {
   max-width: 540px;
   margin: 0 auto 24px;
   color: var(--color-text-muted);
@@ -56,14 +68,18 @@
   line-height: 1.5;
 }
 
-.acceso-denegado-acciones {
+.pagina-error--404 .pagina-error-descripcion {
+  max-width: 600px;
+}
+
+.pagina-error-acciones {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
 }
 
-.acceso-denegado-acciones a {
+.pagina-error-acciones a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -77,37 +93,37 @@
   text-decoration: none;
 }
 
-.acceso-denegado-acciones .acceso-denegado-principal {
+.pagina-error-acciones .pagina-error-principal {
   border-color: var(--color-primary);
   background: var(--color-primary);
   color: var(--color-surface);
 }
 
-.acceso-denegado-principal:hover {
+.pagina-error-principal:hover {
   background: var(--color-primary-dark);
 }
 
-.acceso-denegado-secundario {
+.pagina-error-secundario {
   background: var(--color-surface);
   color: var(--color-text);
 }
 
-.acceso-denegado-secundario:hover {
+.pagina-error-secundario:hover {
   background: var(--color-primary-soft);
 }
 
-.acceso-denegado-acciones a:focus-visible {
+.pagina-error-acciones a:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 4px;
 }
 
 @media (max-width: 580px) {
-  .acceso-denegado {
+  .pagina-error {
     min-height: 65svh;
     padding: 64px 20px;
   }
 
-  .acceso-denegado-acciones {
+  .pagina-error-acciones {
     flex-direction: column;
     max-width: 300px;
     margin: 0 auto;

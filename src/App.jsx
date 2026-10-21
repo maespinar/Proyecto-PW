@@ -3,6 +3,7 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import Header from './HU-1/components/Header'
 import RutaEstudiante from './HU-1/components/RutaEstudiante'
 import AccesoDenegado from './HU-1/pages/AccesoDenegado'
+import PaginaNoEncontrada from './HU-1/pages/PaginaNoEncontrada'
 import ConfiguracionCuenta from './HU-1/pages/ConfiguracionCuenta'
 import LandingPublica from './HU-1/pages/LandingPublica'
 import InicioDeSesion from './HU-1/pages/InicioDeSesion'
@@ -63,7 +64,7 @@ function App() {
           ].map(([ruta, titulo]) => (
             <Route key={ruta} path={ruta} element={<EnConstruccion titulo={titulo} />} />
           ))}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<PaginaNoEncontrada />} />
         </Routes>
       </main>
       <Footer />

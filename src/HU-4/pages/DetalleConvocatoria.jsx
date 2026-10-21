@@ -7,6 +7,7 @@ import { estaVigente, normalizar } from '../utils/catalogoUtils'
 import { useGuardadas } from '../context/guardadasContexto'
 import Notificacion from '../components/Notificacion'
 import PanelPostulacion from '../components/PanelPostulacion'
+import PaginaNoEncontrada from '../../HU-1/pages/PaginaNoEncontrada'
 import '../styles/Comun.css'
 import '../styles/Detalle.css'
 
@@ -21,26 +22,7 @@ function DetalleConvocatoria({ usuario }) {
 
   const convocatoria = convocatorias.find((c) => c.id === id && c.estado !== 'borrador')
 
-  if (!convocatoria) {
-    return (
-      <div className="detalle-no-encontrada">
-        <span className="detalle-no-encontrada-codigo">404</span>
-        <h1>No encontramos esta página</h1>
-        <p>
-          La convocatoria pudo ser retirada por la empresa o el enlace ya caducó. Revisa el catálogo para ver las
-          convocatorias vigentes de tu carrera.
-        </p>
-        <div className="detalle-no-encontrada-acciones">
-          <Link to="/convocatorias" className="boton boton-primario">
-            Ver convocatorias vigentes
-          </Link>
-          <Link to="/" className="boton boton-neutro">
-            Ir al inicio
-          </Link>
-        </div>
-      </div>
-    )
-  }
+  if (!convocatoria) return <PaginaNoEncontrada />
 
   const empresa = empresas.find((e) => e.id === convocatoria.empresaId)
   const vigente = estaVigente(convocatoria)

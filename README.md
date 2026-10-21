@@ -271,11 +271,19 @@ Para revisar manualmente con `npm run dev`: abre la ruta sin sesión, ingresa co
 
 ### Acceso denegado (403)
 
-La ruta `/empresa/postulantes` muestra **Error 403 — No tienes acceso a esta sección** cuando se abre con la sesión de estudiante de demostración. Conserva el encabezado autenticado y el pie comunes, sin mostrar el panel de empresa. **Ir a mis postulaciones** abre `/postulaciones` (todavía en construcción) y **Volver al catálogo** abre `/convocatorias`. La página vive en `HU-1/pages/AccesoDenegado.jsx`, con estilos propios y acciones adaptadas a móvil.
+La ruta `/empresa/postulantes` muestra **Error 403 — No tienes acceso a esta sección** cuando se abre con la sesión de estudiante de demostración. Conserva el encabezado autenticado y el pie comunes, sin mostrar el panel de empresa. **Ir a mis postulaciones** abre `/postulaciones` (todavía en construcción) y **Volver al catálogo** abre `/convocatorias`. La página vive en `HU-1/pages/AccesoDenegado.jsx` y comparte la presentación y los estilos de `PaginaError` con el 404, con acciones adaptadas a móvil.
 
-Sin sesión, la ruta solicita iniciar sesión y conserva el destino; después de ingresar con la cuenta de prueba muestra el 403. La sesión sigue en memoria y se pierde al recargar. Esta protección corresponde a la navegación de la primera entrega: aún no hay autenticación de empresas ni autorización del servidor, y no se devuelve un estado HTTP 403 real. La pantalla 404 queda pendiente.
+Sin sesión, la ruta solicita iniciar sesión y conserva el destino; después de ingresar con la cuenta de prueba muestra el 403. La sesión sigue en memoria y se pierde al recargar. Esta protección corresponde a la navegación de la primera entrega: aún no hay autenticación de empresas ni autorización del servidor, y no se devuelve un estado HTTP 403 real.
 
 Para revisar con `npm run dev`: abre `/empresa/postulantes` sin sesión, ingresa con la cuenta de prueba y comprueba el aviso y el encabezado de Mariana. También puedes llegar desde **Empresas**, el panel de demostración y **Bandeja de postulantes** con la sesión iniciada. Comprueba ambos enlaces de salida, Tab y Enter, foco visible, cierre de sesión y recarga. Revisa escritorio y móvil; ejecuta `npm run lint` y `npm run build`, sin agregar tests automatizados.
+
+### Página no encontrada (404)
+
+`HU-1/pages/PaginaNoEncontrada.jsx` muestra **No encontramos esta página**, el indicador circular 404 y el aviso de que la convocatoria pudo ser retirada o el enlace caducó. Reutiliza `components/PaginaError.jsx` y `styles/PaginaError.css` con el 403. Mantiene el encabezado actual (autenticado cuando hay sesión) y el pie comunes. **Ver convocatorias vigentes** abre `/convocatorias`, cuyo filtro inicial muestra las vigentes y preselecciona la carrera del estudiante; **Ir al inicio** abre `/`.
+
+El detalle de HU-4 muestra esta página si el identificador no existe en los datos semilla o corresponde a un borrador. Una convocatoria retirada se representa por su ausencia de los datos públicos; todavía no hay un servicio de retiro ni enlaces con vencimiento real. Una convocatoria cerrada o pasada de fecha conserva su detalle y el estado de cierre: no equivale a un enlace inexistente. Las rutas sin coincidencia de la aplicación también muestran el 404 en lugar de redirigir al inicio; se conservan las redirecciones de compatibilidad de las historias. Es una pantalla del frontend, sin respuesta HTTP 404 del servidor en esta entrega.
+
+Para revisar con `npm run dev`: abre `/convocatorias/no-disponible` y `/convocatorias/c28` (borrador), tanto sin sesión como después de ingresar con la cuenta de prueba. Comprueba el encabezado, ambos enlaces, Tab, Enter y foco visible. Verifica `/convocatorias/c01` (detalle público), `/convocatorias/c26` (cerrada), `/convocatorias/c27` (fecha de cierre pasada) y una ruta inexistente como `/enlace-caducado`. Revisa móvil, escritorio y recarga; ejecuta `npm run lint` y `npm run build`, sin tests automatizados.
 
 ### Cómo evitar bloquearse
 Las historias están delimitadas para que cada integrante sea dueño de sus propias entidades, vistas y
