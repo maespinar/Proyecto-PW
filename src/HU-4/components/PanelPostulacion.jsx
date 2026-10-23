@@ -15,6 +15,7 @@ function PanelPostulacion({
   if (!usuario) variante = 'visitante'
   if (!vigente) variante = 'cerrada'
   if (postulacion) variante = 'postulado'
+  if (usuario?.rol === 'empresa') variante = 'empresa'
 
   const puedeRetirar = vigente && postulacion && ['recibida', 'en_revision'].includes(postulacion.estado)
 
@@ -60,6 +61,13 @@ function PanelPostulacion({
           </button>
           <p className="detalle-nota">El botón «Guardar» también pide iniciar sesión.</p>
         </>
+      )}
+
+      {variante === 'empresa' && (
+        <div className="detalle-aviso aviso-azul">
+          Las postulaciones y las convocatorias guardadas son exclusivas de estudiantes.
+          <Link to="/empresa/convocatorias">Ir a mis convocatorias</Link>
+        </div>
       )}
 
       {variante === 'postulado' && (

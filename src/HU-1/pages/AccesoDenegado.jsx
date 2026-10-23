@@ -1,6 +1,7 @@
 import PaginaError from '../components/PaginaError'
 
-export default function AccesoDenegado() {
+export default function AccesoDenegado({ usuario }) {
+  const esEmpresa = usuario?.rol === 'empresa'
   return (
     <PaginaError
       codigo="403"
@@ -13,13 +14,13 @@ export default function AccesoDenegado() {
       }
       descripcion={
         <>
-          La bandeja de postulantes es exclusiva de las cuentas de empresa.
+          Esta sección es exclusiva de las cuentas de {esEmpresa ? 'estudiante' : 'empresa'}.
           <br />
-          Con tu cuenta de estudiante puedes revisar el catálogo y el estado de tus postulaciones.
+          {esEmpresa ? 'Con tu cuenta de empresa puedes gestionar tu perfil y tus convocatorias.' : 'Con tu cuenta de estudiante puedes revisar el catálogo y el estado de tus postulaciones.'}
         </>
       }
       acciones={[
-        { destino: '/postulaciones', texto: 'Ir a mis postulaciones', principal: true },
+        { destino: esEmpresa ? '/empresa/perfil' : '/postulaciones', texto: esEmpresa ? 'Ir a mi empresa' : 'Ir a mis postulaciones', principal: true },
         { destino: '/convocatorias', texto: 'Volver al catálogo' },
       ]}
     />
