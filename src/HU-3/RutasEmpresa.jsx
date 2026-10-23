@@ -5,8 +5,9 @@ import PerfilEmpresa from './pages/PerfilEmpresa'
 import EditarPerfilEmpresa from './pages/EditarPerfilEmpresa'
 import MisConvocatorias from './pages/MisConvocatorias'
 import NuevaConvocatoria from './pages/NuevaConvocatoria'
+import ConfiguracionCuenta from '../HU-1/pages/ConfiguracionCuenta'
 
-export default function RutasEmpresa() {
+export default function RutasEmpresa({ usuario }) {
   return (
     <Routes>
       <Route element={<EmpresaLayout />}>
@@ -18,7 +19,7 @@ export default function RutasEmpresa() {
         <Route path="nueva-convocatorias" element={<Navigate to="/empresa/convocatorias/nueva" replace />} />
         <Route path="postulantes" element={<EnConstruccion titulo="Bandeja de postulantes" />} />
         <Route path="resenas" element={<EnConstruccion titulo="Reseñas recibidas" />} />
-        <Route path="cambiar-contrasena" element={<EnConstruccion titulo="Cambiar contraseña" />} />
+        <Route path="cambiar-contrasena" element={<ConfiguracionCuenta usuario={usuario} />} />
         <Route path="*" element={<Navigate to="/empresa/perfil" replace />} />
       </Route>
     </Routes>
