@@ -17,6 +17,7 @@ import FichaEmpresa from './HU-3/pages/FichaEmpresa'
 import Footer from './HU-1/components/Footer'
 import EnConstruccion from './HU-2/components/EnConstruccion'
 import { useSesion } from './HU-1/context/useSesion'
+import { obtenerRutaContrasena } from './HU-1/utils/sesionUtils'
 import { GuardadasProvider } from './HU-4/context/GuardadasContext'
 import Catalogo from './HU-4/pages/Catalogo'
 import DetalleConvocatoria from './HU-4/pages/DetalleConvocatoria'
@@ -48,9 +49,11 @@ function App() {
             <Route path="/postulaciones/*" element={<RutasPostulaciones />} />
             <Route path="/guardadas" element={<Guardadas usuario={usuario} />} />
           </Route>
-          <Route path="/cambiar-contrasena" element={<Navigate to="/perfil/configuracion/contrasena" replace />} />
+          <Route element={<RutaPorRol usuario={usuario} />}>
+            <Route path="/cambiar-contrasena" element={<Navigate to={obtenerRutaContrasena(usuario)} replace />} />
+          </Route>
           <Route element={<RutaPorRol usuario={usuario} rol="empresa" />}>
-            <Route path="/empresa/*" element={<RutasEmpresa />} />
+            <Route path="/empresa/*" element={<RutasEmpresa usuario={usuario} />} />
           </Route>
           <Route path="/empresas" element={<Empresas />} />
           <Route path="/empresas/:id" element={<FichaEmpresa key={pathname} />} />

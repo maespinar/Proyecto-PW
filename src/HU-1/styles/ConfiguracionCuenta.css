@@ -157,6 +157,25 @@
   outline-offset: 3px;
 }
 
+.configuracion-recuperar {
+  margin: 0;
+  font-size: 12px;
+}
+
+.configuracion-recuperar a {
+  color: var(--color-primary);
+}
+
+.hu3 .configuracion-cuenta--empresa {
+  min-height: auto;
+  margin: 0;
+  padding: 0 0 40px;
+}
+
+.hu3 .configuracion-cuenta--empresa .configuracion-distribucion {
+  grid-template-columns: minmax(0, 535px);
+}
+
 @media (max-width: 948px) {
   .configuracion-cuenta {
     margin-inline: 24px;

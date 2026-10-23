@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { obtenerRutaPrincipal } from '../utils/sesionUtils'
+import { obtenerRutaContrasena, obtenerRutaPrincipal } from '../utils/sesionUtils'
 import '../styles/HeaderAutenticado.css'
 
 const ENLACES = [
@@ -76,7 +76,7 @@ export default function HeaderAutenticado({ usuario, onCerrarSesion }) {
         </summary>
         <div className="header-autenticado-desplegable">
           <Link to={rutaPerfil} onClick={cerrarMenu}>{esEmpresa ? 'Perfil de la empresa' : 'Mi perfil'}</Link>
-          <Link to={esEmpresa ? '/empresa/cambiar-contrasena' : '/perfil/configuracion/contrasena'} onClick={cerrarMenu}>Configuración de la cuenta</Link>
+          <Link to={obtenerRutaContrasena(usuario)} onClick={cerrarMenu}>Configuración de la cuenta</Link>
           <button type="button" onClick={() => {
             try {
               onCerrarSesion()
