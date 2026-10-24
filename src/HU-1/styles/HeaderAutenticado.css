@@ -135,6 +135,12 @@
   font-size: 10px;
 }
 
+.header-autenticado-rol {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: 10px;
+}
+
 .header-autenticado-desplegable {
   position: absolute;
   z-index: 10;
@@ -164,6 +170,14 @@
 .header-autenticado-desplegable a:hover,
 .header-autenticado-desplegable button:hover {
   background: var(--color-primary-soft);
+}
+
+.header-autenticado-desplegable [role='alert'] {
+  margin: 0;
+  padding: 10px;
+  color: var(--color-danger);
+  font-size: 12px;
+  line-height: 1.5;
 }
 
 .header-autenticado :focus-visible {

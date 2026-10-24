@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import CampoRegistro from './CampoRegistro'
 import NotificacionResultado from './NotificacionResultado'
 import { validarCambioContrasena } from '../utils/validarCambioContrasena'
@@ -80,7 +81,7 @@ export default function FormularioCambioContrasena({ correo, onCancelar }) {
       <form ref={formulario} className="registro-formulario configuracion-formulario" noValidate onSubmit={guardar} aria-labelledby="cambio-contrasena-titulo" aria-busy={guardando}>
         <div className="configuracion-presentacion">
           <h2 id="cambio-contrasena-titulo">Cambiar contraseña</h2>
-          <p>En la versión final, cerraremos las demás sesiones activas al guardar.</p>
+          <p>Ingresa tu contraseña actual y elige una nueva para simular el cambio.</p>
         </div>
         <fieldset className="registro-campos" disabled={guardando}>
           <legend className="visually-hidden">Cambiar contraseña</legend>
@@ -89,6 +90,11 @@ export default function FormularioCambioContrasena({ correo, onCancelar }) {
               <input id={`registro-${nombre}`} name={nombre} type="password" autoComplete={autoComplete} value={datos[nombre]} onChange={cambiarCampo} onBlur={() => setRevisados(anteriores => ({ ...anteriores, [nombre]: true }))} required aria-invalid={Boolean(errores[nombre])} aria-describedby={errores[nombre] ? `registro-${nombre}-error` : ayuda ? `registro-${nombre}-ayuda` : undefined} />
             </CampoRegistro>
           ))}
+          <p className="configuracion-recuperar">
+            {guardando
+              ? <span role="link" aria-disabled="true">¿Olvidaste tu contraseña actual?</span>
+              : <Link to="/recuperar-contrasena">¿Olvidaste tu contraseña actual?</Link>}
+          </p>
           <div className="configuracion-acciones">
             <button className="configuracion-guardar" type="submit">
               {guardando && <span className="registro-spinner" aria-hidden="true" />}
