@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/NuevaConvocatoria.css';
 
 const carrerasDisponibles = [
@@ -10,6 +11,27 @@ const carrerasDisponibles = [
   'Psicología',
   'Comunicación',
 ];
+
+const validar = (f) => {
+    const e = {};
+
+    if (!f.titulo.trim()) {
+        e.titulo = 'Ingresa el título del puesto.';
+    }
+
+    const sub = Number(f.subvencion);
+    if (!f.subvencion || sub < 1025 || sub > 2500) {
+        e.subvencion = 'Debe estar entre S/ 1,025.00 y S/ 2,500.00';
+    }
+
+    if (!f.fechaCierre) {
+        e.fechaCierre = 'Ingresa la fecha de cierre.';
+    } else if (f.fechaPublicacion && f.fechaCierre <= f.fechaPublicacion) {
+        e.fechaCierre = 'El cierre debe ser posterior a la fecha de publicación.';
+    }
+
+    return e;
+};
 
 const modalidades = ['Presencial', 'Híbrido', 'Remoto'];
 const jornadas = ['Medio tiempo', 'Tiempo completo'];
@@ -36,6 +58,19 @@ export default function NuevaConvocatoria() {
     const [carreras, setCarreras] = useState([]);
     const [habilidades, setHabilidades] = useState([]);
     const [nuevaHabilidad, setNuevaHabilidad] = useState('');
+
+    const navigate = useNavigate();
+    const [intento, setIntento] = useState(false);
+
+    const errores = intento ? validar(formulario) : {};
+    const cantidad = Object.keys(errores).length;
+
+    const publicar = () => {
+        setIntento(true);
+        if (Object.keys(validar(formulario)).length === 0) {
+            navigate('/empresa/convocatorias');
+        }
+    };
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -83,23 +118,37 @@ export default function NuevaConvocatoria() {
             </div>
             <div className='nc-botones'>
                 <button type='button' className='nc-btn-borrador'>Guardar como borrador</button>
-                <button type='button' className='nc-btn-publicar'>Publicar convocatoria</button>
+                <button 
+                    type='button' 
+                    className='nc-btn-publicar'
+                    onClick={publicar}
+                    disabled={cantidad > 0}
+                >
+                    Publicar convocatoria
+                </button>
             </div>
         </section>
+        
+        {cantidad > 0 && (
+            <p className='nc-banner-error'>
+                Revisa {cantidad} {cantidad === 1 ? 'campo' : 'campos'} antes de publicar.
+            </p>
+        )}
 
         <div className='nc-columnas'>
             <div className='nc-col'>
                 <section className='nc-tarjeta'>
                     <p className='nc-seccion'>1 · PUESTO</p>
 
-                    <div className='nc-campo'>
-                            <span className='nc-etiqueta'>TÍTULO DEL PUESTO</span>
-                            <input 
-                                type='text'
-                                name='titulo'
-                                value={formulario.titulo}
-                                onChange={handleChange}
-                            />
+                    <div className={errores.titulo ? 'nc-campo nc-con-error' : 'nc-campo'}>
+                        <span className='nc-etiqueta'>TÍTULO DEL PUESTO</span>
+                        <input
+                            type='text'
+                            name='titulo'
+                            value={formulario.titulo}
+                            onChange={handleChange}
+                        />
+                        {errores.titulo && <span className='nc-error'>{errores.titulo}</span>}
                     </div>
 
                     <div className='nc-campo'>
@@ -226,7 +275,7 @@ export default function NuevaConvocatoria() {
                             </select>
                         </div>
 
-                        <div className='nc-campo'>
+                        <div className={errores.subvencion ? 'nc-campo nc-con-error' : 'nc-campo'}>
                             <span className='nc-etiqueta'>SUBVENCIÓN MENSUAL</span>
                             <input
                                 type='number'
@@ -235,7 +284,9 @@ export default function NuevaConvocatoria() {
                                 value={formulario.subvencion}
                                 onChange={handleChange}
                             />
-                            <span className='nc-ayuda'>Entre S/ 1,025.00 y S/ 2,500.00</span>
+                            {errores.subvencion
+                                ? <span className='nc-error'>{errores.subvencion}</span>
+                                : <span className='nc-ayuda'>Entre S/ 1,025.00 y S/ 2,500.00</span>}
                         </div>
                     </div>
 
@@ -261,7 +312,7 @@ export default function NuevaConvocatoria() {
                                 onChange={handleChange}
                             />
                         </div>
-                        <div className='nc-campo'>
+                        <div className={errores.fechaCierre ? 'nc-campo nc-con-error' : 'nc-campo'}>
                             <span className='nc-etiqueta'>FECHA DE CIERRE</span>
                             <input
                                 type='date'
@@ -269,6 +320,7 @@ export default function NuevaConvocatoria() {
                                 value={formulario.fechaCierre}
                                 onChange={handleChange}
                             />
+                            {errores.fechaCierre && <span className='nc-error'>{errores.fechaCierre}</span>}
                         </div>
                     </div>
 

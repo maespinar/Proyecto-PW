@@ -207,3 +207,215 @@
     color: var(--color-surface);
     font-weight: 600;
 }
+
+.mc-celda-menu {
+    position: relative;
+}
+
+.mc-desplegable {
+    position: absolute;
+    top: 100%;
+    right: 16px;
+    min-width: 200px;
+    padding: 4px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(18, 58, 95, 0.12);
+}
+
+.mc-desplegable button {
+    display: block;
+    width: 100%;
+    padding: 8px 12px;
+    background: none;
+    border: 0;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 15px;
+    text-align: left;
+    color: var(--color-text);
+}
+
+.mc-desplegable button:hover {
+    background: var(--color-bg);
+}
+
+.mc-sin-acciones {
+    display: block;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: var(--color-text-muted);
+}
+
+.mc-fondo {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(12, 42, 70, 0.55);
+}
+
+.mc-modal {
+    width: 480px;
+    max-width: calc(100% - 32px);
+    padding: 24px;
+    background: var(--color-surface);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(12, 42, 70, 0.25);
+}
+
+.mc-modal h2 {
+    margin: 0 0 12px;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.mc-modal p {
+    margin: 0 0 16px;
+}
+
+.mc-modal-alerta {
+    padding: 12px;
+    background: rgba(183, 121, 31, 0.12);
+    border: 1px solid rgba(183, 121, 31, 0.3);
+    border-radius: 6px;
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--color-warning);
+}
+
+.mc-modal-botones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.mc-btn-mantener,
+.mc-btn-cerrar {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.mc-btn-mantener {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+}
+
+.mc-btn-cerrar {
+    background: var(--color-danger);
+    border: 1px solid var(--color-danger);
+    color: var(--color-surface);
+}
+
+.mc-aviso {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-success);
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(18, 58, 95, 0.12);
+}
+
+.mc-aviso p {
+    margin: 0;
+}
+
+.mc-aviso button {
+    background: none;
+    border: 0;
+    color: var(--color-text-muted);
+}
+
+.mc-vacia {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 64px 24px;
+    text-align: center;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    box-shadow: var(--shadow-card);
+}
+
+.mc-vacia-icono {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    margin-bottom: 16px;
+    background: var(--color-primary-soft);
+    border-radius: 6px;
+    font-size: 20px;
+    color: var(--color-primary);
+}
+
+.mc-vacia h2 {
+    margin: 0 0 8px;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.mc-vacia p {
+    max-width: 420px;
+    margin: 0 0 24px;
+    color: var(--color-text-muted);
+}
+
+.mc-scs-activos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 12px 16px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+}
+
+.mc-sc {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    background: var(--color-primary-soft);
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--color-primary);
+}
+
+.mc-sc button {
+    padding: 0;
+    background: none;
+    border: 0;
+    font-size: 12px;
+    color: var(--color-primary);
+    cursor: pointer;
+}
+
+.mc-limpiar {
+    padding: 0;
+    background: none;
+    border: 0;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-primary);
+}
