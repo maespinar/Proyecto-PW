@@ -1,50 +1,23 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { usePostulaciones } from '../context/usePostulaciones'
-import * as postulacionesService from '../services/postulacionesService'
 import BadgesEstado from '../components/BadgesEstado'
 import LineaTiempoTrazabilidad from '../components/LineaTiempoTrazabilidad'
 import ModalRetirarPostulacion from '../components/ModalRetirarPostulacion'
 import { formatearMoneda } from '../utils/formateadores'
+import { buscarPostulacion, puedeRetirarPostulacion, rutaConvocatoria } from '../utils/postulacionesUtils'
+import EstadoCargaPostulaciones from '../components/EstadoCargaPostulaciones'
 
 export default function DetallePostulacion() {
   const { id } = useParams()
-  const { retirar } = usePostulaciones()
-
-  const [postulacion, setPostulacion] = useState(null)
-  const [cargando, setCargando] = useState(true)
+  const { postulaciones, retirar, cargando, error, reintentar } = usePostulaciones()
+  const postulacion = buscarPostulacion(postulaciones, id)
   const [modalRetiroAbierto, setModalRetiroAbierto] = useState(false)
 
-  useEffect(() => {
-    let activo = true
-    postulacionesService
-      .obtenerPostulacionPorId(id)
-      .then((datos) => {
-        if (activo) {
-          setPostulacion(datos)
-          setCargando(false)
-        }
-      })
-      .catch(() => {
-        if (activo) setCargando(false)
-      })
-    return () => {
-      activo = false
-    }
-  }, [id])
-
-  const handleConfirmarRetiro = async (idPost) => {
-    const actualizada = await retirar(idPost)
-    setPostulacion(actualizada)
-    setModalRetiroAbierto(false)
-  }
-
-  if (cargando) {
+  if (cargando || error) {
     return (
       <div className="hu5 container py-5 text-center">
-        <div className="spinner-border text-primary" role="status">
-          <span className="visually-hidden">Cargando detalle...</span>
-        </div>
+        <EstadoCargaPostulaciones cargando={cargando} error={error} onReintentar={reintentar} />
       </div>
     )
   }
@@ -52,7 +25,7 @@ export default function DetallePostulacion() {
   if (!postulacion) {
     return (
       <div className="hu5 container py-5 text-center">
-        <h2 className="hu5-page-title mb-3">Postulación no encontrada</h2>
+        <h1 className="hu5-page-title mb-3">Postulación no encontrada</h1>
         <p className="text-muted mb-4">
           La postulación que buscas no existe o ha sido eliminada.
         </p>
@@ -63,8 +36,8 @@ export default function DetallePostulacion() {
     )
   }
 
-  const puedeRetirar =
-    postulacion.estado === 'recibida' || postulacion.estado === 'en_revision'
+  const puedeRetirar = puedeRetirarPostulacion(postulacion)
+  const ruta = rutaConvocatoria(postulacion)
 
   return (
     <div className="hu5 container py-4">
@@ -74,6 +47,8 @@ export default function DetallePostulacion() {
         <span className="separador">/</span>
         <span className="activo">{postulacion.puesto}</span>
       </nav>
+      <h1 className="hu5-page-title mb-3">{postulacion.puesto}</h1>
+      <p className="hu5-nota-simulacion">Demostración local. Esta información no representa un envío real a la empresa.</p>
 
       <div className="row g-4">
         {/* Columna Izquierda: Estados, Mensaje y Perfil enviado */}
@@ -94,13 +69,13 @@ export default function DetallePostulacion() {
           {/* Tarjeta 2: Mensaje que enviaste */}
           <div className="hu5-card">
             <h3 className="hu5-card-title" style={{ fontSize: '1rem' }}>
-              Mensaje que enviaste
+              Mensaje registrado
             </h3>
             <div className="hu5-quote-box">
               {postulacion.mensaje || 'No se incluyó un mensaje opcional al reclutador.'}
             </div>
             <p className="hu5-help-note">
-              Enviado el {postulacion.fechaPostulacion}. El mensaje no se puede
+              Registrado el {postulacion.fechaPostulacion}. El mensaje no se puede
               editar después de postular.
             </p>
           </div>
@@ -108,17 +83,18 @@ export default function DetallePostulacion() {
           {/* Tarjeta 3: Perfil enviado */}
           <div className="hu5-card">
             <h3 className="hu5-card-title" style={{ fontSize: '1rem' }}>
-              Perfil enviado
+              Perfil registrado
             </h3>
             <div className="hu5-perfil-resumen-box">
-              {postulacion.perfilResumen?.carrera || 'Ingeniería de Sistemas'} ·{' '}
-              {postulacion.perfilResumen?.ciclo || 'Octavo ciclo'} ·{' '}
-              {postulacion.perfilResumen?.habilidadesCount || 9} habilidades ·{' '}
-              {postulacion.perfilResumen?.experienciasCount || 3} experiencias ·{' '}
-              {postulacion.perfilResumen?.enlacesCount || 2} enlaces externos
+              {postulacion.perfilResumen ? <>
+                {postulacion.perfilResumen.carrera} · {postulacion.perfilResumen.ciclo} ·{' '}
+                {postulacion.perfilResumen.habilidadesCount} habilidades ·{' '}
+                {postulacion.perfilResumen.experienciasCount} experiencias ·{' '}
+                {postulacion.perfilResumen.enlacesCount} enlaces externos
+              </> : 'Esta postulación semilla no incluye un resumen histórico del perfil.'}
             </div>
             <p className="hu5-help-note">
-              La empresa ve la versión de tu perfil al momento de postular.
+              Las nuevas postulaciones conservan el resumen del perfil al momento de registrarlas localmente.
             </p>
           </div>
         </div>
@@ -169,13 +145,13 @@ export default function DetallePostulacion() {
               </tbody>
             </table>
 
-            <Link
-              to="/"
+            {ruta ? <Link
+              to={ruta}
               className="hu5-btn-outline"
               style={{ width: '100%' }}
             >
               Ver la convocatoria
-            </Link>
+            </Link> : <p className="hu5-help-note">La convocatoria original ya no está disponible en el catálogo.</p>}
           </div>
 
           {/* Tarjeta Retirar postulación */}
@@ -219,8 +195,10 @@ export default function DetallePostulacion() {
                 {postulacion.estado === 'retirada'
                   ? 'Esta postulación ya ha sido retirada.'
                   : postulacion.estado === 'aceptada'
-                  ? '¡Has sido aceptado para esta vacante!'
-                  : 'Este proceso de postulación ha finalizado.'}
+                  ? 'La postulación figura como aceptada en los datos de demostración.'
+                  : ['recibida', 'en_revision'].includes(postulacion.estado)
+                  ? 'No puedes retirar esta postulación porque la convocatoria ya no está vigente o no está disponible.'
+                  : 'Este proceso de postulación ha finalizado en la demostración.'}
               </span>
             </div>
           )}
@@ -230,7 +208,7 @@ export default function DetallePostulacion() {
       {/* Modal de confirmación para retirar */}
       <ModalRetirarPostulacion
         postulacion={modalRetiroAbierto ? postulacion : null}
-        onConfirmar={handleConfirmarRetiro}
+        onConfirmar={retirar}
         onCerrar={() => setModalRetiroAbierto(false)}
       />
     </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import convocatorias from '../data/convocatorias'
 import empresas from '../data/empresas'
@@ -8,6 +8,10 @@ import { useGuardadas } from '../context/guardadasContexto'
 import Notificacion from '../components/Notificacion'
 import PanelPostulacion from '../components/PanelPostulacion'
 import PaginaNoEncontrada from '../../HU-1/pages/PaginaNoEncontrada'
+import { usePostulaciones } from '../../HU-5/context/usePostulaciones'
+import ModalConfirmarPostulacion from '../../HU-5/components/ModalConfirmarPostulacion'
+import ModalRetirarPostulacion from '../../HU-5/components/ModalRetirarPostulacion'
+import NotificacionPostulaciones from '../../HU-5/components/NotificacionPostulaciones'
 import '../styles/Comun.css'
 import '../styles/Detalle.css'
 
@@ -19,6 +23,11 @@ function DetalleConvocatoria({ usuario }) {
   const { id } = useParams()
   const { estaGuardada, guardar, quitar } = useGuardadas()
   const [notificacion, setNotificacion] = useState(null)
+  const [modal, setModal] = useState(null)
+  const temporizador = useRef(null)
+  const { postulaciones: propias, cargando, error, reintentar, retirar } = usePostulaciones()
+
+  useEffect(() => () => clearTimeout(temporizador.current), [])
 
   const convocatoria = convocatorias.find((c) => c.id === id && c.estado !== 'borrador')
 
@@ -27,16 +36,20 @@ function DetalleConvocatoria({ usuario }) {
   const empresa = empresas.find((e) => e.id === convocatoria.empresaId)
   const vigente = estaVigente(convocatoria)
   const guardada = estaGuardada(id)
-  const postulantes = postulaciones.filter((p) => p.convocatoriaId === id && p.estado !== 'retirada').length
-  const postulacion = usuario
-    ? postulaciones.find((p) => p.convocatoriaId === id && p.estudianteId === usuario.id)
+  const lista = usuario?.rol === 'estudiante'
+    ? [...postulaciones.filter((post) => post.estudianteId !== usuario.id), ...propias]
+    : postulaciones
+  const postulantes = lista.filter((p) => p.convocatoriaId === id && p.estado !== 'retirada').length
+  const postulacion = usuario?.rol === 'estudiante'
+    ? propias.find((p) => p.convocatoriaId === id)
     : undefined
   const carrera = usuario && convocatoria.carreras.includes(usuario.carrera) ? usuario.carrera : convocatoria.carreras[0]
   const misHabilidades = usuario?.rol === 'estudiante' ? usuario.habilidades.map((h) => normalizar(h.nombre)) : []
 
   const notificar = (nueva) => {
+    clearTimeout(temporizador.current)
     setNotificacion(nueva)
-    setTimeout(() => setNotificacion((actual) => (actual === nueva ? null : actual)), 4000)
+    temporizador.current = setTimeout(() => setNotificacion(null), 4000)
   }
 
   const alternarGuardado = () => {
@@ -58,11 +71,17 @@ function DetalleConvocatoria({ usuario }) {
       usuario={usuario}
       guardada={guardada}
       onGuardar={alternarGuardado}
+      cargando={cargando}
+      error={error}
+      onReintentar={reintentar}
+      onPostular={() => setModal('postular')}
+      onRetirar={() => setModal('retirar')}
     />
   )
 
   return (
     <div className="detalle-pagina">
+      <NotificacionPostulaciones />
       <p className="migas">
         <Link to="/convocatorias">Convocatorias</Link> · {carrera} · <strong>{convocatoria.puesto}</strong>
       </p>
@@ -157,6 +176,8 @@ function DetalleConvocatoria({ usuario }) {
       </div>
 
       <Notificacion notificacion={notificacion} onCerrar={() => setNotificacion(null)} />
+      <ModalConfirmarPostulacion convocatoria={modal === 'postular' ? convocatoria : null} onCerrar={() => setModal(null)} />
+      <ModalRetirarPostulacion postulacion={modal === 'retirar' ? postulacion : null} onConfirmar={retirar} onCerrar={() => setModal(null)} />
     </div>
   )
 }

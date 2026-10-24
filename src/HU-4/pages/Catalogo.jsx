@@ -53,9 +53,10 @@ const ordenar = (lista, orden) => {
 function Catalogo({ usuario }) {
   const carreraUsuario = usuario ? usuario.carrera : ''
   const [parametros] = useSearchParams()
+  const carreraInicial = CARRERAS.includes(parametros.get('carrera')) ? parametros.get('carrera') : carreraUsuario
 
   const [cargando, setCargando] = useState(true)
-  const [filtros, setFiltros] = useState({ ...FILTROS_VACIOS, texto: parametros.get('q') || '', carreras: carreraUsuario ? [carreraUsuario] : [] })
+  const [filtros, setFiltros] = useState({ ...FILTROS_VACIOS, texto: parametros.get('q') || '', carreras: carreraInicial ? [carreraInicial] : [] })
   const [orden, setOrden] = useState('cierre')
   const [pagina, setPagina] = useState(1)
 

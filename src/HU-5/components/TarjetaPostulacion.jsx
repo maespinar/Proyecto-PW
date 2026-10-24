@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import BadgesEstado from './BadgesEstado'
 import { formatearMoneda } from '../utils/formateadores'
+import { puedeRetirarPostulacion, rutaConvocatoria, rutaSimilares } from '../utils/postulacionesUtils'
 
 export default function TarjetaPostulacion({ postulacion, onSolicitarRetiro }) {
   const {
@@ -37,7 +38,7 @@ export default function TarjetaPostulacion({ postulacion, onSolicitarRetiro }) {
   }
 
   const renderAccionSecundaria = () => {
-    if (estado === 'recibida' || estado === 'en_revision') {
+    if (puedeRetirarPostulacion(postulacion)) {
       return (
         <button
           type="button"
@@ -51,20 +52,22 @@ export default function TarjetaPostulacion({ postulacion, onSolicitarRetiro }) {
     if (estado === 'aceptada') {
       return (
         <Link to={`/postulaciones/${id}`} className="hu5-btn-link hu5-btn-link-secundario">
-          Ver siguientes pasos
+          Ver resultado
         </Link>
       )
     }
     if (estado === 'descartada') {
       return (
-        <Link to="/" className="hu5-btn-link hu5-btn-link-secundario">
+        <Link to={rutaSimilares(postulacion)} className="hu5-btn-link hu5-btn-link-secundario">
           Ver convocatorias similares
         </Link>
       )
     }
     if (estado === 'retirada') {
+      const ruta = rutaConvocatoria(postulacion)
+      if (!ruta) return <span className="hu5-help-note">Convocatoria no disponible</span>
       return (
-        <Link to="/" className="hu5-btn-link hu5-btn-link-secundario">
+        <Link to={ruta} className="hu5-btn-link hu5-btn-link-secundario">
           Ver la convocatoria
         </Link>
       )
