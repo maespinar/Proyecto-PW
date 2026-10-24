@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { iniciarSesion, obtenerEstadoAcceso } from '../services/sesionService'
+import { obtenerRutaPrincipal } from '../utils/sesionUtils'
 
 export default function FormularioInicioSesion({ onIniciarSesion }) {
   const navigate = useNavigate()
   const { state } = useLocation()
   const [correo, setCorreo] = useState('')
   const [clave, setClave] = useState('')
+  const [recordar, setRecordar] = useState(false)
   const [mostrarClave, setMostrarClave] = useState(false)
   const [errores, setErrores] = useState({})
   const [estado, setEstado] = useState('inactivo')
@@ -66,8 +68,14 @@ export default function FormularioInicioSesion({ onIniciarSesion }) {
         setEstado('credenciales')
         return
       }
-      onIniciarSesion()
-      navigate(state?.destino || '/perfil', { replace: true })
+      try {
+        onIniciarSesion(resultado.cuentaId, recordar)
+      } catch {
+        setEstado('persistencia')
+        return
+      }
+      setClave('')
+      navigate(state?.destino || obtenerRutaPrincipal(resultado.usuario), { replace: true })
     } catch {
       if (!controlador.signal.aborted) setEstado('error')
     } finally {
@@ -117,13 +125,14 @@ export default function FormularioInicioSesion({ onIniciarSesion }) {
         </div>
 
         <div className="inicio-sesion-opciones">
-          <label title="Disponible próximamente"><input type="checkbox" disabled /> Recordarme</label>
+          <label><input name="recordar" type="checkbox" checked={recordar} onChange={evento => setRecordar(evento.target.checked)} /> Recordarme</label>
           {deshabilitado
             ? <span role="link" aria-disabled="true">¿Olvidaste tu contraseña?</span>
             : <Link to="/recuperar-contrasena">¿Olvidaste tu contraseña?</Link>}
         </div>
 
         {estado === 'error' && <p className="inicio-sesion-error" role="alert">No pudimos validar tus datos. Inténtalo nuevamente.</p>}
+        {estado === 'persistencia' && <p className="inicio-sesion-error" role="alert">No pudimos guardar la sesión de demostración. Revisa si el navegador permite almacenar datos para este sitio e inténtalo nuevamente.</p>}
         <button type="submit" className="inicio-sesion-ingresar">
           {cargando && <span className="inicio-sesion-spinner" aria-hidden="true" />}
           {cargando ? 'Ingresando...' : 'Ingresar'}

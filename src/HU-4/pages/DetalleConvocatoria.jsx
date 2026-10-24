@@ -32,7 +32,7 @@ function DetalleConvocatoria({ usuario }) {
     ? postulaciones.find((p) => p.convocatoriaId === id && p.estudianteId === usuario.id)
     : undefined
   const carrera = usuario && convocatoria.carreras.includes(usuario.carrera) ? usuario.carrera : convocatoria.carreras[0]
-  const misHabilidades = usuario ? usuario.habilidades.map((h) => normalizar(h.nombre)) : []
+  const misHabilidades = usuario?.rol === 'estudiante' ? usuario.habilidades.map((h) => normalizar(h.nombre)) : []
 
   const notificar = (nueva) => {
     setNotificacion(nueva)
