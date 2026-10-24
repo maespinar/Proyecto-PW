@@ -221,6 +221,34 @@
     font-weight: 700;
 }
 
+.hu3 .nc-banner-error {
+    margin: 0 0 16px;
+    padding: 12px 16px;
+    background: rgba(180, 50, 43, 0.1);
+    border: 1px solid rgba(180, 50, 43, 0.3);
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-danger);
+}
+
+.hu3 .nc-error {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+    color: var(--color-danger);
+}
+
+.hu3 .nc-con-error input {
+    border-color: var(--color-danger);
+}
+
+.hu3 .nc-btn-publicar:disabled {
+    background: var(--color-border);
+    border-color: var(--color-border);
+    color: var(--color-text-muted);
+}
+
 @media (max-width: 1100px) {
     .hu3 .nc-titulo,
     .hu3 .nc-botones {
