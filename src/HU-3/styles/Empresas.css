@@ -1,0 +1,301 @@
+.directorio-empresas {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 16px 16px;
+  line-height: 1.5;
+}
+
+.directorio-empresas .empresas-cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 32px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-primary-soft);
+}
+
+.directorio-empresas .empresas-presentacion {
+  max-width: 620px;
+}
+
+.directorio-empresas .empresas-antetitulo {
+  margin: 0 0 8px;
+  color: var(--color-primary);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.directorio-empresas h1 {
+  margin: 0 0 10px;
+  color: var(--color-primary);
+  font-size: clamp(28px, 4vw, 34px);
+  line-height: 1.2;
+}
+
+.directorio-empresas .empresas-introduccion {
+  margin: 0 0 20px;
+  font-size: 15px;
+}
+
+.directorio-empresas a {
+  color: var(--color-primary);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.directorio-empresas a:hover {
+  text-decoration: underline;
+}
+
+.directorio-empresas a:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.directorio-empresas .empresas-boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 6px;
+  background: var(--color-primary);
+  color: var(--color-surface);
+}
+
+.directorio-empresas .empresas-boton:hover {
+  background: var(--color-primary-dark);
+  text-decoration: none;
+}
+
+.directorio-empresas .empresas-resumen {
+  display: grid;
+  flex-shrink: 0;
+  gap: 16px;
+  margin: 0;
+  padding-left: 32px;
+  border-left: 1px solid var(--color-border);
+}
+
+.directorio-empresas .empresas-resumen > div {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.directorio-empresas .empresas-resumen dt {
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.directorio-empresas .empresas-resumen dd {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.directorio-empresas .empresas-listado-cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 28px 0 16px;
+}
+
+.directorio-empresas .empresas-listado-cabecera h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.directorio-empresas .empresas-listado-cabecera p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+.directorio-empresas .empresas-grilla {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.directorio-empresas .empresas-tarjeta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.directorio-empresas .empresas-tarjeta:focus-within {
+  border-color: var(--color-primary);
+}
+
+.directorio-empresas .empresas-identidad {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.directorio-empresas .empresas-logo {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.directorio-empresas .empresas-sector {
+  margin: 0 0 2px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.directorio-empresas .empresas-tarjeta h3 {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: 18px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.directorio-empresas .empresas-ubicacion {
+  margin: 16px 0 8px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.directorio-empresas .empresas-descripcion {
+  flex: 1;
+  margin: 0 0 20px;
+  font-size: 14px;
+}
+
+.directorio-empresas .empresas-tarjeta-pie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-border);
+}
+
+.directorio-empresas .empresas-vigentes,
+.directorio-empresas .empresas-sin-vigentes {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.directorio-empresas .empresas-vigentes {
+  background: rgba(30, 127, 77, 0.08);
+  color: var(--color-success);
+}
+
+.directorio-empresas .empresas-sin-vigentes {
+  background: var(--color-bg);
+  color: var(--color-text-muted);
+}
+
+.directorio-empresas .empresas-tarjeta-pie a {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+}
+
+.directorio-empresas .empresas-panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 24px;
+  padding: 24px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-surface);
+}
+
+.directorio-empresas .empresas-panel h2,
+.directorio-empresas .empresas-vacio h3 {
+  margin: 0 0 4px;
+  color: var(--color-primary);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.directorio-empresas .empresas-panel p,
+.directorio-empresas .empresas-vacio p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+.directorio-empresas .empresas-panel a {
+  padding-block: 10px;
+}
+
+.directorio-empresas .empresas-vacio {
+  padding: 40px 24px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-surface);
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .directorio-empresas .empresas-cabecera {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+  }
+
+  .directorio-empresas .empresas-resumen {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 20px 0 0;
+    border-top: 1px solid var(--color-border);
+    border-left: 0;
+  }
+
+  .directorio-empresas .empresas-grilla {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 400px) {
+  .directorio-empresas {
+    padding-top: 20px;
+  }
+
+  .directorio-empresas .empresas-cabecera,
+  .directorio-empresas .empresas-tarjeta,
+  .directorio-empresas .empresas-panel {
+    padding: 20px;
+  }
+
+  .directorio-empresas .empresas-boton {
+    width: 100%;
+  }
+}
