@@ -1,7 +1,7 @@
 import '../styles/MisConvocatorias.css';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import convocatorias from '../data/convocatorias.seed.json';
-import { useNavigate } from 'react-router-dom';
 
 
 const filtros = [
@@ -12,7 +12,6 @@ const filtros = [
 ];
 
 export default function MisConvocatorias() {
-    const navigate = useNavigate();
     const [filtro, setFiltro] = useState('Todas');
     const [busqueda, setBusqueda] = useState('');
 
@@ -44,7 +43,7 @@ export default function MisConvocatorias() {
             c.id === aCerrar.id ? { ...c, estado: 'Cerrada' } : c
             )
     );
-        setAviso('La convocatoria «' + aCerrar.puesto + '» se cerró correctamente.');
+        setAviso('La convocatoria «' + aCerrar.puesto + '» se cerró en la demostración local.');
         setACerrar(null);
     };
 
@@ -65,10 +64,10 @@ export default function MisConvocatorias() {
                 </p>
                 <h1>Mis convocatorias</h1>
             </div>
-            <button type='button' className='mc-btn-nueva' onClick={() => navigate('/empresa/convocatorias/nueva')}>+ Nueva convocatoria</button>
+            <Link to='/empresa/convocatorias/nueva' className='mc-btn-nueva'>+ Nueva convocatoria</Link>
         </section>
 
-        
+
         {lista.length === 0 ? (
             <section className='mc-vacia'>
                 <span className='mc-vacia-icono'>▤</span>
@@ -77,17 +76,16 @@ export default function MisConvocatorias() {
                 Publica tu primera convocatoria y aparecerá en el catálogo de los
                 estudiantes cuya carrera coincida con el perfil buscado.
                 </p>
-                <button
-                type='button'
+                <Link
+                to='/empresa/convocatorias/nueva'
                 className='mc-btn-nueva'
-                onClick={() => navigate('/empresa/convocatorias/nueva')}
                 >
                 Crear mi primera convocatoria
-                </button>
+                </Link>
             </section>
             ) : (
             <>
-                
+
         <section className='mc-barra'>
             <div className='mc-busqueda-caja'>
                 <span className='mc-busqueda-icono'></span>
@@ -95,7 +93,7 @@ export default function MisConvocatorias() {
                 type='search'
                 className='mc-busqueda'
                 placeholder='Buscar por puesto o carrera'
-                valor={busqueda}
+                value={busqueda}
                 onChange={(e) => setBusqueda(e.target.value)}
                 />
             </div>
@@ -107,15 +105,15 @@ export default function MisConvocatorias() {
                     type='button'
                     className={filtro === f.valor ? 'mc-filtro mc-filtro-activo' : 'mc-filtro'}
                     onClick={() => setFiltro(f.valor)}
-                    >   
-                        {f.texto} · {contar(f.valor)}   
+                    >
+                        {f.texto} · {contar(f.valor)}
                     </button>
                 ))}
             </div>
 
             <p className='mc-contador'>{filtradas.length} convocatorias · ordenadas por cierre</p>
         </section>
-        
+
         {hayFiltros && (
             <section className='mc-scs-activos'>
                 {filtro !== 'Todas' && (
@@ -150,7 +148,7 @@ export default function MisConvocatorias() {
                     </tr>
                 </thead>
                 <tbody>
-                    {filtradas.map((c) => ( 
+                    {filtradas.map((c) => (
                         <tr key={c.id}>
                             <td className='mc-puesto'>{c.puesto}</td>
                             <td className='mc-gris'>{c.carreras}</td>
@@ -158,12 +156,14 @@ export default function MisConvocatorias() {
                             <td>{c.cierre}</td>
                             <td className='mc-der mc-num'>{c.postulantes}</td>
                             <td>
-                                <span className={'mc-estado mc-' + c.estado.toLowerCase()}>{c.estado}</span>    
+                                <span className={'mc-estado mc-' + c.estado.toLowerCase()}>{c.estado}</span>
                             </td>
                             <td className='mc-der mc-celda-menu'>
-                                <button 
-                                    type='button' 
+                                <button
+                                    type='button'
                                     className='mc-menu'
+                                    aria-label={'Acciones de ' + c.puesto}
+                                    aria-expanded={menuAbierto === c.id}
                                     onClick={() => setMenuAbierto(menuAbierto === c.id ? null : c.id)}
                                 >⋯</button>
                               {menuAbierto === c.id && (
@@ -185,35 +185,35 @@ export default function MisConvocatorias() {
         </section>
 
         <section className='mc-pie'>
-            <p>Mostrando 1–{filtradas.length} de {filtradas.length} convocatorias</p>
+            <p>Mostrando {filtradas.length === 0 ? 0 : 1}–{filtradas.length} de {filtradas.length} convocatorias</p>
             <div className='mc-paginas'>
                 <button type='button' className='mc-pag' disabled>Anterior</button>
                 <button type='button' className='mc-pag mc-pag-activa'>1</button>
                 <button type='button' className='mc-pag' disabled>Siguiente</button>
             </div>
       </section>
-                
+
             </>
         )}
 
 
     {aviso && (
-        <div className='mc-aviso'>
+        <div className='mc-aviso' role='status'>
             <p>{aviso}</p>
-            <button type='button' onClick={() => setAviso('')}>✕</button>
+            <button type='button' aria-label='Cerrar aviso' onClick={() => setAviso('')}>✕</button>
         </div>
         )}
 
     {aCerrar && (
         <div className='mc-fondo'>
-            <div className='mc-modal' role='dialog' aria-modal='true'>
-            <h2>¿Cerrar esta convocatoria?</h2>
+            <div className='mc-modal' role='dialog' aria-modal='true' aria-labelledby='mc-cierre-titulo'>
+            <h2 id='mc-cierre-titulo'>¿Cerrar esta convocatoria?</h2>
             <p>
                 «{aCerrar.puesto}» tiene <strong>{aCerrar.postulantes} {aCerrar.postulantes === 1 ? 'postulante' : 'postulantes'}</strong>.
-                Al cerrarla, los estudiantes ya no podrán postular y la convocatoria saldrá del catálogo.
+                En la versión final, al cerrarla los estudiantes ya no podrán postular y la convocatoria saldrá del catálogo.
             </p>
             <p className='mc-modal-alerta'>
-                Esta acción no se puede deshacer. Las postulaciones recibidas se conservan en tu bandeja.
+                Simulación: solo cambia esta lista en memoria; el catálogo y las postulaciones no se modifican. Al recargar se restauran los datos semilla.
             </p>
             <div className='mc-modal-botones'>
                 <button type='button' className='mc-btn-mantener' onClick={() => setACerrar(null)}>

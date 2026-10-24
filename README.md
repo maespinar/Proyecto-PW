@@ -160,6 +160,141 @@ No se admiten plantillas de administración, temas comerciales, ni el uso de ser
 construcción de algún elemento del sistema (por ejemplo: NestJs para el backend, o Firebase para
 scaffolding de APIs). Se puede utilizar librerías de componentes como Material UI, o similares.
 
+### Organización del frontend
+
+Se usa la separación por responsabilidad de HU-2 como referencia para cada historia. La raíz de `src/` contiene únicamente la composición de la aplicación, su arranque y los estilos globales:
+
+```text
+src/
+├── App.jsx
+├── main.jsx
+├── index.css
+├── HU-1/
+│   ├── assets/
+│   ├── components/
+│   │   ├── ComoFunciona.jsx
+│   │   ├── ConvocatoriasDestacadas.jsx
+│   │   ├── Footer.jsx
+│   │   ├── Header.jsx
+│   │   ├── HeroPublico.jsx
+│   │   └── TarjetaConvocatoria.jsx
+│   ├── data/
+│   │   └── landing.js
+│   ├── pages/
+│   │   └── LandingPublica.jsx
+│   └── styles/
+│       ├── Footer.css
+│       ├── Header.css
+│       ├── HeroPublico.css
+│       └── LandingPublica.css
+└── HU-2/
+    ├── components/
+    ├── context/
+    ├── data/
+    ├── pages/
+    ├── services/
+    ├── styles/
+    ├── utils/
+    └── RutasPerfil.jsx
+```
+
+- `pages/`: vistas completas que se conectan al enrutamiento y coordinan los componentes y el estado de la pantalla.
+- `components/`: piezas de interfaz. En HU-1, la lista de convocatorias, sus tarjetas y los pasos de uso están separados de la página.
+- `styles/`: estilos de cada historia. Cada componente o página importa el CSS que necesita; las tarjetas, la lista y los pasos de HU-1 usan los estilos de `LandingPublica.css`.
+- `data/`: datos semilla y catálogos estáticos; no se mezclan con el marcado de las páginas.
+- `assets/`: imágenes y otros recursos propios de la historia.
+- `services/`: acceso a datos, persistencia y futuras llamadas a la API.
+- `context/`: estado compartido dentro de una historia y sus hooks de acceso.
+- `utils/`: funciones independientes de la interfaz, como validaciones y cálculos.
+
+En HU-4, `context/GuardadasContext.jsx` exporta únicamente `GuardadasProvider`; el contexto y el hook `useGuardadas` viven en `context/guardadasContexto.js`, siguiendo la separación de HU-2 para mantener la compatibilidad con Fast Refresh.
+
+Se crean solo las carpetas que cada historia necesita. HU-1 usa `services/sesionService.js` para simular la validación de acceso; todavía no requiere Context. Si una historia tiene varias rutas, puede agruparlas en un archivo de entrada como `RutasPerfil.jsx`; `App.jsx` integra las historias y compone el encabezado y el pie.
+
+Por ahora, `Header` y `Footer` se conservan en `HU-1/components/`, desde donde `App.jsx` los utiliza para todas las vistas. `Header` selecciona la variante pública o `HeaderAutenticado` según el usuario recibido; las páginas no componen otro encabezado. Los estilos de ambas variantes están delimitados para que convivan entre historias. Si se crea el módulo compartido del equipo, estos componentes se trasladarán allí junto con sus estilos. Las variables de diseño y las reglas base de toda la aplicación están en `index.css`.
+
+### Probar el inicio de sesión
+
+En `/iniciar-sesion`, el formulario comienza vacío. Al enviarlo, señala los campos requeridos y el correo con formato incorrecto sin consumir intentos. Con ambos campos completos, muestra `Ingresando...` durante la validación y deshabilita los campos, botones y enlaces de registro del formulario.
+
+La cuenta de prueba es `mariana.quispe@aloe.ulima.edu.pe` con contraseña `ulima123`. Un acceso correcto abre `/perfil`. Las credenciales incorrectas conservan los datos ingresados, resaltan ambos campos y muestran los intentos restantes. Después de cinco fallos, el formulario se bloquea durante 30 segundos y luego se habilita automáticamente.
+
+La validación y el bloqueo son una simulación en memoria para la primera entrega: se mantienen al navegar dentro de la aplicación y se reinician al recargarla. En la segunda entrega deberán implementarse en el servidor.
+
+Ejecutar `npm run lint` y `npm run build` para revisar el código y la compilación.
+
+### Probar el registro de estudiante
+
+En `/registro` (o `/registro?tipo=estudiante`), la pantalla reutiliza el encabezado y el pie comunes. La presentación, el formulario, el campo reutilizable y el campo de contraseña están separados en componentes de HU-1; las validaciones y el cálculo de fortaleza están en `utils/validarRegistroEstudiante.js`. Las opciones de carrera y ciclo reutilizan los catálogos existentes de HU-2.
+
+El formulario comienza vacío y valida nombres, apellidos, correo terminado en `@aloe.ulima.edu.pe`, contraseña de al menos 8 caracteres con una mayúscula y un número, confirmación, carrera, ciclo y aceptación de términos. Valida al salir de cada campo y actualiza los errores al corregirlo, incluyendo la confirmación cuando cambia la contraseña. Un resumen superior cuenta los campos con error; el botón queda deshabilitado mientras haya errores visibles. Al enviar también valida los campos pendientes y enfoca el primero inválido. Permite mostrar u ocultar la contraseña y actualiza su indicador de fortaleza al escribir.
+
+Al completar los datos, `services/registroService.js` simula una escritura de 900 ms. Durante la espera se bloquean los controles del formulario para impedir envíos duplicados. Si termina correctamente, el formulario se sustituye por la tarjeta **Cuenta creada**, con el correo ingresado, vigencia de 24 horas, acceso a `/perfil` y reenvío simulado de verificación. La tarjeta aclara que no se crean cuentas ni se envían correos reales; tampoco se guardan contraseñas ni se inicia sesión.
+
+Cada registro o reenvío terminado muestra una notificación cerrable **Cambios guardados** o **No se pudo guardar**, según el resultado. Para probar el fallo, activa el modo Offline en las herramientas del navegador antes de enviar o reenviar. Los datos se conservan para reintentar; un reenvío fallido mantiene la tarjeta de cuenta creada. Volver al modo Online permite repetir la operación. Al abandonar la pantalla se cancela la solicitud pendiente.
+
+Las piezas de validación, éxito y notificación están separadas en `AlertaValidacionRegistro`, `ExitoRegistro` y `NotificacionResultado`. Ambos registros comparten los campos, el hook `context/useFormularioRegistro.js` y los estilos base de `styles/Registro.css`. En móvil, la presentación y los campos se distribuyen en una columna. La verificación se realiza manualmente en el navegador, con `npm run lint` y `npm run build`; no se incluyen tests automatizados.
+
+### Probar el registro de empresa
+
+En `/registro?tipo=empresa`, accesible desde el registro de estudiante o desde el inicio de sesión, el visitante encuentra la presentación y el formulario entre el encabezado y el pie comunes. El diseño tiene dos columnas en escritorio y una en móvil. El formulario comienza vacío; los ejemplos de la referencia se muestran como placeholders.
+
+Valida razón social obligatoria, RUC de exactamente 11 dígitos, sector, tamaño, correo con formato válido, teléfono de 7 a 15 dígitos (admite `+` inicial, espacios, paréntesis y guiones), contraseña de al menos 8 caracteres con una mayúscula y un número, confirmación y declaración de representación con aceptación de términos. La validación del RUC comprueba únicamente su formato, sin consultas externas. Los sectores reutilizan los valores de las empresas de HU-4; los tamaños conservan `Pequeña`, `Mediana` y `Grande`, mostrados como rangos de colaboradores.
+
+La presentación, el formulario y las validaciones están en `PresentacionRegistroEmpresa`, `FormularioRegistroEmpresa` y `utils/validarRegistroEmpresa.js`. Reutiliza los campos, el indicador de fortaleza y las notificaciones del registro de estudiante. Valida al salir del campo y al enviar, actualiza los errores al corregirlos y revalida la confirmación cuando cambia la contraseña. Un envío vacío muestra nueve errores y enfoca la razón social; los mensajes están asociados a los campos. Mientras existan errores visibles, el botón de registro queda deshabilitado. **Cancelar** vuelve al inicio y el enlace de términos abre `/terminos`, todavía en construcción.
+
+`services/registroService.js` simula el registro durante 900 ms, bloqueando ambos grupos de campos y las acciones del formulario para impedir duplicados. Al terminar, muestra **Solicitud de empresa recibida · simulación**, los datos de contacto resumidos y una notificación cerrable. La interfaz informa que la revisión de RUC y correo, prevista para la versión final, tomará hasta dos días hábiles antes de publicar. La demostración no crea cuentas, valida empresas, envía correos ni inicia sesión; no persiste datos ni contraseñas y al recargar vuelve al formulario vacío.
+
+Para revisar manualmente: envía sin datos, corrige los campos, prueba RUC y correo con formato incorrecto, teléfono con letras, contraseñas distintas y términos sin aceptar. Comprueba mostrar/ocultar contraseña, navegación con Tab y foco visible. Completa el formulario con datos ficticios y comprueba el estado de progreso y el éxito. Activa Offline en las herramientas del navegador antes de enviar para reproducir el error; el formulario conserva los datos y permite reintentar al volver a Online. Al abandonar la pantalla se cancela la operación pendiente. Revisa también el registro de estudiante, el enlace entre ambos registros y el diseño en móvil y escritorio con `npm run dev`.
+
+### Recuperar contraseña (pasos 1, 2 y 3)
+
+En `/recuperar-contrasena`, accesible desde **¿Olvidaste tu contraseña?** en el inicio de sesión, los tres pasos conservan la misma plantilla, el encabezado y el pie comunes. Solo cambian el contenido de la tarjeta y los tramos activos del indicador de progreso. El paso 1 comienza con el correo vacío; el ejemplo es un placeholder. Acepta correos institucionales y de empresa, valida al salir del campo y al enviar, actualiza los errores al corregirlos y enfoca el correo si el envío es inválido.
+
+`services/recuperacionService.js` simula las operaciones durante 900 ms y bloquea los controles mientras se procesan. Al completar la solicitud, el paso 2 muestra **Revisa tu correo**, la dirección ingresada y la vigencia ilustrativa de 60 minutos. **Reenviar enlace** muestra una espera de 45 segundos, como en la referencia. Independientemente de esa espera, a los **10 segundos** de entrar en el paso 2 se abre automáticamente el paso 3, simulando que se utilizó el enlace; por eso, en esta demostración se avanza antes de habilitar el reenvío. Los temporizadores y las solicitudes se cancelan al abandonar la pantalla.
+
+El paso 3 muestra **Crea una contraseña nueva**, confirmación, mostrar/ocultar la nueva contraseña y el indicador de fortaleza compartido con los registros. Exige al menos 8 caracteres, una mayúscula, un número y que ambas contraseñas coincidan. Valida al salir de cada campo y al enviar, revalida la confirmación cuando cambia la contraseña y enfoca el primer campo inválido. Guardar muestra una confirmación explícita de simulación y permite volver al inicio de sesión; vacía las contraseñas del estado. No se consultan cuentas, generan enlaces reales, envían correos, persisten datos ni modifican credenciales. La cuenta de prueba de inicio de sesión conserva su contraseña original. La recarga reinicia el flujo en el paso 1.
+
+Para revisar con `npm run dev`: navega desde el inicio de sesión, envía sin correo, prueba un formato inválido y corrígelo; comprueba Tab, foco visible, envío con Enter y estado de progreso. Confirma que aparece el correo ingresado en el paso 2 y que cambia automáticamente al paso 3 tras 10 segundos. Prueba contraseñas vacías, cortas, sin mayúscula, sin número y distintas; corrige la confirmación y cambia otra vez la contraseña para comprobar la revalidación. Verifica fortaleza, mostrar/ocultar, guardado y confirmación final. Activa Offline en las herramientas del navegador antes de solicitar el enlace o guardar para reproducir el error; los datos se conservan y permiten reintentar al volver a Online. Revisa la salida antes de los 10 segundos (el temporizador no debe afectar otra página), el regreso al inicio de sesión, la recarga y los diseños móvil y de escritorio. Ejecuta `npm run lint` y `npm run build`; no se agregan tests automatizados.
+
+### Cambiar contraseña y navegación de estudiante
+
+Después de iniciar sesión, el encabezado muestra **Convocatorias**, **Mis postulaciones**, **Guardadas**, **Empresas**, **Mi perfil**, búsqueda y el menú de Mariana Quispe. El menú permite abrir el perfil, **Configuración de la cuenta** o cerrar la sesión simulada. Admite teclado, cierra con Escape y al mover el foco o pulsar fuera. La búsqueda abre `/convocatorias?q=texto` y aplica ese texto al filtro existente del catálogo; se puede volver a buscar desde el propio catálogo. Mis postulaciones (`/postulaciones`) abre el módulo de HU-5 ya integrado. Notificaciones (`/perfil/configuracion/notificaciones`) conserva la vista común en construcción.
+
+La página de contraseña vive en `/perfil/configuracion/contrasena`. `/perfil/configuracion` y el enlace anterior `/cambiar-contrasena` redirigen a ella. Se accede desde el menú de cuenta o desde **Contraseña** en el menú del perfil, reutilizado también por la configuración. La configuración requiere la sesión de demostración: sin ella, redirige al inicio de sesión y regresa a la ruta solicitada después de ingresar. La sesión sigue en memoria: al recargar, vuelve a solicitar acceso. Las rutas existentes del perfil y de las demás historias conservan su comportamiento previo; esta protección de navegación no sustituye la autorización del futuro servidor.
+
+`pages/ConfiguracionCuenta.jsx` compone las migas, el menú y `FormularioCambioContrasena`. El formulario reutiliza `CampoRegistro` y `NotificacionResultado`. `utils/validarCambioContrasena.js` reutiliza las reglas de recuperación: contraseña actual obligatoria, nueva de al menos 8 caracteres con una mayúscula y un número, diferente de la actual y confirmación coincidente. Valida al salir de cada campo y al enviar, actualiza los errores al corregir y revalida la confirmación al cambiar la nueva contraseña. Los errores están asociados a los campos y el envío inválido enfoca el primero.
+
+`services/contrasenaService.js` simula la operación durante 900 ms y reutiliza la verificación de la cuenta de prueba de `sesionService.js`. Durante el envío bloquea campos y acciones para evitar duplicados. Una contraseña actual incorrecta muestra error, enfoca ese campo y conserva los datos para corregir y reintentar. El éxito muestra **Cambio completado · simulación** y vacía los campos. **Cancelar** vuelve al perfil sin guardar. La solicitud se cancela al abandonar la página. No se almacenan contraseñas, cambian credenciales ni cierran sesiones reales; la cuenta de prueba mantiene su contraseña original. El cierre de otras sesiones queda para el backend.
+
+Para revisar manualmente con `npm run dev`: abre la ruta sin sesión, ingresa con la cuenta de prueba y confirma el retorno a configuración. Envía los campos vacíos; prueba nueva contraseña corta, sin mayúscula, sin número, igual a la actual y confirmación distinta. Corrige los campos y cambia otra vez la nueva contraseña para revisar la confirmación. Prueba una contraseña actual incorrecta y después la correcta, revisando error, reintento, progreso y éxito. Para reproducir el fallo de conexión, activa Offline en las herramientas del navegador antes de guardar; los datos deben conservarse y permitir reintentar al volver a Online. Comprueba Cancelar, la búsqueda del encabezado (también sin resultados), los enlaces del menú, Escape, Tab, foco visible, cierre de sesión y recarga. Revisa móvil y escritorio. Ejecuta `npm run lint` y `npm run build`; no se incluyen tests automatizados.
+
+### Acceso denegado (403)
+
+La ruta `/empresa/postulantes` muestra **Error 403 — No tienes acceso a esta sección** cuando se abre con la sesión de estudiante de demostración. Conserva el encabezado autenticado y el pie comunes, sin mostrar el panel de empresa. **Ir a mis postulaciones** abre el módulo de HU-5 en `/postulaciones` y **Volver al catálogo** abre `/convocatorias`. La página vive en `HU-1/pages/AccesoDenegado.jsx` y comparte la presentación y los estilos de `PaginaError` con el 404, con acciones adaptadas a móvil.
+
+Sin sesión, la ruta solicita iniciar sesión y conserva el destino; después de ingresar con la cuenta de prueba muestra el 403. La sesión sigue en memoria y se pierde al recargar. Esta protección corresponde a la navegación de la primera entrega: aún no hay autenticación de empresas ni autorización del servidor, y no se devuelve un estado HTTP 403 real.
+
+Para revisar con `npm run dev`: abre `/empresa/postulantes` sin sesión, ingresa con la cuenta de prueba y comprueba el aviso y el encabezado de Mariana. También puedes llegar desde **Empresas**, el panel de demostración y **Bandeja de postulantes** con la sesión iniciada. Comprueba ambos enlaces de salida, Tab y Enter, foco visible, cierre de sesión y recarga. Revisa escritorio y móvil; ejecuta `npm run lint` y `npm run build`, sin agregar tests automatizados.
+
+### Página no encontrada (404)
+
+`HU-1/pages/PaginaNoEncontrada.jsx` muestra **No encontramos esta página**, el indicador circular 404 y el aviso de que la convocatoria pudo ser retirada o el enlace caducó. Reutiliza `components/PaginaError.jsx` y `styles/PaginaError.css` con el 403. Mantiene el encabezado actual (autenticado cuando hay sesión) y el pie comunes. **Ver convocatorias vigentes** abre `/convocatorias`, cuyo filtro inicial muestra las vigentes y preselecciona la carrera del estudiante; **Ir al inicio** abre `/`.
+
+El detalle de HU-4 muestra esta página si el identificador no existe en los datos semilla o corresponde a un borrador. Una convocatoria retirada se representa por su ausencia de los datos públicos; todavía no hay un servicio de retiro ni enlaces con vencimiento real. Una convocatoria cerrada o pasada de fecha conserva su detalle y el estado de cierre: no equivale a un enlace inexistente. Las rutas sin coincidencia de la aplicación también muestran el 404 en lugar de redirigir al inicio; se conservan las redirecciones de compatibilidad de las historias. Es una pantalla del frontend, sin respuesta HTTP 404 del servidor en esta entrega.
+
+Para revisar con `npm run dev`: abre `/convocatorias/no-disponible` y `/convocatorias/c28` (borrador), tanto sin sesión como después de ingresar con la cuenta de prueba. Comprueba el encabezado, ambos enlaces, Tab, Enter y foco visible. Verifica `/convocatorias/c01` (detalle público), `/convocatorias/c26` (cerrada), `/convocatorias/c27` (fecha de cierre pasada) y una ruta inexistente como `/enlace-caducado`. Revisa móvil, escritorio y recarga; ejecuta `npm run lint` y `npm run build`, sin tests automatizados.
+
+### Integración de HU-5
+
+`/postulaciones` muestra las postulaciones semilla del estudiante y permite filtrar por estado. `/postulaciones/:id` muestra su detalle y trazabilidad; el retiro solicita confirmación y guarda el cambio en `localStorage` mediante `HU-5/services/postulacionesService.js`. Es una demostración local, sin envíos a empresas ni correos reales. Una dirección con un identificador desconocido muestra el estado de postulación no encontrada.
+
+El encabezado común conserva la navegación pública de HU-1. Después del inicio de sesión simulado muestra los enlaces al catálogo, postulaciones, guardadas, empresas y perfil. Su búsqueda aplica el texto al catálogo y el menú del estudiante permite abrir el perfil, configurar la cuenta o cerrar sesión. La sesión permanece en memoria y se reinicia al recargar; HU-5 mantiene el acceso directo de demostración sin autorización de servidor. La ruta `/postulaciones/*` conserva el listado, los detalles y la confirmación de HU-5, sin quedar oculta por la antigua vista en construcción de HU-1. Se conservan las rutas de HU-2, HU-3 y HU-4.
+
+La conexión del envío desde el catálogo de HU-4 al servicio de HU-5 sigue pendiente. HU-5 incluye el modal de postulación y `/postulaciones/confirmacion`, que conserva una presentación ilustrativa cuando no hay un envío reciente. Sus identificadores de convocatorias semilla todavía no corresponden a los del catálogo compartido; los enlaces a convocatorias de esas tarjetas conservan su comportamiento previo. No se ha implementado la bandeja de empresa en este PR.
+
+Para revisar con `npm run dev`: abre `/postulaciones`, cambia los filtros, consulta un detalle y abre y cancela el retiro; si confirmas el retiro de un dato semilla, comprueba el cambio de estado y su persistencia al recargar. Revisa `/postulaciones/no-existe`, el inicio de sesión de prueba y los enlaces del encabezado, además del inicio, perfil, catálogo y panel de empresa en móvil y escritorio. Ejecuta `npm run lint` y `npm run build`; no se incluyen tests automatizados.
+
 ### Cómo evitar bloquearse
 Las historias están delimitadas para que cada integrante sea dueño de sus propias entidades, vistas y
 servicios. Nadie escribe sobre las entidades de otro. Cuando una historia necesita leer datos de otra,
@@ -182,3 +317,23 @@ en la evaluación.
 **Componentes comunes.** El encabezado, la navegación, las tarjetas de convocatoria, las etiquetas de
 estado y los diálogos de confirmación se implementan una sola vez, en un módulo compartido a cargo
 del grupo.
+
+### Integración de HU-3
+
+La portada, el inicio de sesión, el perfil de estudiante, el catálogo y las guardadas conservan sus rutas y el encabezado y pie comunes. Los estilos globales de `src/index.css` se conservan; los estilos del panel de empresa se limitan al contenedor `.hu3`.
+
+Desde **Empresas** se accede a las fichas públicas y al panel de demostración de empresa. Las fichas usan las empresas y convocatorias del catálogo de HU-4, filtran las vigentes y enlazan con su detalle. El detalle del catálogo también enlaza con la ficha de la empresa correspondiente.
+
+- `/empresa` redirige a `/empresa/perfil`.
+- `/empresa/perfil/editar` abre la edición del perfil institucional.
+- `/empresa/convocatorias` muestra las convocatorias propias.
+- `/empresa/convocatorias/nueva` es la ruta de nueva convocatoria; también recibe los accesos desde `/publicar` y la ruta anterior `/empresa/nueva-convocatorias`.
+- `/empresas/:id` muestra la ficha pública con el identificador de HU-4; `/empresas/andes-peru` mantiene la compatibilidad con el enlace original de H3.
+
+La integración conserva el avance de H3: nueva convocatoria muestra los campos de puesto, perfil buscado, condiciones y publicación; permite agregar y quitar carreras y habilidades en memoria. **Publicar convocatoria** valida el título, la subvención entre S/ 1,025 y S/ 2,500 y la fecha de cierre (posterior a la publicación cuando esta se indica); muestra los errores junto a los campos y enfoca el primero inválido. Las reglas están en `HU-3/utils/validarConvocatoria.js`. Al corregirlos, la acción vuelve al listado como demostración: no crea ni publica una convocatoria. Guardar borrador y guardar el perfil siguen pendientes; no se envían correos.
+
+En **Mis convocatorias**, los filtros activos pueden quitarse individualmente o con **Limpiar todo**. Una búsqueda sin coincidencias muestra su estado vacío. El menú de cada convocatoria vigente abre la confirmación de cierre y permite mantenerla abierta o cerrarla. El cierre cambia la lista y sus contadores solo en memoria y muestra un aviso; no modifica el catálogo de HU-4 ni las postulaciones de HU-5 y se reinicia al recargar. Las opciones del panel sin pantalla propia conservan la vista común en construcción, salvo `/empresa/postulantes`, que requiere sesión y muestra el 403 a la cuenta de estudiante disponible. El acceso al resto del panel es de demostración, sin autenticación de empresa implementada todavía.
+
+Para revisar la integración con `npm run dev`: abre `/empresa/convocatorias/nueva`, agrega y quita carreras, escribe una habilidad y pulsa Enter para agregarla, y completa los campos. Comprueba también los accesos desde `/publicar`, `/empresa/nueva-convocatorias` y el menú de empresa, la navegación al inicio, perfil y catálogo, y el diseño en escritorio y móvil. Al recargar, el formulario vuelve a estar vacío. Ejecuta `npm run lint` y `npm run build`; no se incluyen tests automatizados.
+
+Para revisar las validaciones y el cierre: pulsa **Publicar convocatoria** con los campos vacíos, corrige el título, prueba subvenciones fuera del rango y compara las fechas. Con datos válidos, comprueba el regreso al listado. En `/empresa/convocatorias`, busca un texto sin coincidencias y limpia los filtros; abre el menú de una vigente, cancela el cierre y después confirma otro cierre local. Comprueba el cambio de estado, los contadores, el aviso y la restauración al recargar, además de teclado y presentación móvil del diálogo.

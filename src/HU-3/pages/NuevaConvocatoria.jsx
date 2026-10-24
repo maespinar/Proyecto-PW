@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { validarConvocatoria } from '../utils/validarConvocatoria';
 import '../styles/NuevaConvocatoria.css';
 
 const carrerasDisponibles = [
@@ -11,27 +12,6 @@ const carrerasDisponibles = [
   'Psicología',
   'Comunicación',
 ];
-
-const validar = (f) => {
-    const e = {};
-
-    if (!f.titulo.trim()) {
-        e.titulo = 'Ingresa el título del puesto.';
-    }
-
-    const sub = Number(f.subvencion);
-    if (!f.subvencion || sub < 1025 || sub > 2500) {
-        e.subvencion = 'Debe estar entre S/ 1,025.00 y S/ 2,500.00';
-    }
-
-    if (!f.fechaCierre) {
-        e.fechaCierre = 'Ingresa la fecha de cierre.';
-    } else if (f.fechaPublicacion && f.fechaCierre <= f.fechaPublicacion) {
-        e.fechaCierre = 'El cierre debe ser posterior a la fecha de publicación.';
-    }
-
-    return e;
-};
 
 const modalidades = ['Presencial', 'Híbrido', 'Remoto'];
 const jornadas = ['Medio tiempo', 'Tiempo completo'];
@@ -62,13 +42,16 @@ export default function NuevaConvocatoria() {
     const navigate = useNavigate();
     const [intento, setIntento] = useState(false);
 
-    const errores = intento ? validar(formulario) : {};
+    const errores = intento ? validarConvocatoria(formulario) : {};
     const cantidad = Object.keys(errores).length;
 
     const publicar = () => {
         setIntento(true);
-        if (Object.keys(validar(formulario)).length === 0) {
+        const nuevosErrores = validarConvocatoria(formulario);
+        if (Object.keys(nuevosErrores).length === 0) {
             navigate('/empresa/convocatorias');
+        } else {
+            document.getElementById('nc-' + Object.keys(nuevosErrores)[0])?.focus();
         }
     };
 
@@ -118,8 +101,8 @@ export default function NuevaConvocatoria() {
             </div>
             <div className='nc-botones'>
                 <button type='button' className='nc-btn-borrador'>Guardar como borrador</button>
-                <button 
-                    type='button' 
+                <button
+                    type='button'
                     className='nc-btn-publicar'
                     onClick={publicar}
                     disabled={cantidad > 0}
@@ -128,9 +111,9 @@ export default function NuevaConvocatoria() {
                 </button>
             </div>
         </section>
-        
+
         {cantidad > 0 && (
-            <p className='nc-banner-error'>
+            <p className='nc-banner-error' role='alert'>
                 Revisa {cantidad} {cantidad === 1 ? 'campo' : 'campos'} antes de publicar.
             </p>
         )}
@@ -141,19 +124,22 @@ export default function NuevaConvocatoria() {
                     <p className='nc-seccion'>1 · PUESTO</p>
 
                     <div className={errores.titulo ? 'nc-campo nc-con-error' : 'nc-campo'}>
-                        <span className='nc-etiqueta'>TÍTULO DEL PUESTO</span>
+                        <label className='nc-etiqueta' htmlFor='nc-titulo'>TÍTULO DEL PUESTO</label>
                         <input
+                            id='nc-titulo'
                             type='text'
                             name='titulo'
                             value={formulario.titulo}
                             onChange={handleChange}
+                            aria-invalid={Boolean(errores.titulo)}
+                            aria-describedby={errores.titulo ? 'nc-titulo-error' : undefined}
                         />
-                        {errores.titulo && <span className='nc-error'>{errores.titulo}</span>}
+                        {errores.titulo && <span className='nc-error' id='nc-titulo-error'>{errores.titulo}</span>}
                     </div>
 
                     <div className='nc-campo'>
                         <span className='nc-etiqueta'>DESCRIPCIÓN DE LA PRÁCTICA</span>
-                        <textarea 
+                        <textarea
                             name='descripcion'
                             value={formulario.descripcion}
                             onChange={handleChange}
@@ -162,7 +148,7 @@ export default function NuevaConvocatoria() {
 
                     <div className='nc-campo'>
                         <span className='nc-etiqueta'>FUNCIONES PRINCIPALES</span>
-                        <textarea 
+                        <textarea
                             name='funciones'
                             value={formulario.funciones}
                             onChange={handleChange}
@@ -206,7 +192,7 @@ export default function NuevaConvocatoria() {
                                 onChange={handleChange}
                             >
                                 <option value=''>Selecciona</option>
-                                {ciclos.map((c) => 
+                                {ciclos.map((c) =>
                                     <option key={c} value={c}>{c}</option>
                                 )}
                             </select>
@@ -276,17 +262,20 @@ export default function NuevaConvocatoria() {
                         </div>
 
                         <div className={errores.subvencion ? 'nc-campo nc-con-error' : 'nc-campo'}>
-                            <span className='nc-etiqueta'>SUBVENCIÓN MENSUAL</span>
+                            <label className='nc-etiqueta' htmlFor='nc-subvencion'>SUBVENCIÓN MENSUAL</label>
                             <input
+                                id='nc-subvencion'
                                 type='number'
                                 name='subvencion'
                                 placeholder='S/ 0.00'
                                 value={formulario.subvencion}
                                 onChange={handleChange}
+                                aria-invalid={Boolean(errores.subvencion)}
+                                aria-describedby='nc-subvencion-ayuda'
                             />
                             {errores.subvencion
-                                ? <span className='nc-error'>{errores.subvencion}</span>
-                                : <span className='nc-ayuda'>Entre S/ 1,025.00 y S/ 2,500.00</span>}
+                                ? <span className='nc-error' id='nc-subvencion-ayuda'>{errores.subvencion}</span>
+                                : <span className='nc-ayuda' id='nc-subvencion-ayuda'>Entre S/ 1,025.00 y S/ 2,500.00</span>}
                         </div>
                     </div>
 
@@ -300,7 +289,7 @@ export default function NuevaConvocatoria() {
                     </div>
                 </section>
 
-                <section className='nc-tajerta'>
+                <section className='nc-tarjeta'>
                     <p className='nc-seccion'>4 · PUBLICACIÓN</p>
                     <div className='nc-fila'>
                         <div className='nc-campo'>
@@ -313,14 +302,17 @@ export default function NuevaConvocatoria() {
                             />
                         </div>
                         <div className={errores.fechaCierre ? 'nc-campo nc-con-error' : 'nc-campo'}>
-                            <span className='nc-etiqueta'>FECHA DE CIERRE</span>
+                            <label className='nc-etiqueta' htmlFor='nc-fechaCierre'>FECHA DE CIERRE</label>
                             <input
+                                id='nc-fechaCierre'
                                 type='date'
                                 name='fechaCierre'
                                 value={formulario.fechaCierre}
                                 onChange={handleChange}
+                                aria-invalid={Boolean(errores.fechaCierre)}
+                                aria-describedby={errores.fechaCierre ? 'nc-fecha-cierre-error' : undefined}
                             />
-                            {errores.fechaCierre && <span className='nc-error'>{errores.fechaCierre}</span>}
+                            {errores.fechaCierre && <span className='nc-error' id='nc-fecha-cierre-error'>{errores.fechaCierre}</span>}
                         </div>
                     </div>
 
@@ -348,7 +340,7 @@ export default function NuevaConvocatoria() {
 
                 <section className='nc-aviso'>
                     <span className='nc-aviso-icono'>i</span>
-                    <p>Al publicar, la convocatoria queda visible para todos los estudiantes cuya carrera coincida. Puedes editarla o cerrarla en cualquier momento desde «Mis convocatorias».</p>
+                    <p>Demostración: publicar solo valida los campos y vuelve a Mis convocatorias. No guarda ni publica convocatorias y no envía correos.</p>
                 </section>
             </div>
         </div>

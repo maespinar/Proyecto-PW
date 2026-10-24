@@ -1,22 +1,16 @@
-import { Outlet } from 'react-router-dom';
-import CabeceraEmpresa from '../components/CabeceraEmpresa.jsx';
-import PanelLateralEmpresa from '../components/PanelLateralEmpresa.jsx';
-import PieEmpresa from '../components/PieEmpresa.jsx';
-import '../styles/EmpresaLayout.css';
+import { Outlet } from 'react-router-dom'
+import PanelLateralEmpresa from '../components/PanelLateralEmpresa'
+import '../styles/EmpresaLayout.css'
 
 export default function EmpresaLayout() {
   return (
-    <div>
-      <CabeceraEmpresa />
-
+    <div className="hu3">
       <div className="cuerpo">
         <PanelLateralEmpresa />
-        <main className="contenido">
+        <section className="contenido" aria-label="Panel de empresa">
           <Outlet />
-        </main>
+        </section>
       </div>
-
-      <PieEmpresa />
     </div>
-  );
+  )
 }
