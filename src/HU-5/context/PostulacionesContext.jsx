@@ -1,132 +1,62 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import * as postulacionesService from '../services/postulacionesService'
 import { PostulacionesContext } from './postulacionesContexto'
 
-export function PostulacionesProvider({ children }) {
+export function PostulacionesProvider({ children, usuario }) {
+  const estudianteId = usuario?.rol === 'estudiante' ? usuario.id : null
   const [postulaciones, setPostulaciones] = useState([])
-  const [cargando, setCargando] = useState(true)
+  const [cargando, setCargando] = useState(Boolean(estudianteId))
+  const [error, setError] = useState('')
+  const [intento, setIntento] = useState(0)
   const [notificacion, setNotificacion] = useState(null)
   const [filtroEstado, setFiltroEstado] = useState('todas')
-  const [convocatoriaModal, setConvocatoriaModal] = useState(null)
-  const [ultimaPostulacionCreada, setUltimaPostulacionCreada] = useState(null)
 
   useEffect(() => {
-    let activo = true
-    postulacionesService
-      .obtenerPostulaciones()
-      .then((datos) => {
-        if (activo) {
-          setPostulaciones(datos)
-          setCargando(false)
-        }
-      })
-      .catch(() => {
-        if (activo) {
-          setNotificacion({
-            tipo: 'danger',
-            mensaje: 'No se pudieron cargar las postulaciones.',
-          })
-          setCargando(false)
-        }
-      })
-    return () => {
-      activo = false
-    }
-  }, [])
+    if (!estudianteId) return undefined
+    const controlador = new AbortController()
+    postulacionesService.obtenerPostulaciones(estudianteId, controlador.signal)
+      .then(setPostulaciones)
+      .catch((fallo) => { if (!controlador.signal.aborted) setError(fallo.message) })
+      .finally(() => { if (!controlador.signal.aborted) setCargando(false) })
+    return () => controlador.abort()
+  }, [estudianteId, intento])
 
-  const notificar = useCallback((mensaje, tipo = 'success') => {
-    setNotificacion({ mensaje, tipo })
-  }, [])
-
-  const cerrarNotificacion = useCallback(() => setNotificacion(null), [])
-
-  const conteos = useMemo(() => {
-    return {
-      todas: postulaciones.length,
-      recibida: postulaciones.filter((p) => p.estado === 'recibida').length,
-      en_revision: postulaciones.filter((p) => p.estado === 'en_revision').length,
-      aceptada: postulaciones.filter((p) => p.estado === 'aceptada').length,
-      descartada: postulaciones.filter((p) => p.estado === 'descartada').length,
-      retirada: postulaciones.filter((p) => p.estado === 'retirada').length,
-    }
-  }, [postulaciones])
-
-  const postulacionesFiltradas = useMemo(() => {
-    if (filtroEstado === 'todas') return postulaciones
-    return postulaciones.filter((p) => p.estado === filtroEstado)
-  }, [postulaciones, filtroEstado])
-
-  const retirar = useCallback(
-    async (id) => {
-      try {
-        const actualizada = await postulacionesService.retirarPostulacion(id)
-        setPostulaciones((prev) =>
-          prev.map((p) => (p.id === id ? actualizada : p))
-        )
-        notificar('Has retirado tu postulación exitosamente.', 'info')
-        return actualizada
-      } catch (err) {
-        notificar(err.message || 'No se pudo retirar la postulación.', 'danger')
-        throw err
-      }
-    },
-    [notificar]
-  )
-
-  const postular = useCallback(
-    async (datos) => {
-      try {
-        const nueva = await postulacionesService.crearPostulacion(datos)
-        setPostulaciones((prev) => [nueva, ...prev])
-        setUltimaPostulacionCreada(nueva)
-        notificar('¡Postulación enviada con éxito!', 'success')
-        return nueva
-      } catch (err) {
-        notificar(err.message || 'Ocurrió un error al enviar la postulación.', 'danger')
-        throw err
-      }
-    },
-    [notificar]
-  )
-
-  const restablecer = useCallback(async () => {
+  const reintentar = () => {
     setCargando(true)
-    const datos = await postulacionesService.restablecerPostulaciones()
-    setPostulaciones(datos)
-    setCargando(false)
-    notificar('Se han restablecido los datos semilla de HU-5.', 'info')
-  }, [notificar])
-
-  const abrirModalPostulacion = useCallback((convocatoria) => {
-    setConvocatoriaModal(convocatoria)
-  }, [])
-
-  const cerrarModalPostulacion = useCallback(() => {
-    setConvocatoriaModal(null)
-  }, [])
-
-  const valor = {
-    postulaciones,
-    postulacionesFiltradas,
-    cargando,
-    notificacion,
-    notificar,
-    cerrarNotificacion,
-    filtroEstado,
-    setFiltroEstado,
-    conteos,
-    retirar,
-    postular,
-    convocatoriaModal,
-    abrirModalPostulacion,
-    cerrarModalPostulacion,
-    ultimaPostulacionCreada,
-    setUltimaPostulacionCreada,
-    restablecer,
+    setError('')
+    setIntento((anterior) => anterior + 1)
   }
 
+  const notificar = useCallback((mensaje, tipo = 'success') => setNotificacion({ mensaje, tipo }), [])
+  const cerrarNotificacion = useCallback(() => setNotificacion(null), [])
+
+  const retirar = async (id, signal) => {
+    if (!estudianteId) throw new Error('Necesitas una sesión de estudiante.')
+    const actualizada = await postulacionesService.retirarPostulacion(id, estudianteId, signal)
+    setPostulaciones((anteriores) => anteriores.map((item) => item.id === id ? actualizada : item))
+    notificar('Postulación retirada en la simulación local.', 'info')
+    return actualizada
+  }
+
+  const postular = async (datos, signal) => {
+    if (!estudianteId) throw new Error('Necesitas una sesión de estudiante.')
+    const nueva = await postulacionesService.crearPostulacion(datos, estudianteId, signal)
+    setPostulaciones((anteriores) => [nueva, ...anteriores])
+    return nueva
+  }
+
+  const conteos = { todas: postulaciones.length }
+  for (const estado of ['recibida', 'en_revision', 'aceptada', 'descartada', 'retirada']) {
+    conteos[estado] = postulaciones.filter((item) => item.estado === estado).length
+  }
+  const postulacionesFiltradas = filtroEstado === 'todas'
+    ? postulaciones : postulaciones.filter((item) => item.estado === filtroEstado)
+
   return (
-    <PostulacionesContext.Provider value={valor}>
+    <PostulacionesContext.Provider value={{
+      postulaciones, postulacionesFiltradas, cargando, error, reintentar,
+      notificacion, notificar, cerrarNotificacion, filtroEstado, setFiltroEstado, conteos, retirar, postular,
+    }}>
       {children}
     </PostulacionesContext.Provider>
   )

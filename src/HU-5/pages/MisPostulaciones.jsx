@@ -4,19 +4,20 @@ import { usePostulaciones } from '../context/usePostulaciones'
 import TarjetaPostulacion from '../components/TarjetaPostulacion'
 import EstadoVacio from '../components/EstadoVacio'
 import ModalRetirarPostulacion from '../components/ModalRetirarPostulacion'
-import ModalConfirmarPostulacion from '../components/ModalConfirmarPostulacion'
+import EstadoCargaPostulaciones from '../components/EstadoCargaPostulaciones'
+import { ultimaFechaActualizacion } from '../utils/postulacionesUtils'
 
 export default function MisPostulaciones() {
   const {
     postulaciones,
     postulacionesFiltradas,
     cargando,
+    error,
+    reintentar,
     filtroEstado,
     setFiltroEstado,
     conteos,
     retirar,
-    convocatoriaModal,
-    cerrarModalPostulacion,
   } = usePostulaciones()
 
   const [postulacionARetirar, setPostulacionARetirar] = useState(null)
@@ -30,10 +31,7 @@ export default function MisPostulaciones() {
     { id: 'retirada', etiqueta: 'Retiradas', count: conteos.retirada },
   ]
 
-  const fechaUltimaActualizacion = () => {
-    if (!postulaciones.length) return '06/09/2026'
-    return postulaciones[0].fechaActualizacion || '06/09/2026'
-  }
+  const fechaUltimaActualizacion = ultimaFechaActualizacion(postulaciones)
 
   return (
     <div className="hu5-pagina-contenedor">
@@ -48,19 +46,19 @@ export default function MisPostulaciones() {
       <header className="hu5-page-header">
         <h1 className="hu5-page-title">Mis postulaciones</h1>
         <span className="hu5-page-subtitle">
-          {conteos.todas} postulaciones · última actualización{' '}
-          {fechaUltimaActualizacion()}
+          {conteos.todas} postulaciones
+          {fechaUltimaActualizacion && ` · última actualización ${fechaUltimaActualizacion}`}
         </span>
       </header>
+      <p className="hu5-nota-simulacion">Demostración local: las postulaciones se guardan en este navegador. No se envían perfiles ni correos a las empresas.</p>
 
       {/* Barra de filtros por estado */}
-      <div className="hu5-pills-bar" role="tablist" aria-label="Filtro por estado">
+      <div className="hu5-pills-bar" role="group" aria-label="Filtro por estado">
         {pestañas.map((p) => (
           <button
             key={p.id}
             type="button"
-            role="tab"
-            aria-selected={filtroEstado === p.id}
+            aria-pressed={filtroEstado === p.id}
             className={`hu5-pill ${filtroEstado === p.id ? 'active' : ''}`}
             onClick={() => setFiltroEstado(p.id)}
           >
@@ -71,13 +69,8 @@ export default function MisPostulaciones() {
       </div>
 
       {/* Lista de postulaciones o Estado Vacío */}
-      {cargando ? (
-        <div className="text-center py-5">
-          <div className="spinner-border text-primary" role="status">
-            <span className="visually-hidden">Cargando...</span>
-          </div>
-          <p className="mt-2 text-muted">Cargando tus postulaciones...</p>
-        </div>
+      {cargando || error ? (
+        <EstadoCargaPostulaciones cargando={cargando} error={error} onReintentar={reintentar} />
       ) : postulacionesFiltradas.length > 0 ? (
         <section aria-label="Listado de postulaciones">
           {postulacionesFiltradas.map((post) => (
@@ -97,7 +90,7 @@ export default function MisPostulaciones() {
           }
           descripcion={
             filtroEstado === 'todas'
-              ? 'Hay 38 convocatorias vigentes para Ingeniería de Sistemas. Aquí verás el estado de cada postulación que envíes.'
+              ? 'Explora las convocatorias de tu carrera. Aquí verás el estado de las postulaciones que registres en esta demostración.'
               : 'Puedes cambiar el filtro para ver tus otras postulaciones o revisar convocatorias en el catálogo.'
           }
           botonTexto={
@@ -108,7 +101,7 @@ export default function MisPostulaciones() {
           onAccion={
             filtroEstado !== 'todas' ? () => setFiltroEstado('todas') : null
           }
-          botonUrl="/"
+          botonUrl="/convocatorias"
         />
       )}
 
@@ -119,11 +112,6 @@ export default function MisPostulaciones() {
         onCerrar={() => setPostulacionARetirar(null)}
       />
 
-      {/* Modal para postular (disparable desde catálogo o botón de prueba) */}
-      <ModalConfirmarPostulacion
-        convocatoria={convocatoriaModal}
-        onCerrar={cerrarModalPostulacion}
-      />
     </div>
   )
 }

@@ -583,11 +583,102 @@
 .hu5-modal-dialog {
   background: #fff;
   border-radius: 0.75rem;
-  width: 100%;
+  width: calc(100% - 32px);
   max-width: 580px;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  border: 0;
+  padding: 0;
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  color: var(--color-text);
   animation: hu5FadeIn 0.18s ease-out;
+}
+
+.hu5-modal-dialog::backdrop {
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.hu5-modal-dialog .hu5-modal-footer {
+  flex-wrap: wrap;
+}
+
+.hu5-modal-dialog button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.hu5-modulo-wrapper a:focus-visible,
+.hu5-modulo-wrapper button:focus-visible,
+.hu5-modal-dialog :is(a, button, textarea):focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.hu5-resumen-modal {
+  margin-bottom: 20px;
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  overflow-wrap: anywhere;
+}
+
+.hu5-resumen-modal h3 {
+  margin: 0 0 8px;
+  font-size: 15px;
+}
+
+.hu5-resumen-modal p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+.hu5-acciones-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hu5-modal-dialog .hu5-confirmar-retiro {
+  background: var(--color-danger);
+  border-color: var(--color-danger);
+}
+
+.hu5-recomendaciones-lista {
+  display: grid;
+  gap: 12px;
+}
+
+@media (max-width: 560px) {
+  .hu5-confirmacion-card {
+    padding: 24px 16px;
+  }
+
+  .hu5-confirmacion-snippet {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .hu5-breadcrumb {
+    flex-wrap: wrap;
+  }
+
+  .hu5-card-actions-col {
+    flex-wrap: wrap;
+  }
+
+  .hu5-card-left {
+    flex-basis: 100%;
+  }
+
+  .hu5-datos-principales {
+    white-space: normal;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hu5-modal-dialog {
+    animation: none;
+  }
 }
 
 @keyframes hu5FadeIn {

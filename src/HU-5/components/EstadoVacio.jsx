@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom'
 
 export default function EstadoVacio({
   titulo = 'Aún no postulas a ninguna convocatoria',
-  descripcion = 'Hay 38 convocatorias vigentes para Ingeniería de Sistemas. Aquí verás el estado de cada postulación que envíes.',
+  descripcion = 'Explora las convocatorias de tu carrera. Aquí verás el estado de las postulaciones que registres en esta demostración.',
   botonTexto = 'Ver convocatorias de mi carrera',
-  botonUrl = '/',
+  botonUrl = '/convocatorias',
   onAccion,
 }) {
   return (

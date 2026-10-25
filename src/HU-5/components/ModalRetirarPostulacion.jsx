@@ -1,96 +1,50 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import DialogoPostulacion from './DialogoPostulacion'
+import '../styles/hu5.css'
 
-export default function ModalRetirarPostulacion({
-  postulacion,
-  onConfirmar,
-  onCerrar,
-}) {
+function ContenidoRetiro({ postulacion, onConfirmar, onCerrar }) {
   const [procesando, setProcesando] = useState(false)
+  const [error, setError] = useState('')
+  const solicitud = useRef(null)
 
-  if (!postulacion) return null
+  useEffect(() => () => solicitud.current?.abort(), [])
 
-  const handleRetirar = async () => {
+  const retirar = async () => {
+    if (solicitud.current) return
+    const controlador = new AbortController()
+    solicitud.current = controlador
     setProcesando(true)
+    setError('')
     try {
-      await onConfirmar(postulacion.id)
+      await onConfirmar(postulacion.id, controlador.signal)
       onCerrar()
-    } catch {
-      // Error manejado en contexto
+    } catch (fallo) {
+      if (!controlador.signal.aborted) setError(fallo.message || 'No se pudo retirar la postulación. Reintenta.')
     } finally {
-      setProcesando(false)
+      solicitud.current = null
+      if (!controlador.signal.aborted) setProcesando(false)
     }
   }
 
   return (
-    <div
-      className="hu5-modal-backdrop"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modal-retirar-titulo"
-    >
-      <div className="hu5-modal-dialog">
-        <div className="hu5-modal-header">
-          <h4 id="modal-retirar-titulo" className="hu5-modal-title">
-            ¿Retirar tu postulación?
-          </h4>
-          <button
-            type="button"
-            className="hu5-modal-close-btn"
-            onClick={onCerrar}
-            aria-label="Cerrar modal"
-            disabled={procesando}
-          >
-            &times;
-          </button>
-        </div>
-
-        <div className="hu5-modal-body">
-          <p style={{ fontSize: '0.925rem', color: '#334155', marginBottom: '1rem' }}>
-            Estás a punto de retirar tu postulación para{' '}
-            <strong>{postulacion.puesto}</strong> en{' '}
-            <strong>{postulacion.empresa}</strong>.
-          </p>
-
-          <div
-            style={{
-              background: '#fef2f2',
-              border: '1px solid #fecaca',
-              borderRadius: '6px',
-              padding: '0.85rem 1rem',
-              fontSize: '0.85rem',
-              color: '#991b1b',
-            }}
-          >
-            ⚠️ <strong>Importante:</strong> Puedes retirarte mientras la
-            convocatoria siga vigente. No podrás volver a postular a este
-            puesto.
-          </div>
-        </div>
-
-        <div className="hu5-modal-footer">
-          <button
-            type="button"
-            className="hu5-btn-outline"
-            onClick={onCerrar}
-            disabled={procesando}
-          >
-            Cancelar
-          </button>
-          <button
-            type="button"
-            style={{
-              backgroundColor: '#dc2626',
-              borderColor: '#dc2626',
-              color: '#fff',
-            }}
-            className="hu5-btn-primary"
-            onClick={handleRetirar}
-            disabled={procesando}
-          >
-            {procesando ? 'Retirando...' : 'Sí, retirar postulación'}
-          </button>
-        </div>
+    <DialogoPostulacion titulo="¿Retirar tu postulación?" idTitulo="hu5-retirar-titulo" ocupado={procesando} onCerrar={onCerrar}>
+      <div className="hu5-modal-body">
+        <p>Vas a retirar tu postulación para <strong>{postulacion.puesto}</strong> en <strong>{postulacion.empresa}</strong>.</p>
+        <p className="hu5-nota-simulacion">El cambio se guarda solo en este navegador. No se avisa a la empresa ni se envían correos.</p>
+        <p>Solo puedes retirarte mientras la convocatoria siga vigente. No podrás volver a postular a este puesto.</p>
+        {error && <p className="alert alert-danger" role="alert">{error}</p>}
+        {procesando && <p role="status">Guardando el retiro local…</p>}
       </div>
-    </div>
+      <div className="hu5-modal-footer">
+        <button data-foco-inicial type="button" className="hu5-btn-outline" onClick={onCerrar} disabled={procesando}>Cancelar</button>
+        <button type="button" className="hu5-btn-primary hu5-confirmar-retiro" onClick={retirar} disabled={procesando}>
+          {procesando ? 'Retirando…' : 'Sí, retirar postulación'}
+        </button>
+      </div>
+    </DialogoPostulacion>
   )
+}
+
+export default function ModalRetirarPostulacion({ postulacion, onConfirmar, onCerrar }) {
+  return postulacion ? <ContenidoRetiro key={postulacion.id} postulacion={postulacion} onConfirmar={onConfirmar} onCerrar={onCerrar} /> : null
 }

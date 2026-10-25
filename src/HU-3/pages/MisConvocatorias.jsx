@@ -1,7 +1,8 @@
 import '../styles/MisConvocatorias.css';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import convocatorias from '../data/convocatorias.seed.json';
+import { buscarConvocatoriaPropia } from '../../HU-5/utils/bandejaUtils';
 
 
 const filtros = [
@@ -11,9 +12,19 @@ const filtros = [
   { valor: 'Borrador', texto: 'Borradores' },
 ];
 
-export default function MisConvocatorias() {
+export default function MisConvocatorias({ usuario }) {
     const [filtro, setFiltro] = useState('Todas');
-    const [busqueda, setBusqueda] = useState('');
+    const [parametros, setParametros] = useSearchParams();
+    const busqueda = parametros.get('q') || '';
+
+    const setBusqueda = (valor) => {
+        setParametros((anteriores) => {
+            const nuevos = new URLSearchParams(anteriores);
+            if (valor.trim()) nuevos.set('q', valor);
+            else nuevos.delete('q');
+            return nuevos;
+        }, { replace: true });
+    };
 
     const [lista, setLista] = useState(convocatorias);
     const [menuAbierto, setMenuAbierto] = useState(null);
@@ -92,6 +103,7 @@ export default function MisConvocatorias() {
                 <input
                 type='search'
                 className='mc-busqueda'
+                aria-label='Filtrar mis convocatorias por puesto o carrera'
                 placeholder='Buscar por puesto o carrera'
                 value={busqueda}
                 onChange={(e) => setBusqueda(e.target.value)}
@@ -148,13 +160,17 @@ export default function MisConvocatorias() {
                     </tr>
                 </thead>
                 <tbody>
-                    {filtradas.map((c) => (
+                    {filtradas.map((c) => {
+                        const compartida = buscarConvocatoriaPropia(c.puesto, usuario.id);
+                        return (
                         <tr key={c.id}>
                             <td className='mc-puesto'>{c.puesto}</td>
                             <td className='mc-gris'>{c.carreras}</td>
                             <td>{c.publicacion}</td>
                             <td>{c.cierre}</td>
-                            <td className='mc-der mc-num'>{c.postulantes}</td>
+                            <td className='mc-der mc-num'>
+                                {compartida ? <Link to={'/empresa/postulantes/' + compartida.id} aria-label={'Ver postulantes de ' + c.puesto}>{c.postulantes}</Link> : c.postulantes}
+                            </td>
                             <td>
                                 <span className={'mc-estado mc-' + c.estado.toLowerCase()}>{c.estado}</span>
                             </td>
@@ -168,6 +184,7 @@ export default function MisConvocatorias() {
                                 >⋯</button>
                               {menuAbierto === c.id && (
                                     <div className='mc-desplegable'>
+                                    {compartida && <Link to={'/empresa/postulantes/' + compartida.id}>Ver postulantes</Link>}
                                     {c.estado === 'Vigente'
                                         ? <button type='button' onClick={() => abrirModal(c)}>Cerrar convocatoria</button>
                                         : <span className='mc-sin-acciones'>Sin acciones disponibles</span>}
@@ -175,7 +192,8 @@ export default function MisConvocatorias() {
                                 )}
                             </td>
                         </tr>
-                    ))}
+                        );
+                    })}
                 </tbody>
             </table>
 
