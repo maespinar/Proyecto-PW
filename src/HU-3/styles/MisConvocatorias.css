@@ -224,7 +224,8 @@
     box-shadow: 0 4px 12px rgba(18, 58, 95, 0.12);
 }
 
-.hu3 .mc-desplegable button {
+.hu3 .mc-desplegable button,
+.hu3 .mc-desplegable a {
     display: block;
     width: 100%;
     padding: 8px 12px;
@@ -235,9 +236,11 @@
     font-size: 15px;
     text-align: left;
     color: var(--color-text);
+    text-decoration: none;
 }
 
-.hu3 .mc-desplegable button:hover {
+.hu3 .mc-desplegable button:hover,
+.hu3 .mc-desplegable a:hover {
     background: var(--color-bg);
 }
 

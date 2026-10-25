@@ -4,6 +4,7 @@ import postulacionesCatalogo from '../../HU-4/data/postulaciones'
 import { ESTADOS_POSTULACION } from '../../HU-4/data/catalogos'
 import { estaVigente, formatearFecha } from '../../HU-4/utils/catalogoUtils'
 import { obtenerPerfil } from '../../HU-2/services/perfilService'
+import { aplicarEstadoEmpresa, leerGestionEmpresa } from './gestionEmpresaService'
 import { obtenerConvocatoria, puedeRetirarPostulacion, resumirConvocatoria, resumirPerfil, sonPostulacionesValidas, validarMensaje, vincularConvocatoria } from '../utils/postulacionesUtils'
 
 const CLAVE_POSTULACIONES = 'hu5_postulaciones'
@@ -56,7 +57,8 @@ function leer(estudianteId) {
       propias.push(completarDatos(item, estudianteId))
     }
   }
-  return propias
+  const gestion = leerGestionEmpresa()
+  return propias.map((item) => aplicarEstadoEmpresa(item, gestion))
 }
 
 function persistir(datos) {

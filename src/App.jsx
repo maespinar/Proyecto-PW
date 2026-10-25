@@ -27,6 +27,7 @@ import Guardadas from './HU-4/pages/Guardadas'
 function App() {
   const { usuario, iniciarSesion, cerrarSesion } = useSesion()
   const { pathname, hash, search } = useLocation()
+  const esPanelEmpresa = usuario?.rol === 'empresa' && (pathname === '/empresa' || pathname.startsWith('/empresa/'))
 
   useEffect(() => {
     if (hash) document.getElementById(hash.slice(1))?.scrollIntoView()
@@ -36,43 +37,45 @@ function App() {
   return (
     <PostulacionesProvider key={usuario?.id || 'visitante'} usuario={usuario}>
       <GuardadasProvider>
-        <Header usuario={usuario} onCerrarSesion={cerrarSesion} />
-        <main>
-          <Routes>
-            <Route path="/" element={<LandingPublica />} />
-            <Route path="/iniciar-sesion" element={<InicioDeSesion onIniciarSesion={iniciarSesion} />} />
-            <Route path="/recuperar-contrasena" element={<RecuperarContrasena />} />
-            <Route path="/registro" element={new URLSearchParams(search).get('tipo') === 'empresa' ? <RegistroEmpresa /> : <RegistroEstudiante />} />
-            <Route element={<RutaPorRol usuario={usuario} rol="estudiante" />}>
-              <Route path="/perfil/configuracion/contrasena" element={<ConfiguracionCuenta usuario={usuario} />} />
-              <Route path="/perfil/configuracion" element={<Navigate to="/perfil/configuracion/contrasena" replace />} />
-              <Route path="/perfil/configuracion/notificaciones" element={<EnConstruccion titulo="Notificaciones" />} />
-              <Route path="/perfil/*" element={<RutasPerfil />} />
-              <Route path="/postulaciones/*" element={<RutasPostulaciones />} />
-              <Route path="/guardadas" element={<Guardadas usuario={usuario} />} />
-            </Route>
-            <Route element={<RutaPorRol usuario={usuario} />}>
-              <Route path="/cambiar-contrasena" element={<Navigate to={obtenerRutaContrasena(usuario)} replace />} />
-            </Route>
-            <Route element={<RutaPorRol usuario={usuario} rol="empresa" />}>
-              <Route path="/empresa/*" element={<RutasEmpresa usuario={usuario} />} />
-            </Route>
-            <Route path="/empresas" element={<Empresas />} />
-            <Route path="/empresas/:id" element={<FichaEmpresa key={pathname} />} />
-            <Route path="/publicar" element={<Navigate to="/empresa/convocatorias/nueva" replace />} />
-            <Route path="/convocatorias" element={<Catalogo key={search} usuario={usuario} />} />
-            <Route path="/convocatorias/:id" element={<DetalleConvocatoria key={pathname} usuario={usuario} />} />
-            {[
-              ['preguntas-frecuentes', 'Preguntas frecuentes'],
-              ['terminos', 'Términos del servicio'],
-              ['privacidad', 'Privacidad de datos'],
-            ].map(([ruta, titulo]) => (
-              <Route key={ruta} path={ruta} element={<EnConstruccion titulo={titulo} />} />
-            ))}
-            <Route path="*" element={<PaginaNoEncontrada />} />
-          </Routes>
-        </main>
-        <Footer />
+        <div className={esPanelEmpresa ? 'hu3 hu3-aplicacion' : undefined}>
+          <Header usuario={usuario} onCerrarSesion={cerrarSesion} panelEmpresa={esPanelEmpresa} />
+          <main>
+            <Routes>
+              <Route path="/" element={<LandingPublica />} />
+              <Route path="/iniciar-sesion" element={<InicioDeSesion onIniciarSesion={iniciarSesion} />} />
+              <Route path="/recuperar-contrasena" element={<RecuperarContrasena />} />
+              <Route path="/registro" element={new URLSearchParams(search).get('tipo') === 'empresa' ? <RegistroEmpresa /> : <RegistroEstudiante />} />
+              <Route element={<RutaPorRol usuario={usuario} rol="estudiante" />}>
+                <Route path="/perfil/configuracion/contrasena" element={<ConfiguracionCuenta usuario={usuario} />} />
+                <Route path="/perfil/configuracion" element={<Navigate to="/perfil/configuracion/contrasena" replace />} />
+                <Route path="/perfil/configuracion/notificaciones" element={<EnConstruccion titulo="Notificaciones" />} />
+                <Route path="/perfil/*" element={<RutasPerfil />} />
+                <Route path="/postulaciones/*" element={<RutasPostulaciones />} />
+                <Route path="/guardadas" element={<Guardadas usuario={usuario} />} />
+              </Route>
+              <Route element={<RutaPorRol usuario={usuario} />}>
+                <Route path="/cambiar-contrasena" element={<Navigate to={obtenerRutaContrasena(usuario)} replace />} />
+              </Route>
+              <Route element={<RutaPorRol usuario={usuario} rol="empresa" />}>
+                <Route path="/empresa/*" element={<RutasEmpresa usuario={usuario} />} />
+              </Route>
+              <Route path="/empresas" element={<Empresas />} />
+              <Route path="/empresas/:id" element={<FichaEmpresa key={pathname} />} />
+              <Route path="/publicar" element={<Navigate to="/empresa/convocatorias/nueva" replace />} />
+              <Route path="/convocatorias" element={<Catalogo key={search} usuario={usuario} />} />
+              <Route path="/convocatorias/:id" element={<DetalleConvocatoria key={pathname} usuario={usuario} />} />
+              {[
+                ['preguntas-frecuentes', 'Preguntas frecuentes'],
+                ['terminos', 'Términos del servicio'],
+                ['privacidad', 'Privacidad de datos'],
+              ].map(([ruta, titulo]) => (
+                <Route key={ruta} path={ruta} element={<EnConstruccion titulo={titulo} />} />
+              ))}
+              <Route path="*" element={<PaginaNoEncontrada />} />
+            </Routes>
+          </main>
+          <Footer panelEmpresa={esPanelEmpresa} />
+        </div>
       </GuardadasProvider>
     </PostulacionesProvider>
   )

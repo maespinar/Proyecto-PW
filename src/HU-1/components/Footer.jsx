@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom'
+import PieEmpresa from '../../HU-3/components/PieEmpresa'
 import '../styles/Footer.css'
 
-function Footer() {
+function Footer({ panelEmpresa = false }) {
+  if (panelEmpresa) return <PieEmpresa />
   return (
     <footer className="footer">
       <div className="footer-interior">

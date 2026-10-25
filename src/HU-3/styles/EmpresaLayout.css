@@ -1,187 +1,318 @@
-.hu3 .cabecera {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 24px;
-    background: var(--color-primary-dark);
-    color: var(--color-surface);
+.hu3.hu3-aplicacion {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: var(--color-bg);
 }
 
-.hu3 .cabecera p {
-    margin: 0;
+.hu3.hu3-aplicacion > main {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+}
+
+.hu3 .empresa-layout {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+}
+
+.hu3 .cabecera {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  min-height: 56px;
+  padding: 8px 32px;
+  border-bottom: 1px solid var(--color-primary);
+  background: var(--color-primary-dark);
+  color: var(--color-surface);
 }
 
 .hu3 .cabecera-izq {
-    display: flex;
-    align-items: center;
-    gap: 30px;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 24px;
 }
 
-.hu3 .cabecera-izq .logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 20px;
-    color: var(--color-surface);
+.hu3 .cabecera .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-surface);
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
 }
 
-.hu3 .logo-icono {
-    width: 20px;
-    height: 20px;
-    border-radius: 4px;
-    background: var(--color-surface);
+.hu3 .cabecera .logo-icono {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background: var(--color-surface);
 }
 
-.hu3 .cabecera-izq .panel-nombre {
-    padding-left: 20px;
-    border-left: 1px solid var(--color-border);
-    font-size: 13px;
-    color: var(--color-border);
+.hu3 .cabecera .panel-nombre {
+  padding-left: 24px;
+  border-left: 1px solid var(--color-primary);
+  color: #bdcddd;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-.hu3 .buscador-caja {
-    margin-left: auto;
-    margin-right: 24px;
+.hu3 .cabecera .header-autenticado-busqueda {
+  flex-basis: 280px;
+  border-color: #365875;
 }
 
-.hu3 .buscador {
-    width: 320px;
-    padding: 8px 12px;
-    background: var(--color-primary-dark);
-    border: 1px solid var(--color-primary);
-    border-radius: 6px;
-    color: var(--color-surface);
+.hu3 .cabecera .header-autenticado-busqueda input {
+  color: var(--color-surface);
 }
 
-.hu3 .buscador::placeholder {
-    color: var(--color-border);
+.hu3 .cabecera .header-autenticado-busqueda input::placeholder,
+.hu3 .cabecera .header-autenticado-busqueda button {
+  color: #bdcddd;
 }
 
-.hu3 .cuenta {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding-right: 20px;
+.hu3 .cabecera .header-autenticado-cuenta {
+  min-width: 0;
+  max-width: 300px;
 }
 
-.hu3 .cuenta .avatar {
-    display: grid;
-    place-items: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: var(--color-primary);
-    color: var(--color-surface);
-    font-size: 14px;
+.hu3 .cabecera .header-autenticado-cuenta summary {
+  color: var(--color-surface);
 }
 
-.hu3 .cuenta #nombre {
-    color: var(--color-surface);
-    font-size: 15px;
+.hu3 .cabecera .header-autenticado-avatar {
+  flex-shrink: 0;
+  background: var(--color-primary);
+  color: var(--color-surface);
 }
 
-.hu3 .cuenta #empresa {
-    font-size: 13px;
+.hu3 .cabecera .header-cuenta-identidad {
+  min-width: 0;
+  font-size: 12px;
+}
+
+.hu3 .cabecera .header-cuenta-nombre,
+.hu3 .cabecera .header-autenticado-rol {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hu3 .cabecera .header-autenticado-rol,
+.hu3 .cabecera .header-autenticado-flecha {
+  color: #bdcddd;
+}
+
+.hu3 .cabecera :is(a, button, input, summary):focus-visible {
+  outline: 2px solid var(--color-surface);
+  outline-offset: 3px;
+}
+
+.hu3 .cabecera .header-autenticado-desplegable :is(a, button):focus-visible {
+  outline-color: var(--color-primary);
+}
+
+.hu3 .cabecera .header-autenticado-desplegable a {
+  text-decoration: none;
 }
 
 .hu3 .cuerpo {
-    display: flex;
-    align-items: flex-start;
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  min-width: 0;
 }
 
 .hu3 .lateral {
-    flex: none;
-    width: 280px;
-    padding: 16px 8px;
-    background: var(--color-surface);
-    border-right: 1px solid var(--color-border);
-    font-size: 15px;
+  flex: none;
+  width: 260px;
+  padding: 16px 12px 24px;
+  border-right: 1px solid var(--color-border);
+  background: var(--color-surface);
+  font-size: 15px;
 }
 
 .hu3 .lateral .grupo {
-    margin: 16px 0 4px;
-    padding: 0 12px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--color-text-muted);
+  margin: 16px 0 4px;
+  padding: 0 12px;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
 }
 
 .hu3 .lateral a {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-size: 15px;
-    color: var(--color-text);
-    text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: var(--color-text);
+  font-size: 14px;
+  text-decoration: none;
 }
 
 .hu3 .lateral a:hover {
-    background: var(--color-primary-soft);
-    color: var(--color-primary);
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
 }
 
-.hu3 .lateral a:hover .cuadro {
-    background: var(--color-primary);
+.hu3 .lateral a:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .hu3 .lateral .cuadro {
-    flex: none;
-    width: 6px;
-    height: 6px;
-    border-radius: 1px;
-    background: var(--color-border);
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 1px;
+  background: var(--color-border);
 }
 
 .hu3 .lateral a.active {
-    background: var(--color-primary-soft);
-    color: var(--color-primary);
-    font-weight: 600;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-weight: 600;
 }
 
-.hu3 .lateral a.active .cuadro {
-    background: var(--color-primary);
+.hu3 .lateral :is(a:hover, a.active) .cuadro {
+  background: var(--color-primary);
 }
 
 .hu3 .contenido {
-    flex: 1;
-    min-width: 0;
-    padding: 24px 32px;
-}
-
-.hu3 .cuenta .flecha {
-    font-size: 12px;
-    color: var(--color-border);
+  flex: 1;
+  min-width: 0;
+  padding: 24px 32px;
 }
 
 .hu3 .pie {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 24px;
-    background: var(--color-primary-dark);
-    color: var(--color-border);
-    font-size: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding: 12px 32px;
+  background: var(--color-primary-dark);
+  color: #bdcddd;
+  font-size: 11px;
 }
+
+.hu3 .pie a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.hu3 .pie a:hover {
+  text-decoration: underline;
+}
+
+.hu3 .pie a:focus-visible {
+  outline: 2px solid var(--color-surface);
+  outline-offset: 3px;
+}
+
+@media (max-width: 1100px) {
+  .hu3 .cabecera {
+    gap: 16px;
+    padding-inline: 24px;
+  }
+
+  .hu3 .cabecera-izq {
+    gap: 16px;
+  }
+
+  .hu3 .cabecera .panel-nombre {
+    padding-left: 16px;
+  }
+
+  .hu3 .cabecera .header-autenticado-cuenta {
+    max-width: 240px;
+  }
+}
+
 @media (max-width: 900px) {
+  .hu3 .cabecera {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px 16px;
+    padding: 8px 16px 12px;
+  }
+
+  .hu3 .cabecera .header-autenticado-busqueda {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+    margin: 0;
+  }
+
   .hu3 .cuerpo, .hu3 .datos, .hu3 .datos-ep {
     flex-direction: column;
   }
+
   .hu3 .lateral, .hu3 .contenido, .hu3 .informacion, .hu3 .info-der, .hu3 .informacion-ep, .hu3 .info-der-ep {
     width: 100%;
   }
+
+  .hu3 .lateral {
+    border-right: 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
   .hu3 .contenido {
     padding: 24px 16px;
   }
+
   .hu3 .perfil, .hu3 .editarPerfil, .hu3 .cuentaV, .hu3 .mc-titulo, .hu3 .mc-filtros {
     flex-wrap: wrap;
     gap: 12px;
   }
+
   .hu3 .mc-tabla-caja {
+    max-width: 100%;
     overflow-x: auto;
   }
+
   .hu3 .campo, .hu3 .campo-ep {
     width: 100%;
+  }
+
+  .hu3 .pie {
+    padding-inline: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hu3 .cabecera .panel-nombre {
+    display: none;
+  }
+
+  .hu3 .cabecera .header-autenticado-cuenta {
+    max-width: 45vw;
+  }
+
+  .hu3 .cabecera .header-autenticado-avatar {
+    width: 26px;
+    height: 26px;
+  }
+
+  .hu3 .cabecera .header-cuenta-identidad {
+    font-size: 11px;
+  }
+
+  .hu3 .cabecera .header-autenticado-rol {
+    font-size: 9px;
+  }
+
+  .hu3 .pie-soporte {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
   }
 }

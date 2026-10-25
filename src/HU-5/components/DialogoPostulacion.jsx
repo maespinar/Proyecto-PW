@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-export default function DialogoPostulacion({ titulo, idTitulo, ocupado, onCerrar, children }) {
+export default function DialogoPostulacion({ titulo, idTitulo, ocupado, onCerrar, children, clase = '' }) {
   const dialogo = useRef(null)
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export default function DialogoPostulacion({ titulo, idTitulo, ocupado, onCerrar
     return () => {
       elemento.close()
       document.body.style.overflow = desbordamientoAnterior
-      if (focoAnterior?.isConnected) focoAnterior.focus()
+      if (focoAnterior?.isConnected && !focoAnterior.matches(':disabled')) focoAnterior.focus()
       else {
         const reemplazo = contenedorAnterior?.isConnected
           ? contenedorAnterior.querySelector('a, button:not(:disabled)') : null
@@ -34,11 +34,11 @@ export default function DialogoPostulacion({ titulo, idTitulo, ocupado, onCerrar
   return (
     <dialog
       ref={dialogo}
-      className="hu5-modal-dialog"
+      className={`hu5-modal-dialog ${clase}`}
       aria-labelledby={idTitulo}
       onKeyDown={(evento) => {
         if (evento.key !== 'Tab') return
-        const controles = [...evento.currentTarget.querySelectorAll('a[href], button:not(:disabled), textarea:not(:disabled)')]
+        const controles = [...evento.currentTarget.querySelectorAll('a[href], button:not(:disabled), textarea:not(:disabled), input:not(:disabled), select:not(:disabled)')]
           .filter((elemento) => elemento.getClientRects().length > 0)
         const primero = controles[0]
         const ultimo = controles.at(-1)

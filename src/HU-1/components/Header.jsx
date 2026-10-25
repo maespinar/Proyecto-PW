@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
 import HeaderAutenticado from './HeaderAutenticado'
+import CabeceraEmpresa from '../../HU-3/components/CabeceraEmpresa'
 import '../styles/Header.css'
 
-function Header({ usuario, onCerrarSesion }) {
+function Header({ usuario, onCerrarSesion, panelEmpresa = false }) {
+  if (panelEmpresa && usuario?.rol === 'empresa') return <CabeceraEmpresa usuario={usuario} onCerrarSesion={onCerrarSesion} />
   if (usuario) return <HeaderAutenticado usuario={usuario} onCerrarSesion={onCerrarSesion} />
 
   return (

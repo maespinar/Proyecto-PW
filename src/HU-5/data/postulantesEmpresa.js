@@ -1,0 +1,38 @@
+// Personas ficticias para reproducir la bandeja de la primera entrega.
+const personas = [
+  ['Renzo Vílchez Ccahuana', 9, 'recibida'],
+  ['Camila Sotelo Paredes', 8, 'recibida'],
+  ['Diego Ramos Huamán', 10, 'recibida'],
+  ['Mariana Quispe Ramírez', 8, 'en_revision'],
+  ['Álvaro Ccopa Mendoza', 9, 'en_revision'],
+  ['Fiorella Chávez Ríos', 7, 'en_revision'],
+  ['Sebastián Loayza Torres', 9, 'en_revision'],
+  ['Valeria Núñez Bustamante', 8, 'aceptada'],
+  ['Joaquín Espinoza Vargas', 10, 'aceptada'],
+  ['Andrea Palomino Zárate', 7, 'descartada'],
+  ['Gustavo Salazar Ochoa', 8, 'descartada'],
+  ['Lucía Bermúdez Aguilar', 9, 'descartada'],
+  ['Daniela Castro Rojas', 8, 'recibida'],
+  ['Luis Medina Flores', 9, 'recibida'],
+  ['Paula Torres Vega', 7, 'recibida'],
+  ['José Huamán Salas', 10, 'recibida'],
+  ['Ana Ríos Ponce', 8, 'recibida'],
+  ['Mateo Paredes Díaz', 9, 'recibida'],
+  ['Carla Mendoza Silva', 7, 'en_revision'],
+  ['Bruno Flores Ruiz', 8, 'en_revision'],
+  ['Elena Vargas Soto', 9, 'en_revision'],
+  ['Adrián Pérez León', 10, 'descartada'],
+  ['Sofía Rojas Campos', 8, 'descartada'],
+]
+
+export default personas.map(([nombre, ciclo, estado], indice) => ({
+  id: indice === 3 ? 'post-1' : `bandeja-c01-${indice + 1}`,
+  convocatoriaId: 'c01',
+  estudianteId: indice === 3 ? 'est-001' : `postulante-demo-${indice + 1}`,
+  nombre,
+  carrera: [7, 11].includes(indice) ? 'Ingeniería Industrial' : 'Ingeniería de Sistemas',
+  ciclo,
+  fechaPostulacion: indice < 2 ? `2026-09-0${2 - indice}` : `2026-08-${String((indice < 12 ? 33 : 31) - indice).padStart(2, '0')}`,
+  estado,
+  mensaje: '',
+}))

@@ -4,7 +4,7 @@ import '../styles/EmpresaLayout.css'
 
 export default function EmpresaLayout() {
   return (
-    <div className="hu3">
+    <div className="empresa-layout">
       <div className="cuerpo">
         <PanelLateralEmpresa />
         <section className="contenido" aria-label="Panel de empresa">
