@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/NuevaConvocatoria.css';
+import { useConvocatorias } from '../context/convocatoriasContexto';
+
 
 const carrerasDisponibles = [
   'Ingeniería de Sistemas',
@@ -38,6 +40,8 @@ const jornadas = ['Medio tiempo', 'Tiempo completo'];
 const distritos = ['San Isidro', 'Miraflores', 'Surco', 'San Borja', 'San Miguel', 'La Molina'];
 const ciclos = ['Primero', 'Segundo', 'Tercero', 'Cuarto', 'Quinto', 'Sexto', 'Séptimo', 'Octavo', 'Noveno', 'Décimo'];
 
+const aFecha = (iso) => (iso ? iso.split('-').reverse().join('/') : '—');
+
 export default function NuevaConvocatoria() {
     const [formulario, setFormulario] = useState({
             titulo: '',
@@ -60,14 +64,23 @@ export default function NuevaConvocatoria() {
     const [nuevaHabilidad, setNuevaHabilidad] = useState('');
 
     const navigate = useNavigate();
+    const { agregarConvocatoria } = useConvocatorias();
     const [intento, setIntento] = useState(false);
 
     const errores = intento ? validar(formulario) : {};
     const cantidad = Object.keys(errores).length;
 
     const publicar = () => {
-        setIntento(true);
+    setIntento(true);
         if (Object.keys(validar(formulario)).length === 0) {
+            agregarConvocatoria({
+            puesto: formulario.titulo.trim(),
+            carreras: carreras.join(', ') || '—',
+            publicacion: aFecha(formulario.fechaPublicacion),
+            cierre: aFecha(formulario.fechaCierre),
+            postulantes: 0,
+            estado: 'Vigente',
+            });
             navigate('/empresa/convocatorias');
         }
     };

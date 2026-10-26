@@ -5,22 +5,29 @@ import EditarPerfilEmpresa from './HU-3/pages/EditarPerfilEmpresa'
 import MisConvocatorias from './HU-3/pages/MisConvocatorias'
 import NuevaConvocatoria from './HU-3/pages/NuevaConvocatoria'
 import FichaEmpresa from './HU-3/pages/FichaEmpresa'
+import ConvocatoriasProvider from './HU-3/context/ConvocatoriasContext'
+import EmpresaProvider from './HU-3/context/EmpresaContext'
+
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Navigate to="/empresa/perfil" replace />} />
+    <EmpresaProvider>
+      <ConvocatoriasProvider>
+        <Routes>
+          <Route path="/" element={<Navigate to="/empresa/perfil" replace />} />
 
-      <Route path="/empresa" element={<EmpresaLayout />}>
-        <Route index element={<Navigate to="perfil" replace />} />
-        <Route path="perfil" element={<PerfilEmpresa />} />
-        <Route path="perfil/editar" element={<EditarPerfilEmpresa />} />
-        <Route path="convocatorias" element={<MisConvocatorias />} />
-        <Route path="convocatorias/nueva" element={<NuevaConvocatoria />} />
-      </Route>
+          <Route path="/empresa" element={<EmpresaLayout />}>
+            <Route index element={<Navigate to="perfil" replace />} />
+            <Route path="perfil" element={<PerfilEmpresa />} />
+            <Route path="perfil/editar" element={<EditarPerfilEmpresa />} />
+            <Route path="convocatorias" element={<MisConvocatorias />} />
+            <Route path="convocatorias/nueva" element={<NuevaConvocatoria />} />
+          </Route>
 
-      <Route path="/empresas/andes-peru" element={<FichaEmpresa />} />
-    </Routes>
+          <Route path="/empresas/andes-peru" element={<FichaEmpresa />} />
+        </Routes>
+      </ConvocatoriasProvider>
+    </EmpresaProvider>
   )
 }
 

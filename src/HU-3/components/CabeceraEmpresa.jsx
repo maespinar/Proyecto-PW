@@ -1,4 +1,14 @@
+import { useEmpresa } from '../context/empresaContexto';
+
 export default function CabeceraEmpresa() {
+  const { empresa } = useEmpresa();
+  const iniciales = empresa.nombreComercial
+    .split(' ')
+    .map((p) => p[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
+    
   return (
     <header className="cabecera">
       <div className="cabecera-izq">

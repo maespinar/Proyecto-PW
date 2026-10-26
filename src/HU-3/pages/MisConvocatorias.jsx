@@ -2,6 +2,7 @@ import '../styles/MisConvocatorias.css';
 import { useState } from 'react';
 import convocatorias from '../data/convocatorias.seed.json';
 import { useNavigate } from 'react-router-dom';
+import { useConvocatorias } from '../context/convocatoriasContexto';
 
 
 const filtros = [
@@ -16,7 +17,7 @@ export default function MisConvocatorias() {
     const [filtro, setFiltro] = useState('Todas');
     const [busqueda, setBusqueda] = useState('');
 
-    const [lista, setLista] = useState(convocatorias);
+    const { lista, cerrarConvocatoria } = useConvocatorias();
     const [menuAbierto, setMenuAbierto] = useState(null);
     const [aCerrar, setACerrar] = useState(null);
     const [aviso, setAviso] = useState('');
@@ -39,13 +40,9 @@ export default function MisConvocatorias() {
     };
 
     const confirmarCierre = () => {
-        setLista(
-            lista.map((c) =>
-            c.id === aCerrar.id ? { ...c, estado: 'Cerrada' } : c
-            )
-    );
-        setAviso('La convocatoria «' + aCerrar.puesto + '» se cerró correctamente.');
-        setACerrar(null);
+    cerrarConvocatoria(aCerrar.id);
+    setAviso('La convocatoria «' + aCerrar.puesto + '» se cerró correctamente.');
+    setACerrar(null);
     };
 
     const hayFiltros = filtro !== 'Todas' || busqueda.trim() !== '';
