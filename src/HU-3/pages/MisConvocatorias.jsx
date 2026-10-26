@@ -1,7 +1,7 @@
 import '../styles/MisConvocatorias.css';
 import { useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
-import convocatorias from '../data/convocatorias.seed.json';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { useConvocatorias } from '../context/convocatoriasContexto';
 import { buscarConvocatoriaPropia } from '../../HU-5/utils/bandejaUtils';
 
 
@@ -13,6 +13,7 @@ const filtros = [
 ];
 
 export default function MisConvocatorias({ usuario }) {
+    const { state } = useLocation();
     const [filtro, setFiltro] = useState('Todas');
     const [parametros, setParametros] = useSearchParams();
     const busqueda = parametros.get('q') || '';
@@ -26,10 +27,11 @@ export default function MisConvocatorias({ usuario }) {
         }, { replace: true });
     };
 
-    const [lista, setLista] = useState(convocatorias);
+    const { lista, cerrarConvocatoria, error, reintentar } = useConvocatorias();
+    const [errorCierre, setErrorCierre] = useState('');
     const [menuAbierto, setMenuAbierto] = useState(null);
     const [aCerrar, setACerrar] = useState(null);
-    const [aviso, setAviso] = useState('');
+    const [aviso, setAviso] = useState(state?.aviso || '');
 
     const contar = (valor) =>
         valor === 'Todas'
@@ -44,18 +46,19 @@ export default function MisConvocatorias({ usuario }) {
     });
 
     const abrirModal = (c) => {
+        setErrorCierre('');
         setACerrar(c);
         setMenuAbierto(null);
     };
 
     const confirmarCierre = () => {
-        setLista(
-            lista.map((c) =>
-            c.id === aCerrar.id ? { ...c, estado: 'Cerrada' } : c
-            )
-    );
-        setAviso('La convocatoria «' + aCerrar.puesto + '» se cerró en la demostración local.');
-        setACerrar(null);
+        try {
+            cerrarConvocatoria(aCerrar.id);
+            setAviso('La convocatoria «' + aCerrar.puesto + '» se cerró en la demostración local.');
+            setACerrar(null);
+        } catch (error) {
+            setErrorCierre(error.message);
+        }
     };
 
     const hayFiltros = filtro !== 'Todas' || busqueda.trim() !== '';
@@ -67,6 +70,7 @@ export default function MisConvocatorias({ usuario }) {
 
     return (
         <>
+        {error && <p role='alert'>{error} <button type='button' onClick={reintentar}>Reintentar</button></p>}
         <section className='mc-titulo'>
             <div>
                 <p className='mc-t'>
@@ -231,8 +235,9 @@ export default function MisConvocatorias({ usuario }) {
                 En la versión final, al cerrarla los estudiantes ya no podrán postular y la convocatoria saldrá del catálogo.
             </p>
             <p className='mc-modal-alerta'>
-                Simulación: solo cambia esta lista en memoria; el catálogo y las postulaciones no se modifican. Al recargar se restauran los datos semilla.
+                Simulación local: el cierre se conserva en este panel al recargar. No modifica el catálogo público ni las postulaciones.
             </p>
+            {errorCierre && <p role='alert'>{errorCierre}</p>}
             <div className='mc-modal-botones'>
                 <button type='button' className='mc-btn-mantener' onClick={() => setACerrar(null)}>
                 Mantener abierta

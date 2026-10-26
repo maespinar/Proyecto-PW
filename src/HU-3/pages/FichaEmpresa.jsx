@@ -5,12 +5,16 @@ import empresas from '../../HU-4/data/empresas';
 import convocatorias from '../../HU-4/data/convocatorias';
 import TarjetaConvocatoria from '../../HU-4/components/TarjetaConvocatoria';
 import { estaVigente } from '../../HU-4/utils/catalogoUtils';
+import { useEmpresa } from '../context/empresaContexto';
+import { enlaceEmpresa } from '../utils/perfilEmpresa';
 
 export default function FichaEmpresa(){
 
     const [pestana, setPestana] = useState('vigentes');
     const { id } = useParams();
-    const empresa = empresas.find((item) => item.id === (id === 'andes-peru' ? 'e01' : id));
+    const { empresa: perfilEmpresa } = useEmpresa();
+    const original = empresas.find((item) => item.id === (id === 'andes-peru' ? 'e01' : id));
+    const empresa = original?.id === 'e01' ? { ...original, ...perfilEmpresa } : original;
 
     if (!empresa) {
         return (
@@ -38,7 +42,7 @@ export default function FichaEmpresa(){
                 <div className='fe-datos'>
                     <h1>{empresa.nombreComercial}</h1>
                     <p className='fe-sub'>{empresa.sector} · {empresa.tamano} · {empresa.distrito}, Lima</p>
-                    {esAndes && <a className='fe-web' href='https://andesperu.com.pe'>andesperu.com.pe</a>}
+                    {esAndes && enlaceEmpresa(empresa.sitioWeb) && <a className='fe-web' href={enlaceEmpresa(empresa.sitioWeb)}>{empresa.sitioWeb}</a>}
                 </div>
 
                 {esAndes && <div className='fe-nota'>

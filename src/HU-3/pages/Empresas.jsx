@@ -4,8 +4,11 @@ import convocatorias from '../../HU-4/data/convocatorias'
 import { estaVigente } from '../../HU-4/utils/catalogoUtils'
 import TarjetaEmpresa from '../components/TarjetaEmpresa'
 import '../styles/Empresas.css'
+import { useEmpresa } from '../context/empresaContexto'
 
 export default function Empresas() {
+  const { empresa: perfilEmpresa } = useEmpresa()
+  const empresasPublicas = empresas.map(empresa => empresa.id === 'e01' ? { ...empresa, ...perfilEmpresa } : empresa)
   const vigentes = convocatorias.filter(estaVigente)
 
   return (
@@ -39,7 +42,7 @@ export default function Empresas() {
       </div>
       {empresas.length > 0 ? (
         <div className="empresas-grilla">
-          {empresas.map((empresa) => (
+          {empresasPublicas.map((empresa) => (
             <TarjetaEmpresa
               key={empresa.id}
               empresa={empresa}

@@ -243,3 +243,27 @@
     width: 100%;
     padding-right: 0;
 }
+
+.hu3 .aviso-ep {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+    padding: 12px 16px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-success);
+    border-radius: 6px;
+    box-shadow: var(--shadow-card);
+}
+
+.hu3 .aviso-ep p {
+    margin: 0;
+}
+
+.hu3 .aviso-ep button {
+    background: none;
+    border: 0;
+    color: var(--color-text-muted);
+}

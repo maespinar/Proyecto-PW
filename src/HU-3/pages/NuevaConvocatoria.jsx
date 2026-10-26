@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { validarConvocatoria } from '../utils/validarConvocatoria';
 import '../styles/NuevaConvocatoria.css';
+import { useConvocatorias } from '../context/convocatoriasContexto';
+
 
 const carrerasDisponibles = [
   'Ingeniería de Sistemas',
@@ -17,6 +19,8 @@ const modalidades = ['Presencial', 'Híbrido', 'Remoto'];
 const jornadas = ['Medio tiempo', 'Tiempo completo'];
 const distritos = ['San Isidro', 'Miraflores', 'Surco', 'San Borja', 'San Miguel', 'La Molina'];
 const ciclos = ['Primero', 'Segundo', 'Tercero', 'Cuarto', 'Quinto', 'Sexto', 'Séptimo', 'Octavo', 'Noveno', 'Décimo'];
+
+const aFecha = (iso) => (iso ? iso.split('-').reverse().join('/') : '—');
 
 export default function NuevaConvocatoria() {
     const [formulario, setFormulario] = useState({
@@ -40,16 +44,31 @@ export default function NuevaConvocatoria() {
     const [nuevaHabilidad, setNuevaHabilidad] = useState('');
 
     const navigate = useNavigate();
+    const { agregarConvocatoria } = useConvocatorias();
     const [intento, setIntento] = useState(false);
+    const [errorGuardado, setErrorGuardado] = useState('');
 
     const errores = intento ? validarConvocatoria(formulario) : {};
     const cantidad = Object.keys(errores).length;
 
     const publicar = () => {
         setIntento(true);
+        setErrorGuardado('');
         const nuevosErrores = validarConvocatoria(formulario);
         if (Object.keys(nuevosErrores).length === 0) {
-            navigate('/empresa/convocatorias');
+            try {
+                agregarConvocatoria({
+                    ...formulario, habilidades,
+                    puesto: formulario.titulo.trim(),
+                    carreras: carreras.join(', ') || '—',
+                    publicacion: aFecha(formulario.fechaPublicacion),
+                    cierre: aFecha(formulario.fechaCierre),
+                    postulantes: 0, estado: 'Vigente',
+                });
+                navigate('/empresa/convocatorias', { state: { aviso: 'Convocatoria guardada en el panel local de demostración.' } });
+            } catch (error) {
+                setErrorGuardado(error.message);
+            }
         } else {
             document.getElementById('nc-' + Object.keys(nuevosErrores)[0])?.focus();
         }
@@ -111,6 +130,8 @@ export default function NuevaConvocatoria() {
                 </button>
             </div>
         </section>
+
+        {errorGuardado && <p className='nc-banner-error' role='alert'>{errorGuardado}</p>}
 
         {cantidad > 0 && (
             <p className='nc-banner-error' role='alert'>
@@ -340,7 +361,7 @@ export default function NuevaConvocatoria() {
 
                 <section className='nc-aviso'>
                     <span className='nc-aviso-icono'>i</span>
-                    <p>Demostración: publicar solo valida los campos y vuelve a Mis convocatorias. No guarda ni publica convocatorias y no envía correos.</p>
+                    <p>Demostración local: guarda la convocatoria en este panel y vuelve a Mis convocatorias. Se conserva al recargar; todavía no se publica en el catálogo ni se envían correos.</p>
                 </section>
             </div>
         </div>

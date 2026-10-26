@@ -1,11 +1,14 @@
 import { Link } from 'react-router-dom'
 import HeaderAutenticado from './HeaderAutenticado'
 import CabeceraEmpresa from '../../HU-3/components/CabeceraEmpresa'
+import { useEmpresa } from '../../HU-3/context/empresaContexto'
 import '../styles/Header.css'
 
 function Header({ usuario, onCerrarSesion, panelEmpresa = false }) {
-  if (panelEmpresa && usuario?.rol === 'empresa') return <CabeceraEmpresa usuario={usuario} onCerrarSesion={onCerrarSesion} />
-  if (usuario) return <HeaderAutenticado usuario={usuario} onCerrarSesion={onCerrarSesion} />
+  const { empresa } = useEmpresa()
+  const identidad = usuario?.rol === 'empresa' ? { ...usuario, razonSocial: empresa.razonSocial, nombreComercial: empresa.nombreComercial } : usuario
+  if (panelEmpresa && usuario?.rol === 'empresa') return <CabeceraEmpresa usuario={identidad} onCerrarSesion={onCerrarSesion} />
+  if (usuario) return <HeaderAutenticado usuario={identidad} onCerrarSesion={onCerrarSesion} />
 
   return (
     <header className="header-publico">

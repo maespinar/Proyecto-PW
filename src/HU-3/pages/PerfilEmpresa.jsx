@@ -1,11 +1,17 @@
-import '../styles/PerfilEmpresa.css';
 import { useNavigate } from 'react-router-dom';
+import { useEmpresa } from '../context/empresaContexto';
+import { useConvocatorias } from '../context/convocatoriasContexto';
+import { enlaceEmpresa } from '../utils/perfilEmpresa';
+import '../styles/PerfilEmpresa.css';
 
 export default function PerfilEmpresa() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const { empresa, error, reintentar } = useEmpresa();
+  const { lista } = useConvocatorias();
 
   return (
     <div>
+        {error && <p role='alert'>{error} <button type='button' onClick={reintentar}>Reintentar</button></p>}
         <section className='perfil'>
             <div className='pEmp'>
                 <p>
@@ -19,15 +25,16 @@ export default function PerfilEmpresa() {
                 <button className='bt2' onClick={() => navigate('/empresa/perfil/editar')}>Editar perfil</button>
             </div>
         </section>
+
         <section className='cuentaV'>
             <span className='logotipo'>logotipo</span>
             <div className='emp'>
-                <h2>Consultora Andes Perú S.A.C.</h2>
-                <p>Andes Perú · Consultoria · De 51 a 200 colaboradores</p>
+                <h2>{empresa.razonSocial}</h2>
+                <p>{empresa.nombreComercial} · {empresa.sector} · {empresa.tamano}</p>
             </div>
             <span className='verificada'>Cuenta verificada</span>
         </section>
-        
+
         <div className='datos'>
             <section className='informacion'>
                 <h2>Datos generales</h2>
@@ -35,27 +42,27 @@ export default function PerfilEmpresa() {
                 <div className='campos'>
                     <div className='campo'>
                         <span className='etiqueta'>RAZÓN SOCIAL</span>
-                        <p>Consultora Andes Perú S.A.C.</p>
+                        <p>{empresa.razonSocial}</p>
                     </div>
                     <div className='campo'>
                         <span className='etiqueta'>NOMBRE COMERCIAL</span>
-                        <p>Andes Perú</p>
+                        <p>{empresa.nombreComercial}</p>
                     </div>
                     <div className='campo'>
                         <span className='etiqueta'>RUC</span>
-                        <p>20548712936</p>
+                        <p>{empresa.ruc}</p>
                     </div>
                     <div className='campo'>
                         <span className='etiqueta'>SECTOR</span>
-                        <p>Consultoría</p>
+                        <p>{empresa.sector}</p>
                     </div>
                     <div className='campo'>
                         <span className='etiqueta'>SITIO WEB</span>
-                        <p><a href='https://andesperu.com.pe'>andesperu.com.pe</a></p>
+                        <p>{enlaceEmpresa(empresa.sitioWeb) ? <a href={enlaceEmpresa(empresa.sitioWeb)}>{empresa.sitioWeb}</a> : empresa.sitioWeb || 'Sin sitio web'}</p>
                     </div>
                     <div className='campo'>
                         <span className='etiqueta'>TAMAÑO</span>
-                        <p>De 51 a 200 colaboradores</p>
+                        <p>{empresa.tamano}</p>
                     </div>
                 </div>
 
@@ -63,7 +70,7 @@ export default function PerfilEmpresa() {
 
                 <div className='descripcion'>
                     <span className='etiqueta'>DESCRIPCIÓN</span>
-                    <p>Consultora peruana de transformación digital con 14 años en el mercado. Acompañamos a bancos, retailers y operadores de telecomunicaciones en la mejora de sus procesos y en el desarrollo de sus plataformas internas. Nuestro programa de prácticas dura seis meses y cada practicante trabaja con un mentor asignado.</p>
+                    <p>{empresa.descripcion}</p>
                 </div>
             </section>
 
@@ -73,15 +80,15 @@ export default function PerfilEmpresa() {
 
                     <div className='campo'>
                         <span className='etiqueta'>DIRECCIÓN</span>
-                        <p>Av. Canaval y Moreyra 480, piso 9 — San Isidro, Lima</p>
+                        <p>{empresa.direccion} — {empresa.distrito}, Lima</p>
                     </div>
                     <div className='campo'>
                         <span className='etiqueta'>CORREO DE CONTACTO</span>
-                        <p>seleccion@andesperu.com.pe</p>
+                        <p>{empresa.correo}</p>
                     </div>
                     <div className='campo'>
                         <span className='etiqueta'>TELÉFONO</span>
-                        <p>(01) 415 8820</p>
+                        <p>{empresa.telefono}</p>
                     </div>
                 </section>
 
@@ -89,10 +96,10 @@ export default function PerfilEmpresa() {
                     <h2>Resumen de actividad</h2>
                     <div className='actividad'>
                         <span className='concepto'>Convocatorias vigentes</span>
-                        <p className='num'>4</p>
+                        <p className='num'>{lista.filter(convocatoria => convocatoria.estado === 'Vigente').length}</p>
                     </div>
                     <div className='actividad'>
-                        <span className='concepto'>Postulaciones recibidas </span>
+                        <span className='concepto'>Postulaciones recibidas</span>
                         <p className='num'>86</p>
                     </div>
                     <div className='actividad'>
@@ -102,7 +109,6 @@ export default function PerfilEmpresa() {
                 </section>
             </div>
         </div>
-
     </div>
   );
 }
