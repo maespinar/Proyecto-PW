@@ -1,31 +1,27 @@
-import { useState, useEffect } from 'react';
-import semilla from '../data/empresa.seed.json';
+import { useState } from 'react';
+import { empresaInicial, leerEmpresa, guardarEmpresa as persistirEmpresa } from '../services/persistenciaService';
 import { EmpresaContext } from './empresaContexto';
-
-const CLAVE = 'hu3_empresa';
 
 function leerInicial() {
   try {
-    const guardado = localStorage.getItem(CLAVE);
-    return guardado ? JSON.parse(guardado) : semilla;
-  } catch {
-    return semilla;
+    return { datos: leerEmpresa(), error: '' };
+  } catch (error) {
+    return { datos: empresaInicial, error: error.message };
   }
 }
 
 export default function EmpresaProvider({ children }) {
-  const [empresa, setEmpresa] = useState(leerInicial);
-
-  useEffect(() => {
-    localStorage.setItem(CLAVE, JSON.stringify(empresa));
-  }, [empresa]);
+  const [estado, setEstado] = useState(leerInicial);
+  const empresa = estado.datos;
 
   const guardarEmpresa = (datos) => {
-    setEmpresa((actual) => ({ ...actual, ...datos }));
+    const nueva = { ...empresa, ...datos };
+    persistirEmpresa(nueva);
+    setEstado({ datos: nueva, error: '' });
   };
 
   return (
-    <EmpresaContext.Provider value={{ empresa, guardarEmpresa }}>
+    <EmpresaContext.Provider value={{ empresa, guardarEmpresa, error: estado.error, reintentar: () => setEstado(leerInicial()) }}>
       {children}
     </EmpresaContext.Provider>
   );

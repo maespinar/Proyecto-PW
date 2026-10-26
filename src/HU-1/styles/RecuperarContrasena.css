@@ -1,0 +1,169 @@
+.recuperacion {
+  display: grid;
+  place-items: center;
+  min-height: 600px;
+  padding: 72px 24px;
+}
+
+.recuperacion-contenido {
+  width: 100%;
+  max-width: 476px;
+  min-width: 0;
+}
+
+.recuperacion-progreso {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.recuperacion-tramo {
+  flex: 1;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--color-border);
+}
+
+.recuperacion-tramo--activo {
+  background: var(--color-primary);
+}
+
+.recuperacion-paso {
+  margin-left: 6px;
+  color: var(--color-text-muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+.recuperacion .recuperacion-formulario {
+  gap: 20px;
+  padding: 32px;
+}
+
+.recuperacion h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.5px;
+}
+
+.recuperacion-descripcion {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.recuperacion .registro-ayuda {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.recuperacion-enviar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  min-height: 44px;
+  padding: 11px 12px;
+  border: 0;
+  border-radius: 5px;
+  background: var(--color-primary);
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.recuperacion-enviar:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+}
+
+.recuperacion-enviar:disabled {
+  background: #4c6d8c;
+  cursor: not-allowed;
+}
+
+.recuperacion-volver {
+  align-self: center;
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+}
+
+.recuperacion-volver:hover {
+  text-decoration: underline;
+}
+
+.recuperacion-demo {
+  margin: 12px 0 0;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.recuperacion .registro-notificacion {
+  margin-top: 16px;
+}
+
+.recuperacion :focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.recuperacion-confirmacion {
+  align-items: center;
+  text-align: center;
+}
+
+.recuperacion-correo-icono {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.recuperacion-confirmacion .recuperacion-descripcion {
+  overflow-wrap: anywhere;
+}
+
+.recuperacion-confirmacion strong {
+  font-weight: 400;
+}
+
+.recuperacion-confirmacion .registro-reenviar,
+.recuperacion-confirmacion .registro-exito-icono {
+  margin: 0;
+}
+
+.recuperacion-espera {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@media (max-width: 540px) {
+  .recuperacion {
+    min-height: 520px;
+    padding: 40px 16px;
+  }
+
+  .recuperacion .recuperacion-formulario {
+    padding: 28px 20px;
+  }
+}

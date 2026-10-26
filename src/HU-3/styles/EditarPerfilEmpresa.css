@@ -1,23 +1,23 @@
-.editarPerfil {
+.hu3 .editarPerfil {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 16px;
 }
 
-.ePemp p {
+.hu3 .ePemp p {
     margin: 0;
     font-size: 12px;
     line-height: 16px;
     color: var(--color-text-muted);
 }
 
-.ePemp .actual {
+.hu3 .ePemp .actual {
     font-weight: 600;
     color: var(--color-text);
 }
 
-.ePemp h1 {
+.hu3 .ePemp h1 {
     margin: 4px 0 0;
     font-size: 28px;
     line-height: 32px;
@@ -25,13 +25,13 @@
     color: var(--color-text);
 }
 
-.bts-ep {
+.hu3 .bts-ep {
     display: flex;
     gap: 8px;
 }
 
-.bt1-ep,
-.bt2-ep {
+.hu3 .bt1-ep,
+.hu3 .bt2-ep {
     padding: 8px 16px;
     border-radius: 6px;
     font-family: inherit;
@@ -39,19 +39,19 @@
     font-weight: 500;
 }
 
-.bt1-ep {
+.hu3 .bt1-ep {
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     color: var(--color-text);
 }
 
-.bt2-ep {
+.hu3 .bt2-ep {
     background: var(--color-primary);
     border: 1px solid var(--color-primary);
     color: var(--color-surface);
 }
 
-.informacion-ep {
+.hu3 .informacion-ep {
     flex: 3;
     min-width: 0;
     padding: 20px;
@@ -61,55 +61,55 @@
     box-shadow: var(--shadow-card);
 }
 
-.info-der-ep {
+.hu3 .info-der-ep {
     flex: 2;
     min-width: 0;
 }
 
-.datos-ep {
+.hu3 .datos-ep {
     display: flex;
     align-items: flex-start;
     gap: 16px;
 }
 
 
-.titulo-ep {
+.hu3 .titulo-ep {
     margin: 0 0 16px;
     font-size: 12px;
     font-weight: 500;
     color: var(--color-text-muted);
 }
 
-.campos-ep {
+.hu3 .campos-ep {
     display: flex;
     flex-wrap: wrap;
 }
 
-.campo-ep {
+.hu3 .campo-ep {
     width: 50%;
     margin-bottom: 16px;
     padding-right: 24px;
 }
 
-.descripcion-ep {
+.hu3 .descripcion-ep {
     margin-bottom: 16px;
 }
 
-.campo-ep input {
+.hu3 .campo-ep input {
     width: 300px;
 }
 
-.campo-ep p,
-.descripcion-ep p {
+.hu3 .campo-ep p,
+.hu3 .descripcion-ep p {
     margin: 0;
 }
 
-.descripcion-ep input {
+.hu3 .descripcion-ep input {
     width: 300px;
     height: 300px;
 }
 
-.etiqueta-ep {
+.hu3 .etiqueta-ep {
     display: block;
     margin-bottom: 4px;
     font-size: 12px;
@@ -117,9 +117,9 @@
     color: var(--color-text);
 }
 
-.campo-ep input,
-.campo-ep select, 
-.descripcion-ep textarea {
+.hu3 .campo-ep input,
+.hu3 .campo-ep select,
+.hu3 .descripcion-ep textarea {
     width: 100%;
     padding: 10px 12px;
     background: var(--color-surface);
@@ -129,36 +129,36 @@
     font-size: 15px;
 }
 
-.descripcion-ep textarea {
+.hu3 .descripcion-ep textarea {
     resize: none;
     height: 250px;
 }
 
-.campo-ep input:disabled {
+.hu3 .campo-ep input:disabled {
     background: var(--color-bg);
     color: var(--color-text-muted);
 }
 
-.txtRuc {
+.hu3 .txtRuc {
     display: block;
     margin-top: 4px;
     font-size: 12px;
     color: var(--color-text-muted);
 }
 
-.pie-descripcion {
+.hu3 .pie-descripcion {
     display: flex;
     justify-content: space-between;
     font-size: 12px;
     color: var(--color-text-muted);
 }
 
-.info-der-ep {
+.hu3 .info-der-ep {
     flex: 2;
     display: block;
 }
 
-.logotipo-ep, .direccion-ep {
+.hu3 .logotipo-ep, .hu3 .direccion-ep {
     padding: 20px;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -166,20 +166,20 @@
     box-shadow: var(--shadow-card);
 }
 
-.logotipo-ep {
+.hu3 .logotipo-ep {
     display: block;
     gap: 20px;
     margin-bottom: 20px;
 }
 
-.titulo-logo{
+.hu3 .titulo-logo {
     margin: 0 0 10px;
     font-size: 12px;
     font-weight: 500;
     color: var(--color-text-muted);
 }
 
-.titulo-direc {
+.hu3 .titulo-direc {
     margin: 0 0 16px;
     font-size: 12px;
     font-weight: 500;
@@ -187,7 +187,7 @@
     color: var(--color-text-muted);
 }
 
-.logo-ep {
+.hu3 .logo-ep {
     display: grid;
     place-items: center;
     width: 72px;
@@ -199,31 +199,31 @@
     color: var(--color-text-muted);
 }
 
-.fila-logo {
+.hu3 .fila-logo {
     display: flex;
     align-items: center;
     gap: 16px;
 }
 
-.info-logo {
+.hu3 .info-logo {
     margin-bottom:8px;
     font-size: 12px;
     color: var(--color-text-muted);
 }
 
-.bts-logo {
+.hu3 .bts-logo {
     display: flex;
     gap: 16px;
 }
 
-.bt1-logo,
-.bt2-logo {
+.hu3 .bt1-logo,
+.hu3 .bt2-logo {
     font-family: inherit;
     font-size: 15px;
     font-weight: 500;
 }
 
-.bt1-logo {
+.hu3 .bt1-logo {
     padding: 8px 16px;
     background: var(--color-surface);
     border: 1px solid var(--color-primary-dark);
@@ -231,7 +231,7 @@
     color: var(--color-primary-dark);
 }
 
-.bt2-logo {
+.hu3 .bt2-logo {
     padding: 0;
     background: none;
     border: 0;
@@ -239,12 +239,12 @@
 }
 
 
-.direccion-ep .campo-ep {
+.hu3 .direccion-ep .campo-ep {
     width: 100%;
     padding-right: 0;
 }
 
-.aviso-ep {
+.hu3 .aviso-ep {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -258,11 +258,11 @@
     box-shadow: var(--shadow-card);
 }
 
-.aviso-ep p {
+.hu3 .aviso-ep p {
     margin: 0;
 }
 
-.aviso-ep button {
+.hu3 .aviso-ep button {
     background: none;
     border: 0;
     color: var(--color-text-muted);

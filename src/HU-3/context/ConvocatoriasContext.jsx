@@ -1,41 +1,36 @@
-import { useState, useEffect } from 'react';
-import semilla from '../data/convocatorias.seed.json';
+import { useState } from 'react';
+import { convocatoriasIniciales, leerConvocatorias, guardarConvocatorias } from '../services/persistenciaService';
 import { ConvocatoriasContext } from './convocatoriasContexto';
-
-const CLAVE = 'hu3_convocatorias';
 
 function leerInicial() {
   try {
-    const guardado = localStorage.getItem(CLAVE);
-    return guardado ? JSON.parse(guardado) : semilla;
-  } catch {
-    return semilla;
+    return { datos: leerConvocatorias(), error: '' };
+  } catch (error) {
+    return { datos: convocatoriasIniciales, error: error.message };
   }
 }
 
 export default function ConvocatoriasProvider({ children }) {
-  const [lista, setLista] = useState(leerInicial);
+  const [estado, setEstado] = useState(leerInicial);
+  const lista = estado.datos;
 
-  useEffect(() => {
-    localStorage.setItem(CLAVE, JSON.stringify(lista));
-  }, [lista]);
+  const actualizar = (nueva) => {
+    guardarConvocatorias(nueva);
+    setEstado({ datos: nueva, error: '' });
+  };
 
   const cerrarConvocatoria = (id) => {
-    setLista((actual) =>
-      actual.map((c) => (c.id === id ? { ...c, estado: 'Cerrada' } : c))
-    );
+    actualizar(lista.map((c) => (c.id === id ? { ...c, estado: 'Cerrada' } : c)));
   };
 
   const agregarConvocatoria = (nueva) => {
-    setLista((actual) => {
-      const id = Math.max(0, ...actual.map((c) => c.id)) + 1;
-      return [{ ...nueva, id }, ...actual];
-    });
+    const id = Math.max(0, ...lista.map((c) => c.id)) + 1;
+    actualizar([{ ...nueva, id }, ...lista]);
   };
 
   return (
     <ConvocatoriasContext.Provider
-      value={{ lista, cerrarConvocatoria, agregarConvocatoria }}
+      value={{ lista, cerrarConvocatoria, agregarConvocatoria, error: estado.error, reintentar: () => setEstado(leerInicial()) }}
     >
       {children}
     </ConvocatoriasContext.Provider>

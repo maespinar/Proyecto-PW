@@ -1,17 +1,18 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEmpresa } from '../context/empresaContexto';
+import { validarPerfilEmpresa } from '../utils/perfilEmpresa';
+import { SECTORES_EMPRESA, TAMANOS_EMPRESA } from '../../HU-1/data/catalogosEmpresa';
 import '../styles/EditarPerfilEmpresa.css';
 
-const sectores = ['Consultoría', 'Banca y finanzas', 'Retail', 'Minería', 'Tecnología', 'Salud'];
-const tamanos = ['De 1 a 10 colaboradores', 'De 11 a 50 colaboradores', 'De 51 a 200 colaboradores', 'Más de 200 colaboradores'];
 const distritos = ['San Isidro', 'Miraflores', 'Surco', 'San Borja', 'San Miguel', 'La Molina'];
 
 export default function EditarPerfilEmpresa() {
     const navigate = useNavigate();
-    const { empresa, guardarEmpresa } = useEmpresa();
+    const { empresa, guardarEmpresa, error: errorCarga, reintentar } = useEmpresa();
     const [formulario, setFormulario] = useState(empresa);
     const [guardado, setGuardado] = useState(false);
+    const [error, setError] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -20,16 +21,26 @@ export default function EditarPerfilEmpresa() {
     };
 
     const guardar = () => {
-        guardarEmpresa(formulario);
-        setGuardado(true);
+        try {
+            const mensaje = validarPerfilEmpresa(formulario);
+            if (mensaje) throw new Error(mensaje);
+            guardarEmpresa(formulario);
+            setError('');
+            setGuardado(true);
+        } catch (error) {
+            setGuardado(false);
+            setError(error.message);
+        }
     };
 
     return (
         <>
+        {errorCarga && <p role='alert'>{errorCarga} <button type='button' onClick={reintentar}>Reintentar lectura</button></p>}
+        {error && <p role='alert'>{error}</p>}
         {guardado && (
-            <div className='aviso-ep'>
-                <p>Tus datos se guardaron correctamente.</p>
-                <button type='button' onClick={() => setGuardado(false)}>✕</button>
+            <div className='aviso-ep' role='status'>
+                <p>Tus datos se guardaron en esta demostración local.</p>
+                <button type='button' aria-label='Cerrar aviso' onClick={() => setGuardado(false)}>✕</button>
             </div>
         )}
 
@@ -53,44 +64,44 @@ export default function EditarPerfilEmpresa() {
                 <p className='titulo-ep'>DATOS GENERALES</p>
                 <div className='campos-ep'>
                     <div className='campo-ep'>
-                        <span className='etiqueta-ep'>RAZÓN SOCIAL</span>
-                        <input type='text' name='razonSocial' value={formulario.razonSocial} onChange={handleChange} />
+                        <label className='etiqueta-ep' htmlFor='ep-razonSocial'>RAZÓN SOCIAL</label>
+                        <input type='text' id='ep-razonSocial' name='razonSocial' value={formulario.razonSocial} onChange={handleChange} />
                     </div>
                     <div className='campo-ep'>
-                        <span className='etiqueta-ep'>NOMBRE COMERCIAL</span>
-                        <input type='text' name='nombreComercial' value={formulario.nombreComercial} onChange={handleChange} />
+                        <label className='etiqueta-ep' htmlFor='ep-nombreComercial'>NOMBRE COMERCIAL</label>
+                        <input type='text' id='ep-nombreComercial' name='nombreComercial' value={formulario.nombreComercial} onChange={handleChange} />
                     </div>
                     <div className='campo-ep'>
-                        <span className='etiqueta-ep'>RUC</span>
-                        <input type='text' name='ruc' value={formulario.ruc} onChange={handleChange} disabled />
+                        <label className='etiqueta-ep' htmlFor='ep-ruc'>RUC</label>
+                        <input type='text' id='ep-ruc' name='ruc' value={formulario.ruc} onChange={handleChange} disabled />
                         <span className='txtRuc'>El RUC no se puede editar. Escribe a soporte si necesitas corregirlo.</span>
                     </div>
                     <div className='campo-ep'>
-                        <span className='etiqueta-ep'>SECTOR</span>
-                        <select name='sector' value={formulario.sector} onChange={handleChange}>
-                            {sectores.map((s) => (
+                        <label className='etiqueta-ep' htmlFor='ep-sector'>SECTOR</label>
+                        <select id='ep-sector' name='sector' value={formulario.sector} onChange={handleChange}>
+                            {SECTORES_EMPRESA.map((s) => (
                                 <option key={s} value={s}>{s}</option>
                             ))}
                         </select>
                     </div>
                     <div className='campo-ep'>
-                        <span className='etiqueta-ep'>TAMAÑO</span>
-                        <select name='tamano' value={formulario.tamano} onChange={handleChange}>
-                            {tamanos.map((t) => (
-                                <option key={t} value={t}>{t}</option>
+                        <label className='etiqueta-ep' htmlFor='ep-tamano'>TAMAÑO</label>
+                        <select id='ep-tamano' name='tamano' value={formulario.tamano} onChange={handleChange}>
+                            {TAMANOS_EMPRESA.map((t) => (
+                                <option key={t.valor} value={t.valor}>{t.etiqueta}</option>
                             ))}
                         </select>
                     </div>
                     <div className='campo-ep'>
-                        <span className='etiqueta-ep'>SITIO WEB</span>
-                        <input type='text' name='sitioWeb' value={formulario.sitioWeb} onChange={handleChange} />
+                        <label className='etiqueta-ep' htmlFor='ep-sitioWeb'>SITIO WEB</label>
+                        <input type='text' id='ep-sitioWeb' name='sitioWeb' value={formulario.sitioWeb} onChange={handleChange} />
                     </div>
                 </div>
 
                 <div className='descripcion-ep'>
-                    <span className='etiqueta-ep'>DESCRIPCIÓN</span>
+                    <label className='etiqueta-ep' htmlFor='ep-descripcion'>DESCRIPCIÓN</label>
                     <textarea
-                        name='descripcion'
+                        id='ep-descripcion' name='descripcion'
                         value={formulario.descripcion}
                         onChange={handleChange}
                         maxLength={800}
@@ -123,24 +134,24 @@ export default function EditarPerfilEmpresa() {
                     <p className='titulo-direc'>DIRECCIÓN Y CONTACTO</p>
                     <div className='campos-direc-ep'>
                         <div className='campo-ep'>
-                            <span className='etiqueta-ep'>DIRECCIÓN</span>
-                            <input type='text' name='direccion' value={formulario.direccion} onChange={handleChange} />
+                            <label className='etiqueta-ep' htmlFor='ep-direccion'>DIRECCIÓN</label>
+                            <input type='text' id='ep-direccion' name='direccion' value={formulario.direccion} onChange={handleChange} />
                         </div>
                         <div className='campo-ep'>
-                            <span className='etiqueta-ep'>DISTRITO</span>
-                            <select name='distrito' value={formulario.distrito} onChange={handleChange}>
+                            <label className='etiqueta-ep' htmlFor='ep-distrito'>DISTRITO</label>
+                            <select id='ep-distrito' name='distrito' value={formulario.distrito} onChange={handleChange}>
                                 {distritos.map((d) => (
                                     <option key={d} value={d}>{d}</option>
                                 ))}
                             </select>
                         </div>
                         <div className='campo-ep'>
-                            <span className='etiqueta-ep'>CORREO DE CONTACTO</span>
-                            <input type='text' name='correo' value={formulario.correo} onChange={handleChange} />
+                            <label className='etiqueta-ep' htmlFor='ep-correo'>CORREO DE CONTACTO</label>
+                            <input type='text' id='ep-correo' name='correo' value={formulario.correo} onChange={handleChange} />
                         </div>
                         <div className='campo-ep'>
-                            <span className='etiqueta-ep'>TELÉFONO</span>
-                            <input type='text' name='telefono' value={formulario.telefono} onChange={handleChange} />
+                            <label className='etiqueta-ep' htmlFor='ep-telefono'>TELÉFONO</label>
+                            <input type='text' id='ep-telefono' name='telefono' value={formulario.telefono} onChange={handleChange} />
                         </div>
                     </div>
                 </section>

@@ -1,13 +1,17 @@
 import { useNavigate } from 'react-router-dom';
 import { useEmpresa } from '../context/empresaContexto';
+import { useConvocatorias } from '../context/convocatoriasContexto';
+import { enlaceEmpresa } from '../utils/perfilEmpresa';
 import '../styles/PerfilEmpresa.css';
 
 export default function PerfilEmpresa() {
   const navigate = useNavigate();
-  const { empresa } = useEmpresa();
+  const { empresa, error, reintentar } = useEmpresa();
+  const { lista } = useConvocatorias();
 
   return (
     <div>
+        {error && <p role='alert'>{error} <button type='button' onClick={reintentar}>Reintentar</button></p>}
         <section className='perfil'>
             <div className='pEmp'>
                 <p>
@@ -54,7 +58,7 @@ export default function PerfilEmpresa() {
                     </div>
                     <div className='campo'>
                         <span className='etiqueta'>SITIO WEB</span>
-                        <p><a href={'https://' + empresa.sitioWeb}>{empresa.sitioWeb}</a></p>
+                        <p>{enlaceEmpresa(empresa.sitioWeb) ? <a href={enlaceEmpresa(empresa.sitioWeb)}>{empresa.sitioWeb}</a> : empresa.sitioWeb || 'Sin sitio web'}</p>
                     </div>
                     <div className='campo'>
                         <span className='etiqueta'>TAMAÑO</span>
@@ -92,7 +96,7 @@ export default function PerfilEmpresa() {
                     <h2>Resumen de actividad</h2>
                     <div className='actividad'>
                         <span className='concepto'>Convocatorias vigentes</span>
-                        <p className='num'>4</p>
+                        <p className='num'>{lista.filter(convocatoria => convocatoria.estado === 'Vigente').length}</p>
                     </div>
                     <div className='actividad'>
                         <span className='concepto'>Postulaciones recibidas</span>

@@ -1,0 +1,137 @@
+.header-publico * {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-sans);
+}
+
+.header-publico {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e5e7eb;
+    background: #ffffff;
+    height: 64px;
+    padding: 0 40px;
+}
+
+.header-publico .header-marca {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.header-publico a:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 4px;
+}
+
+.header-publico #cuadradito {
+    width: 20px;
+    height: 20px;
+    background-color: var(--color-primary);
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.header-publico #logo {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    height: 100%;
+}
+
+.header-publico #logo .logo-text {
+    color: var(--color-primary);
+    font-size: 17px;
+    font-weight: 700;
+    align-self: center;
+    padding-right: 8px;
+}
+
+.header-publico ul {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    gap: 28px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.header-publico ul li {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.header-publico ul li a {
+    text-decoration: none;
+    color: #4b5563;
+    font-size: 13.5px;
+    font-weight: 500;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: 2.5px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.header-publico ul li a:hover {
+    color: var(--color-primary);
+}
+
+.header-publico ul li a.activa {
+    color: var(--color-primary);
+    font-weight: 600;
+    border-bottom: 2.5px solid var(--color-primary);
+}
+
+.header-publico #buttons {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header-publico #login-btn {
+    background-color: transparent;
+    color: var(--color-primary);
+    border-radius: 5px;
+    padding: 8px 16px;
+    border: var(--color-primary-soft) 1px solid;
+    font-weight: 600;
+    font-size: 13.5px;
+}
+
+.header-publico #register-btn {
+    background-color: var(--color-primary-dark);
+    color: var(--color-primary-soft);
+    border-radius: 5px;
+    padding: 8px 16px;
+    border: var(--color-primary-soft) 1px solid;
+    font-weight: 600;
+    font-size: 13.5px;
+}
+
+@media (max-width: 1250px) {
+    .header-publico {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 12px 20px;
+        gap: 12px;
+    }
+    .header-publico #logo {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+    .header-publico ul {
+        flex-wrap: wrap;
+        gap: 14px;
+        height: auto;
+    }
+    .header-publico ul li a.activa {
+        border-bottom: 2px solid var(--color-primary);
+        padding-bottom: 4px;
+    }
+}
