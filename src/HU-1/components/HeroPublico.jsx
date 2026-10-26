@@ -1,3 +1,4 @@
+import jovenesOficina from '../assets/jovenes-oficina.avif'
 import '../styles/HeroPublico.css'
 
 function HeroPublico({ onSearch }) {
@@ -51,9 +52,11 @@ function HeroPublico({ onSearch }) {
           </ul>
         </div>
 
-        <div className="hero-image-placeholder" role="img" aria-label="Espacio para una foto de estudiantes en una oficina">
-          foto hero · estudiantes en oficina
-        </div>
+        <img
+          className="hero-imagen"
+          src={jovenesOficina}
+          alt="Jóvenes en una oficina"
+        />
       </div>
     </section>
   )
