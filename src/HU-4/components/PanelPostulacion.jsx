@@ -87,7 +87,7 @@ function PanelPostulacion({
         <>
           <div className="detalle-aviso aviso-celeste">
             <strong>Ya postulaste a esta convocatoria</strong>
-            Registrada el {postulacion.fechaPostulacion} · estado:{' '}
+            Enviada el {postulacion.fechaPostulacion} · estado:{' '}
             {ESTADOS_POSTULACION[postulacion.estado].toLowerCase()}
           </div>
           <button type="button" className="boton boton-grande boton-bloque" disabled>

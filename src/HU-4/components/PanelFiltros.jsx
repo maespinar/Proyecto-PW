@@ -113,6 +113,7 @@ function PanelFiltros({ filtros, conteo, carreraUsuario, onCambiar, onAlternar, 
         step="100"
         aria-label="Subvención mínima"
         value={filtros.subvencionMin}
+        style={{ background: `linear-gradient(to right, var(--color-primary) ${filtros.subvencionMin / 25}%, var(--color-border) ${filtros.subvencionMin / 25}%)` }}
         onChange={(e) => onCambiar('subvencionMin', Number(e.target.value))}
       />
       <p className="catalogo-ayuda">Desde {formatearSoles(filtros.subvencionMin)}</p>
