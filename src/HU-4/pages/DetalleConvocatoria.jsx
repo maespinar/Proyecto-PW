@@ -58,7 +58,7 @@ function DetalleConvocatoria({ usuario }) {
       notificar({ titulo: 'Convocatoria quitada de guardadas' })
     } else {
       guardar(id)
-      notificar({ titulo: 'Convocatoria guardada', detalle: 'La encontrarás en la sección Guardadas.' })
+      notificar({ titulo: 'Convocatoria guardada' })
     }
   }
 

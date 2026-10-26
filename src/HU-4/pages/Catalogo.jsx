@@ -161,13 +161,24 @@ function Catalogo({ usuario }) {
 
         {cargando && (
           <div className="catalogo-esqueletos">
+            <div className="esqueleto-cabecera">
+              <div className="esqueleto" style={{ width: '180px', height: '12px' }} />
+              <div className="esqueleto esqueleto-claro" style={{ width: '100px', height: '10px' }} />
+            </div>
             {[1, 2, 3, 4].map((numero) => (
               <div key={numero} className="esqueleto-tarjeta">
                 <div className="esqueleto esqueleto-logo" />
                 <div className="esqueleto-lineas">
-                  <div className="esqueleto" style={{ width: '60%', height: '12px' }} />
-                  <div className="esqueleto" style={{ width: '35%', height: '8px' }} />
-                  <div className="esqueleto" style={{ width: '45%', height: '14px' }} />
+                  <div className="esqueleto" style={{ width: '50%', height: '14px' }} />
+                  <div className="esqueleto esqueleto-claro" style={{ width: '32%', height: '10px' }} />
+                  <div className="esqueleto-pastillas">
+                    <div className="esqueleto esqueleto-claro" style={{ width: '72px', height: '18px' }} />
+                    <div className="esqueleto esqueleto-claro" style={{ width: '92px', height: '18px' }} />
+                  </div>
+                </div>
+                <div className="esqueleto-monto">
+                  <div className="esqueleto" style={{ width: '70px', height: '14px' }} />
+                  <div className="esqueleto esqueleto-claro" style={{ width: '56px', height: '8px' }} />
                 </div>
               </div>
             ))}
