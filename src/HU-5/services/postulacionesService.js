@@ -1,4 +1,3 @@
-// Simulación local de HU-5. La API de la segunda entrega sustituirá esta capa.
 import seed from '../data/postulaciones.seed.json'
 import postulacionesCatalogo from '../../HU-4/data/postulaciones'
 import { ESTADOS_POSTULACION } from '../../HU-4/data/catalogos'
@@ -15,12 +14,15 @@ function completarDatos(postulacion, estudianteId) {
   const vinculada = vincularConvocatoria(postulacion)
   const convocatoria = obtenerConvocatoria(vinculada.convocatoriaId)
   return {
+    // Combina los datos de la postulación con los de la convocatoria
     ...vinculada,
     estudianteId: vinculada.estudianteId || estudianteId,
     ...(convocatoria ? resumirConvocatoria(convocatoria) : {}),
     fechaPostulacion: mostrarFecha(vinculada.fechaPostulacion),
     fechaActualizacion: mostrarFecha(vinculada.fechaActualizacion || vinculada.fechaPostulacion),
     estadoTexto: ESTADOS_POSTULACION[vinculada.estado],
+
+    // Línea de estados de la postulación
     trazabilidad: vinculada.trazabilidad?.map((paso) => ({
       ...paso,
       descripcion: paso.descripcion?.includes('correo')
@@ -35,6 +37,7 @@ function completarDatos(postulacion, estudianteId) {
   }
 }
 
+// Lectura localstorage y validacion de datos
 function leer(estudianteId) {
   let datos
   try {
@@ -47,11 +50,12 @@ function leer(estudianteId) {
     throw new Error('No se pudieron leer las postulaciones guardadas. Revisa el almacenamiento local y reintenta.')
   }
   if (datos.length === 0) return []
+
+  // Filtra las postulaciones del estudiante y completa los datos de la convocatoria
   const propias = datos.map((item) => completarDatos(item, estudianteId))
     .filter((item) => item.estudianteId === estudianteId)
 
-  // Incorpora las postulaciones del estudiante que ya se muestran en HU-4,
-  // sin duplicar las antiguas de HU-5 vinculadas a la misma convocatoria.
+  // Incorpora las postulaciones del estudiante que ya se muestran en HU-4, sin duplicar las antiguas de HU-5 vinculadas a la misma convocatoria.
   for (const item of postulacionesCatalogo.filter((post) => post.estudianteId === estudianteId)) {
     if (!propias.some((post) => post.convocatoriaId === item.convocatoriaId)) {
       propias.push(completarDatos(item, estudianteId))
@@ -61,6 +65,7 @@ function leer(estudianteId) {
   return propias.map((item) => aplicarEstadoEmpresa(item, gestion))
 }
 
+// Guarda los datos en localstorage y lanza error si falla
 function persistir(datos) {
   try {
     localStorage.setItem(CLAVE_POSTULACIONES, JSON.stringify(datos))
@@ -69,6 +74,7 @@ function persistir(datos) {
   }
 }
 
+// Simula una demora de red (200ms) y error de conexion 
 function esperar(signal) {
   return new Promise((resolve, reject) => {
     signal?.throwIfAborted()
@@ -92,11 +98,13 @@ function fechasActuales() {
   return { fecha, fechaHora: `${fecha} · ${hora}` }
 }
 
+// Obtener postulaciones despues de la latencia
 export async function obtenerPostulaciones(estudianteId, signal) {
   await esperar(signal)
   return leer(estudianteId)
 }
 
+// Registra nueva postulacion
 export async function crearPostulacion({ convocatoriaId, mensaje = '' }, estudianteId, signal) {
   const perfil = await obtenerPerfil()
   await esperar(signal)
@@ -126,10 +134,12 @@ export async function crearPostulacion({ convocatoriaId, mensaje = '' }, estudia
       { estado: 'resultado', titulo: 'Resultado', fecha: 'Pendiente', descripcion: 'El resultado se consultará aquí. No se envían correos.' },
     ],
   }
+  // Guardar en el localstorage
   persistir([nueva, ...datos])
   return nueva
 }
 
+// Retira una postulacion existente
 export async function retirarPostulacion(id, estudianteId, signal) {
   await esperar(signal)
   const datos = leer(estudianteId)
@@ -147,6 +157,7 @@ export async function retirarPostulacion(id, estudianteId, signal) {
       { estado: 'retirada', titulo: 'Retirada por ti', fecha: fechaHora, descripcion: 'Retiraste tu postulación en la simulación local.' },
     ],
   }
+  // Actulizar localStorage
   persistir(datos.map((item) => item.id === id ? actualizada : item))
   return actualizada
 }

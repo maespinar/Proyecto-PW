@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import * as servicio from '../services/bandejaService'
+//HOOK LOCAL (EMPRESA)
 
+// Hook personalizado para manejar la bandeja de postulantes de una convocatoria de empresa.
 export default function useBandejaPostulantes(empresaId, convocatoriaId) {
   const [datos, setDatos] = useState(null)
   const [cargando, setCargando] = useState(true)
@@ -11,8 +13,10 @@ export default function useBandejaPostulantes(empresaId, convocatoriaId) {
   const [intento, setIntento] = useState(0)
   const solicitud = useRef(null)
 
+  // Carga la convocatoria y sus postulantes cada vez que cambia la empresa, la convocatoria seleccionada o el contador de reintento.
   useEffect(() => {
     const controlador = new AbortController()
+    // Obtiene la bandeja de postulantes desde el servicio y actualiza el estado del hook
     servicio.obtenerBandeja(empresaId, convocatoriaId, controlador.signal)
       .then((resultado) => { if (!controlador.signal.aborted) setDatos(resultado) })
       .catch((fallo) => { if (!controlador.signal.aborted) setError(fallo.message) })
@@ -20,6 +24,7 @@ export default function useBandejaPostulantes(empresaId, convocatoriaId) {
     return () => controlador.abort()
   }, [empresaId, convocatoriaId, intento])
 
+  // Limpia la solicitud pendiente si el componente se desmonta (si el usuario se va)
   useEffect(() => () => solicitud.current?.abort(), [])
 
   const reintentar = () => {
@@ -28,6 +33,7 @@ export default function useBandejaPostulantes(empresaId, convocatoriaId) {
     setIntento((anterior) => anterior + 1)
   }
 
+  // Función genérica para ejecutar operaciones de la bandeja de postulantes, manejando estado de ocupado, errores y notificaciones
   const ejecutar = async (operacion, actualizar, mensaje) => {
     if (solicitud.current) return false
     const controlador = new AbortController()

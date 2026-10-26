@@ -2,6 +2,7 @@ import { esGestionEmpresaValida } from '../utils/bandejaUtils'
 
 const CLAVE = 'hu5_gestion_empresa'
 
+// Solo lectura localstorage .
 export function leerGestionEmpresa() {
   try {
     const guardado = localStorage.getItem(CLAVE)
@@ -14,6 +15,7 @@ export function leerGestionEmpresa() {
   }
 }
 
+// Solo escritura localstorage JSON
 export function guardarGestionEmpresa(datos) {
   try {
     localStorage.setItem(CLAVE, JSON.stringify(datos))
@@ -22,7 +24,7 @@ export function guardarGestionEmpresa(datos) {
   }
 }
 
-// Solo devuelve estado y trazabilidad al estudiante; las notas son privadas del panel.
+// Solo devuelve estado y trazabilidad al estudiante (las notas son privadas)
 export function aplicarEstadoEmpresa(postulacion, gestion) {
   const cambio = gestion.estados[postulacion.id]
   if (!cambio || cambio.convocatoriaId !== postulacion.convocatoriaId || postulacion.estado === 'retirada') return postulacion

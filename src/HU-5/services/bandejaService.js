@@ -7,6 +7,7 @@ import { ESTADOS_POSTULACION } from '../../HU-4/data/catalogos'
 import { convocatoriasDeEmpresa, validarEdicionBandeja, validarNotaBandeja } from '../utils/bandejaUtils'
 import { leerGestionEmpresa, guardarGestionEmpresa } from './gestionEmpresaService'
 
+// Simula 200 ms de demora asíncrona 
 function esperar(signal) {
   return new Promise((resolve, reject) => {
     signal?.throwIfAborted()
@@ -20,6 +21,7 @@ function esperar(signal) {
   })
 }
 
+// Busca y actualiza la convocatoria solicitada asegurando que pertenezca a la empresa conectada.
 function convocatoriaPropia(empresaId, convocatoriaId) {
   const original = convocatoriasDeEmpresa(empresaId).find((item) => item.id === convocatoriaId)
   if (!original) throw new Error('La convocatoria no está disponible para esta empresa.')
@@ -29,12 +31,15 @@ function convocatoriaPropia(empresaId, convocatoriaId) {
 
 const fechaIso = (fecha) => fecha.includes('/') ? fecha.split('/').reverse().join('-') : fecha
 
+// Obtiene la bandeja de postulantes de la convocatoria de la empresa, combinando los datos de HU-4 y HU-5
 export async function obtenerBandeja(empresaId, convocatoriaId, signal) {
   await esperar(signal)
   const convocatoria = convocatoriaPropia(empresaId, convocatoriaId)
   const propias = await obtenerPostulaciones('est-001', signal)
   const perfilDemo = await obtenerPerfil()
   signal?.throwIfAborted()
+  
+    // Si es la convocatoria 'c01', usa los postulantes semilla detallados
   const semillas = convocatoriaId === 'c01' ? structuredClone(postulantesSeed) : postulacionesCatalogo
     .filter((item) => item.convocatoriaId === convocatoriaId && item.estudianteId !== 'est-001')
     .map((item, indice) => ({
@@ -51,7 +56,11 @@ export async function obtenerBandeja(empresaId, convocatoriaId, signal) {
     const indice = semillas.findIndex((anterior) => anterior.estudianteId === post.estudianteId)
     if (indice < 0) semillas.push(item)
     else semillas[indice] = item
+
+
   }
+
+  // aplica los cambios de estado y notas de la empresa a los postulantes
   const gestion = leerGestionEmpresa()
   const postulantes = semillas.map((item) => {
     const cambio = gestion.estados[item.id]
@@ -68,10 +77,12 @@ export async function cambiarEstados(empresaId, convocatoriaId, ids, estado, sig
   if (!['en_revision', 'aceptada', 'descartada'].includes(estado)) throw new Error('Estado no permitido.')
   const bandeja = await obtenerBandeja(empresaId, convocatoriaId, signal)
   signal?.throwIfAborted()
+  //valida que el candita exista y no haya retirado su postulación
   const seleccionadas = ids.map((id) => bandeja.postulantes.find((item) => item.id === id))
   if (!ids.length || seleccionadas.some((item) => !item || item.estado === 'retirada')) throw new Error('La selección contiene postulaciones no disponibles o retiradas.')
   const gestion = leerGestionEmpresa()
   const fecha = new Date().toLocaleDateString('es-PE', { day: '2-digit', month: '2-digit', year: 'numeric' })
+  // Actualiza el estado de cada postulante seleccionado y registra el cambio en el historial
   for (const item of seleccionadas) {
     if (item.estado === estado) continue
     const paso = { estado, titulo: ESTADOS_POSTULACION[estado], fecha, descripcion: 'Cambio registrado por la empresa en la simulación local.' }
@@ -80,10 +91,12 @@ export async function cambiarEstados(empresaId, convocatoriaId, ids, estado, sig
       historial: [...(gestion.estados[item.id]?.historial || []), paso],
     }
   }
+  //persistir los cambios en localStorage
   guardarGestionEmpresa(gestion)
   return { ids, estado }
 }
 
+//registro de notas internas
 export async function guardarNota(empresaId, convocatoriaId, id, texto, signal) {
   const error = validarNotaBandeja(texto)
   if (error) throw new Error(error)
@@ -94,8 +107,9 @@ export async function guardarNota(empresaId, convocatoriaId, id, texto, signal) 
   gestion.notas[id] = { empresaId, convocatoriaId, texto: texto.trim() }
   guardarGestionEmpresa(gestion)
   return texto.trim()
+  
 }
-
+//edición de convocatorias
 export async function modificarConvocatoria(empresaId, convocatoriaId, datos, signal) {
   await esperar(signal)
   const actual = convocatoriaPropia(empresaId, convocatoriaId)
@@ -111,6 +125,7 @@ export async function modificarConvocatoria(empresaId, convocatoriaId, datos, si
   return editada
 }
 
+//cerrar convocatoria
 export async function cerrarConvocatoria(empresaId, convocatoriaId, signal) {
   await esperar(signal)
   const actual = convocatoriaPropia(empresaId, convocatoriaId)

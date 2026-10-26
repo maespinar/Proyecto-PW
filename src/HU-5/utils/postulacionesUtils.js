@@ -5,6 +5,7 @@ import { estaVigente, formatearFecha } from '../../HU-4/utils/catalogoUtils'
 import { ESTADOS_POSTULACION } from '../../HU-4/data/catalogos'
 
 export function sonPostulacionesValidas(datos) {
+  // Valida que cada postulación tenga los campos requeridos y que las fechas estén en formato ISO o DD/MM/YYYY
   const fechaValida = (fecha) => typeof fecha === 'string' && /^(\d{4}-\d{2}-\d{2}|\d{2}\/\d{2}\/\d{4})$/.test(fecha)
   return Array.isArray(datos) && datos.every((item) => item &&
     typeof item.id === 'string' && typeof item.convocatoriaId === 'string' &&
@@ -24,6 +25,7 @@ export function sonPostulacionesValidas(datos) {
 }
 
 export function buscarPostulacion(postulaciones, id) {
+  // Busca la postulación por id; si no se encuentra, busca la convocatoria vinculada y devuelve la postulación correspondiente.
   const encontrada = postulaciones.find((item) => item.id === id)
   if (encontrada) return encontrada
   const original = postulacionesCatalogo.find((item) => item.id === id)
