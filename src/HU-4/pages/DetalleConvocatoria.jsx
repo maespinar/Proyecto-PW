@@ -58,7 +58,8 @@ function DetalleConvocatoria({ usuario }) {
       notificar({ titulo: 'Convocatoria quitada de guardadas' })
     } else {
       guardar(id)
-      notificar({ titulo: 'Convocatoria guardada' })    }
+      notificar({ titulo: 'Convocatoria guardada' })
+    }
   }
 
   const panel = (
