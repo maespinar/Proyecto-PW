@@ -26,16 +26,12 @@
 }
 
 .inicio-sesion-ilustracion {
-  display: grid;
-  place-items: center;
-  min-height: 168px;
-  padding: 16px;
+  display: block;
+  width: 100%;
+  height: 238px;
+  object-fit: cover;
   border: 1px solid #cfdae4;
   border-radius: 5px;
-  background: repeating-linear-gradient(135deg, #eaf1f7 0 8px, #dfe8f0 8px 16px);
-  color: #7f94a5;
-  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 10px;
 }
 
 .inicio-sesion-formulario {
